@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>ITwebホームページ</title>
+</head>
+
+<body>
+    <header>
+        <h1>ITwebのホームページ</h1>
+        <nav>
+            ホーム
+            ログイン
+            アカウント作成
+            <p><a href="#ito">意図へ</a></p>
+        </nav>
+    </header>
+    <section>
+      <h1>開発の様子</h1>
+      <article>
+        <p><img src="img/test.png" alt="テスト"></p>
+      </article>
+    </section>
+    <section>
+        <h1>このサイトの目的</h1>
+        <article>
+          <p>多くのIT関係者の手助けをするためのサイト</p>
+        </article>
+    </section>
+    <section>
+        <h1 id="ito">このサイトの意図</h1>
+        <article>
+          <p>一人で悩む時間を増やすよりみんなに聞いて時間を有効活用してほしい</p>
+        </article>
+    </section>
+    <section>
+        <h1>このサイトの作る動機 </h1>
+        <article>
+        <p>
+          ITまたはプログラム作成について気軽に質問できるサイトが欲しかったから。
+          また、みんなで集まって勉強がしたい時に気軽に勉強会を開くためのツールが欲しかったから。
+        </p>
+        </article>
+    </section>
+    <article>
+      <h1>ご不明な点があればここへ</h1>
+      <form action="server.php" method="post">
+        <!--
+        未実装なブラウザが多いためtype="data"は使わない。
+        <p>問題が起こった日付:<input type="date" required></p>
+      -->
+        <p>
+          ご使用機器:
+          <input type="checkbox" name="phone" value="android">Android
+          <input type="checkbox" name="IPhone" value="Iphone">Iphone
+          <input type="checkbox" name="PC" value="PC" checked>PC
+        </p>
+        <p>年齢:
+          <select name="old">
+              <option value="10" selected>10代</option>
+              <option value="20">20代</option>
+              <option value="30">30代</option>
+              <option value="40">40代</option>
+          </select>
+        </p>
+        <p>メールアドレス: <input type="text" name="email" size="50" placeholder="ここに入力してください。"></p>
+        <p>
+          コメント:
+          <textarea name="comment" cols="50" rows="5">内容:</textarea>        <p><input type="submit" value="送信!"></p>
+      </form>
+    </article>
+    <footer>
+        <p>このサイトは8班によって運営されています。 </p>
+    </footer>
+
+</body>
+
+</html>
