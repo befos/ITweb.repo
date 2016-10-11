@@ -1,3 +1,15 @@
+@@font-face {
+  font-family: 'geomanist-regular-webfont.ttf'
+  src : local('/Users/iitsukadaichi/ITweb.repo/font/geomanist-regular-webfont.ttf') format('truetype');
+}
+
+h1#titletext{
+  font-family: 'geomanist-regular-webfont.ttf'
+}
+header {
+  background-image: linear-gradient(-90deg, #98C794, #877FDC);
+}
+
 p#test{
   color: red;
   font-size: 18px;
