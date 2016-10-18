@@ -6,12 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
 // サーバーの起動を告知
-console.log('Example app listening at http://localhost:3000');
+console.log('Example app listening at http://localhost');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));　//joinは結合（__dirnameはソースが入っているディレクトリを表す）
@@ -25,10 +24,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);//localhost:3000をブラウザで開くと./rooutes/index.jsが参照
-app.use('/users', users);
+//ページを追加する場合に追加で記述
+app.use('/', routes.home);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
+app.use('/users', routes.users);
+app.use('/hoge', routes.hoge);
 
-// catch 404 and forward to error handler
+// 404が返ってきた場合の処理
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -60,4 +61,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports = app; // bin/wwwファイルなどで

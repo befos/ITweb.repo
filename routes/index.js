@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
+var routes = {
+  home: require('./home'),
+  users: require('./users'), //routesディレクト内のjsファイルを参照
+  hoge: require('./hoge')
+};
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Fuxk ASS!' });//viewエンジンがjadeなのでindex.jadeを元にレンダー
-});
-
-module.exports = router;
+module.exports = routes;

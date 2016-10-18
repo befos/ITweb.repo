@@ -1,96 +1,45 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', 'connnect' ]
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'start' ]
 2 info using npm@3.10.8
 3 info using node@v4.6.0
-4 silly loadCurrentTree Starting
-5 silly install loadCurrentTree
-6 silly install readLocalPackageData
-7 silly fetchPackageMetaData connnect
-8 silly fetchNamedPackageData connnect
-9 silly mapToRegistry name connnect
-10 silly mapToRegistry using default registry
-11 silly mapToRegistry registry https://registry.npmjs.org/
-12 silly mapToRegistry data Result {
-12 silly mapToRegistry   raw: 'connnect',
-12 silly mapToRegistry   scope: null,
-12 silly mapToRegistry   escapedName: 'connnect',
-12 silly mapToRegistry   name: 'connnect',
-12 silly mapToRegistry   rawSpec: '',
-12 silly mapToRegistry   spec: 'latest',
-12 silly mapToRegistry   type: 'tag' }
-13 silly mapToRegistry uri https://registry.npmjs.org/connnect
-14 verbose request uri https://registry.npmjs.org/connnect
-15 verbose request no auth needed
-16 info attempt registry request try #1 at 2:27:10 PM
-17 verbose request id ab3ab558194496b0
-18 http request GET https://registry.npmjs.org/connnect
-19 http 404 https://registry.npmjs.org/connnect
-20 verbose headers { 'content-type': 'application/json',
-20 verbose headers   'cache-control': 'max-age=0',
-20 verbose headers   'content-length': '2',
-20 verbose headers   'accept-ranges': 'bytes',
-20 verbose headers   date: 'Fri, 14 Oct 2016 05:27:27 GMT',
-20 verbose headers   via: '1.1 varnish',
-20 verbose headers   age: '0',
-20 verbose headers   connection: 'keep-alive',
-20 verbose headers   'x-served-by': 'cache-itm7424-ITM',
-20 verbose headers   'x-cache': 'MISS',
-20 verbose headers   'x-cache-hits': '0',
-20 verbose headers   'x-timer': 'S1476422847.096975,VS0,VE132',
-20 verbose headers   vary: 'Accept-Encoding' }
-21 silly get cb [ 404,
-21 silly get   { 'content-type': 'application/json',
-21 silly get     'cache-control': 'max-age=0',
-21 silly get     'content-length': '2',
-21 silly get     'accept-ranges': 'bytes',
-21 silly get     date: 'Fri, 14 Oct 2016 05:27:27 GMT',
-21 silly get     via: '1.1 varnish',
-21 silly get     age: '0',
-21 silly get     connection: 'keep-alive',
-21 silly get     'x-served-by': 'cache-itm7424-ITM',
-21 silly get     'x-cache': 'MISS',
-21 silly get     'x-cache-hits': '0',
-21 silly get     'x-timer': 'S1476422847.096975,VS0,VE132',
-21 silly get     vary: 'Accept-Encoding' } ]
-22 silly fetchPackageMetaData Error: Registry returned 404 for GET on https://registry.npmjs.org/connnect
-22 silly fetchPackageMetaData     at makeError (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
-22 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:280:14)
-22 silly fetchPackageMetaData     at Request._callback (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
-22 silly fetchPackageMetaData     at Request.self.callback (/usr/lib/node_modules/npm/node_modules/request/request.js:187:22)
-22 silly fetchPackageMetaData     at emitTwo (events.js:87:13)
-22 silly fetchPackageMetaData     at Request.emit (events.js:172:7)
-22 silly fetchPackageMetaData     at Request.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1044:10)
-22 silly fetchPackageMetaData     at emitOne (events.js:77:13)
-22 silly fetchPackageMetaData     at Request.emit (events.js:169:7)
-22 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:965:12)
-22 silly fetchPackageMetaData  error for connnect { [Error: Registry returned 404 for GET on https://registry.npmjs.org/connnect] pkgid: 'connnect', statusCode: 404, code: 'E404' }
-23 silly rollbackFailedOptional Starting
-24 silly rollbackFailedOptional Finishing
-25 silly runTopLevelLifecycles Finishing
-26 silly install printInstalled
-27 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/connnect
-27 verbose stack     at makeError (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
-27 verbose stack     at CachingRegistryClient.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:280:14)
-27 verbose stack     at Request._callback (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
-27 verbose stack     at Request.self.callback (/usr/lib/node_modules/npm/node_modules/request/request.js:187:22)
-27 verbose stack     at emitTwo (events.js:87:13)
-27 verbose stack     at Request.emit (events.js:172:7)
-27 verbose stack     at Request.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1044:10)
-27 verbose stack     at emitOne (events.js:77:13)
-27 verbose stack     at Request.emit (events.js:169:7)
-27 verbose stack     at IncomingMessage.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:965:12)
-28 verbose statusCode 404
-29 verbose pkgid connnect
-30 verbose cwd /mnt/c/linux/itweb.test
-31 error Linux 3.4.0+
-32 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install" "connnect"
-33 error node v4.6.0
-34 error npm  v3.10.8
-35 error code E404
-36 error 404 Registry returned 404 for GET on https://registry.npmjs.org/connnect
-37 error 404
-38 error 404 'connnect' is not in the npm registry.
-39 error 404 You should bug the author to publish it (or use the name yourself!)
-40 error 404 Note that you can also install from a
-41 error 404 tarball, folder, http url, or git url.
-42 verbose exit [ 1, true ]
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle ITweb.repo@0.0.0~prestart: ITweb.repo@0.0.0
+6 silly lifecycle ITweb.repo@0.0.0~prestart: no script for prestart, continuing
+7 info lifecycle ITweb.repo@0.0.0~start: ITweb.repo@0.0.0
+8 verbose lifecycle ITweb.repo@0.0.0~start: unsafe-perm in lifecycle true
+9 verbose lifecycle ITweb.repo@0.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/mnt/c/linux/ITweb.repo/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+10 verbose lifecycle ITweb.repo@0.0.0~start: CWD: /mnt/c/linux/ITweb.repo
+11 silly lifecycle ITweb.repo@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
+12 silly lifecycle ITweb.repo@0.0.0~start: Returned: code: 1  signal: null
+13 info lifecycle ITweb.repo@0.0.0~start: Failed to exec start script
+14 verbose stack Error: ITweb.repo@0.0.0 start: `node ./bin/www`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:829:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid ITweb.repo@0.0.0
+16 verbose cwd /mnt/c/linux/ITweb.repo
+17 error Linux 3.4.0+
+18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "start"
+19 error node v4.6.0
+20 error npm  v3.10.8
+21 error code ELIFECYCLE
+22 error ITweb.repo@0.0.0 start: `node ./bin/www`
+22 error Exit status 1
+23 error Failed at the ITweb.repo@0.0.0 start script 'node ./bin/www'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the ITweb.repo package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     node ./bin/www
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs ITweb.repo
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls ITweb.repo
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
