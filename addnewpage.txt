@@ -1,4 +1,0 @@
-1.routesディレクトリ内に追加したいページ名と同じ名前の.jsファイルを追加(中身は前のコードを参考に)
-2.routes/index.js内の配列にカレントディレクトリに先ほど置いた.jsファイルを記述
-3.app.jsファイルのapp.use(/hoge, routes.hoge);を記述
-4.localhost/hoge　でアクセス可能！やったぜ

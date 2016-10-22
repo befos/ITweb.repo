@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 
@@ -28,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes.home);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/users', routes.users);
 app.use('/hoge', routes.hoge);
+app.use('/login', routes.login);
+app.use('/logincheck', routes.logincheck);
+
 
 // 404が返ってきた場合の処理
 app.use(function(req, res, next) {
