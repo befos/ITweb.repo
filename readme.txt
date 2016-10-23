@@ -26,3 +26,6 @@ dbに接続する方法
     }
   });
   hoge.destroy('fuga'); fugaにドキュメント名を記入
+
+  formからpostしてきた情報の取得
+    var fuga = req.body.hoge; hogeはformで指定した名前

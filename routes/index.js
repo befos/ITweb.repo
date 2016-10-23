@@ -3,7 +3,7 @@ var routes = {
   users: require('./users'), //routesディレクト内のjsファイルを参照
   hoge: require('./hoge'),
   login: require('./login'),
-  logincheck: require('./logincheck')
+  login_check: require('./login_check')
 };
 
 module.exports = routes;

@@ -5,8 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
 
-var routes = require('./routes/index');
+var routes = require('./routes/index.js');
 
 var app = express();
 
@@ -30,8 +31,9 @@ app.use('/', routes.home);//ページへのルートを記す(新規追加の場
 app.use('/users', routes.users);
 app.use('/hoge', routes.hoge);
 app.use('/login', routes.login);
-app.use('/logincheck', routes.logincheck);
+app.use('/login_check', routes.login_check);
 
+//ログイン処理
 
 // 404が返ってきた場合の処理
 app.use(function(req, res, next) {
