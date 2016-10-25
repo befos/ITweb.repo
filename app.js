@@ -35,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({         // cookieに書き込むsessionの仕様を定める
   secret: 'ajax-hohoho',               // 符号化。改ざんを防ぐ
   store: store,
+  resave: false,
+  saveUninitialized: false,
   cookie: { //cookieのデフォルト内容
     httpOnly: false,
     maxAge: 60 * 60 * 1000
