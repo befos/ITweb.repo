@@ -29,3 +29,21 @@ dbに接続する方法
 
   formからpostしてきた情報の取得
     var fuga = req.body.hoge; hogeはformで指定した名前
+
+  セッション
+  sessionstore + express-session
+
+nodeやnpmのエラー対処
+  本当に困ったらこれ↓
+  【その1】 Node.jsの再インストール
+    $ node -v
+    $ sudo npm cache clean -f
+    $ sudo npm install -g n
+    $ sudo n stable
+    $ node -v
+    で、再インストール。
+  【その2】 npmの再インストール
+    $ npm install -g npm
+    もし実行中にエラーが出たら、
+    $ curl -L https://npmjs.org/install.sh | sudo sh
+    で再インストールできた。
