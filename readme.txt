@@ -20,18 +20,42 @@ dbに接続する方法
   var hoge = nano.db.use('hoge');//スコープの設定(この状態だとhogeにスコープがある)
      hogeはDB名を記述
 制御方法
-  https://github.com/dscape/nano ←　参照
-  hoge.create('fuga', function(err, body) {
-    if (!err) {
-    }
-  });
-  hoge.destroy('fuga'); fugaにドキュメント名を記入
-
-  formからpostしてきた情報の取得
-    var fuga = req.body.hoge; hogeはformで指定した名前
+  Example
+  var userdata = nano.db.use('userdata');
+  userdata.get(id,function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
+   if(err){
+     console.log("nosuch");//見つからなかった場合の処理
+   }
+   if (!err) { //見つかった場合
+     console.log("suchdoc");
+     var dbpass =  jsonobj.hashpass;//jsonオブジェクトからhashpassを参照し変数に格納
+     var salt = jsonobj.salt;//DB内参照
 
   セッション
-  sessionstore + express-session
+  ~connect-couchdb + express-session~
+  var connect = require('connect');
+  var ConnectCouchDB = require('connect-couchdb')(session);
+  var store = new ConnectCouchDB({ //セッション管理用DB接続設定
+    name: 'sessiondata',
+    username: '',
+    password: '',
+    host: 'localhost',
+  });
+  app.use(session({         // cookieに書き込むsessionの仕様を定める
+    secret: 'ajax-hohoho',               // 符号化。改ざんを防ぐ
+    store: sessionstore.createSessionStore({
+        type: 'couchdb',
+        host: 'http://localhost',  // optional
+        port: 5984,                // optional
+        dbName: 'express-sessions',// optional
+        collectionName: 'sessions',// optional
+        timeout: 10000             // optional
+    }),
+    cookie: { //cookieのデフォルト内容
+      httpOnly: false,
+      maxAge: 60 * 60 * 1000
+    }
+  }));
 
 nodeやnpmのエラー対処
   本当に困ったらこれ↓
@@ -44,6 +68,3 @@ nodeやnpmのエラー対処
     で、再インストール。
   【その2】 npmの再インストール
     $ npm install -g npm
-    もし実行中にエラーが出たら、
-    $ curl -L https://npmjs.org/install.sh | sudo sh
-    で再インストールできた。

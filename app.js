@@ -5,7 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var passport = require('passport');
+var connect = require('connect');
+var ConnectCouchDB = require('connect-couchdb')(session);
+var store = new ConnectCouchDB({ //セッション管理用DB接続設定
+  name: 'sessiondata',
+  username: '',
+  password: '',
+  host: 'localhost',
+});
 
 var routes = require('./routes/index.js');
 
@@ -25,6 +32,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({         // cookieに書き込むsessionの仕様を定める
+  secret: 'ajax-hohoho',               // 符号化。改ざんを防ぐ
+  store: store,
+  cookie: { //cookieのデフォルト内容
+    httpOnly: false,
+    maxAge: 60 * 60 * 1000
+  }
+}));
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.home);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
