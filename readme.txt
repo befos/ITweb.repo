@@ -43,14 +43,9 @@ dbに接続する方法
   });
   app.use(session({         // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho',               // 符号化。改ざんを防ぐ
-    store: sessionstore.createSessionStore({
-        type: 'couchdb',
-        host: 'http://localhost',  // optional
-        port: 5984,                // optional
-        dbName: 'express-sessions',// optional
-        collectionName: 'sessions',// optional
-        timeout: 10000             // optional
-    }),
+    store: store,
+    resave: false,
+    saveUninitialized: false,
     cookie: { //cookieのデフォルト内容
       httpOnly: false,
       maxAge: 60 * 60 * 1000

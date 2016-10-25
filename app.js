@@ -23,7 +23,7 @@ console.log('Example app listening at http://localhost');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));　//joinは結合（__dirnameはソースが入っているディレクトリを表す）
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
