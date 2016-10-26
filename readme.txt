@@ -63,3 +63,5 @@ nodeやnpmのエラー対処
     で、再インストール。
   【その2】 npmの再インストール
     $ npm install -g npm
+   その3 node.js　インストール時に死にかけたら
+   sudo apt-get install nodejs-legacy
