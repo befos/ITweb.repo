@@ -49,6 +49,8 @@ app.use('/users', routes.users);
 app.use('/hoge', routes.hoge);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
+app.use('/register', routes.register);
+app.use('/register_check', routes.register_check);
 
 //ログイン処理
 
