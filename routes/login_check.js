@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var randword = require('../public/javascripts/randword.js').randword;
+var createhash = require('../public/javascripts/createhash.js').createhash;
+
+var STRETCH = 10000;
 
 //データベース接続および設定
 var DB_PORT = "5984";
@@ -12,17 +16,14 @@ router.post('/', function(req, res, next) {
    var id = req.body.id; // public/login.htmlのformから飛ばされた情報を受け取って変数に格納
    var password = req.body.password; //上と同じ
    userdata.get(id,function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
-    if(err){
-      console.log("nosuch");//見つからなかった場合の処理
+    if(err){//見つからなかった場合の処理
       res.redirect('/login');
     }
     if (!err) { //見つかった場合
-      console.log("suchdoc");
       var dbpass =  jsonobj.hashpass;//jsonオブジェクトからhashpassを参照し変数に格納
       var salt = jsonobj.salt;
-      console.log(dbpass);
-      console.log(salt);
-      if(dbpass === password){
+      var passhash = createhash.method(password, salt, STRETCH);
+      if(dbpass === passhash){
         res.redirect('/');
       }else{
         res.redirect('/login');

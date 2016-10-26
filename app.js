@@ -51,7 +51,7 @@ app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
 app.use('/register', routes.register);
 app.use('/register_check', routes.register_check);
-app.use('/succes', routes.succes);
+app.use('/success', routes.success);
 
 //ログイン処理
 
