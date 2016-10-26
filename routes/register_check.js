@@ -21,6 +21,7 @@ router.post('/', function(req, res, next) {
           hashpass:password, salt:'rand'}, function(err, body) {
         if (!err)
         console.log(body);
+        res.redirect('/succes');
       });
     }
     if (!err) { //見つかった場合(リダイレクト)
