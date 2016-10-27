@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
 var randword = require('../public/javascripts/randword.js').randword;
 var createhash = require('../public/javascripts/createhash.js').createhash;
 
