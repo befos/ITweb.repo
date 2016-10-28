@@ -3,13 +3,14 @@ var router = express.Router();
 var randword = require('../public/javascripts/randword.js').randword;
 var createhash = require('../public/javascripts/createhash.js').createhash;
 
-var STRETCH = 10000;
 
 //データベース接続および設定
 var DB_PORT = "5984";
 var DB_ADDRESS = "http://localhost:";
 var nano = require('nano')(DB_ADDRESS + DB_PORT);
 var userdata = nano.db.use('userdata');//スコープの設定(この状態だとuserdataにスコープがある)
+
+var STRETCH = 10000;
 
 router.post('/', function(req, res, next) {
  if(req.body.id !== null && req.body.password !== null){
@@ -24,6 +25,7 @@ router.post('/', function(req, res, next) {
       var salt = jsonobj.salt;
       var passhash = createhash.method(password, salt, STRETCH);
       if(dbpass === passhash){
+        req.session.user_id = id;
         res.redirect('/');
       }else{
         res.redirect('/login');
