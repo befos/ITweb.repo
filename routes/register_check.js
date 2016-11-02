@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var randword = require('../public/javascripts/randword.js').randword;
-var createhash = require('../public/javascripts/createhash.js').createhash;
+var randword = require('../public/js/randword.js').randword;
+var createhash = require('../public/js/createhash.js').createhash;
 
 //データベース接続および設定
 var DB_PORT = "5984";
@@ -15,8 +15,7 @@ router.post('/', function(req, res, next) {
  if(req.body.id !== null && req.body.password !== null && req.body.Email !== null){
    var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
    var password = req.body.password; //上と同じ
-   var EmailHead = req.body.Email;
-   var Email = EmailHead + "@st.kobedenshi.ac.jp";//メールアドレスドメインと合体
+   var Email = req.body.Email;
    var salt = randword.method(10);
    var passhash = createhash.method(password, salt, STRETCH);
    //ドキュメントを挿入する前にパスワードのソルト&ハッシュ化を済ませてしまう
