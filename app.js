@@ -47,6 +47,7 @@ app.use(session({         // cookieに書き込むsessionの仕様を定める
 app.use('/', routes.home);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/users', routes.users);
 app.use('/hoge', routes.hoge);
+app.use('/homepage', routes.homepage);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
 app.use('/register', routes.register);
