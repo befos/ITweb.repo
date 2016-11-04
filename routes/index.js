@@ -6,7 +6,8 @@ var routes = {
   login: require('./login'),
   login_check: require('./login_check'),
   register: require('./register'),
-  register_check: require('./register_check')
+  register_check: require('./register_check'),
+  logout: require('./logout')
 };
 
 module.exports = routes;
