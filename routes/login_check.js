@@ -10,7 +10,7 @@ var DB_ADDRESS = "http://localhost:";
 var nano = require('nano')(DB_ADDRESS + DB_PORT);
 var userdata = nano.db.use('userdata');//スコープの設定(この状態だとuserdataにスコープがある)
 
-var STRETCH = 10000;
+var STRETCH = 10000;//パスワードをストレッチする際の回数
 
 router.post('/', function(req, res, next) {
  if(req.body.id !== null && req.body.password !== null){
@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
       var passhash = createhash.method(password, salt, STRETCH);
       if(dbpass === passhash){
         req.session.user_id = id;
-        res.redirect('/');
+        res.redirect('/contents');
       }else{
         res.redirect('/login');
       }

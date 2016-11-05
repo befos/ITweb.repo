@@ -9,7 +9,7 @@ var DB_ADDRESS = "http://localhost:";
 var nano = require('nano')(DB_ADDRESS + DB_PORT);
 var userdata = nano.db.use('userdata');//スコープの設定(この状態だとuserdataにスコープがある)
 
-var STRETCH = 10000;
+var STRETCH = 10000;//パスワードをストレッチする際の回数
 
 router.post('/', function(req, res, next) {
  if(req.body.id !== null && req.body.password !== null && req.body.Email !== null){
@@ -18,7 +18,6 @@ router.post('/', function(req, res, next) {
    var Email = req.body.Email;
    var salt = randword.method(10);
    var passhash = createhash.method(password, salt, STRETCH);
-   //ドキュメントを挿入する前にパスワードのソルト&ハッシュ化を済ませてしまう
    userdata.get(Email,function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
     if(err){
       console.log("nosuch");//見つからなかった場合の処理（新規作衛）

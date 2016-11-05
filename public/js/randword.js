@@ -1,7 +1,7 @@
 var MAIN = {};
 exports.randword = MAIN;
 
-MAIN.method = function(length){
+MAIN.method = function(length){//node.jsのexports用
   // 生成する文字列の長さ
   var l = length;
 // 生成する文字列に含める文字セット
@@ -14,7 +14,7 @@ MAIN.method = function(length){
   return r;
 };
 
-function randword(length){
+function randword(length){//純正js用
   // 生成する文字列の長さ
   var l = length;
 // 生成する文字列に含める文字セット

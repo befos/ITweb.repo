@@ -14,6 +14,7 @@ var store = new ConnectCouchDB({ //セッション管理用DB接続設定
   host: 'localhost',
 });
 
+
 var routes = require('./routes/index.js');
 
 var app = express();
@@ -37,25 +38,23 @@ app.use(session({         // cookieに書き込むsessionの仕様を定める
   store: store,
   resave: false,
   saveUninitialized: false,
-  cookie: { //cookieのデフォルト内容
+  cookie: {
     httpOnly: false,
-    maxAge: 60 * 60 * 1000
+    maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1day.
   }
 }));
 
 //ページを追加する場合に追加で記述
-app.use('/', routes.home);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
+app.use('/', routes.homepage);//ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/users', routes.users);
 app.use('/hoge', routes.hoge);
-app.use('/homepage', routes.homepage);
+app.use('/contents', routes.home);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
 app.use('/register', routes.register);
 app.use('/register_check', routes.register_check);
 app.use('/logout', routes.logout);
 app.use('/success', routes.success);
-
-//ログイン処理
 
 // 404が返ってきた場合の処理
 app.use(function(req, res, next) {
