@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var randword = require('../public/js/randword.js').randword;
-var createhash = require('../public/js/createhash.js').createhash;
+var randword = require('../public/js/Kfolder/randword.js').randword;
+var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 
 
 //データベース接続および設定
