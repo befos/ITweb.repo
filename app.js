@@ -13,6 +13,7 @@ var store = new ConnectCouchDB({ //セッション管理用DB接続設定
     password: '',
     host: 'localhost',
 });
+var csurf = require('csurf');
 
 
 var routes = require('./routes/index.js');
@@ -45,6 +46,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1day.
     }
 }));
+app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.homepage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)

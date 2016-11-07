@@ -29,7 +29,6 @@
 <body>
   <h1>登録画面</h1>
   <form action="/register_check" method="post" onsubmit="return conrimMessage();">
-  <input type="hidden" name="_csrf" value="{{csrfToken}}">
   <table border="0">
     <tr>
       <td>ID</td>
@@ -58,6 +57,11 @@
   <input type="submit" value="登録">
   <input type="reset" value="リセット">
   <input type="button" value="戻る" onclick="history.back();">
+  <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
+  </form>
+  <br>
+  <form action="/register_check" method="post">
+      <input type="submit" value="test">
   </form>
   </body>
 

@@ -17,6 +17,7 @@
 <input type="submit" value="ログイン">
 <input type="reset" value="リセット">
 <input type="button" onclick=location.href="/register" value="新規登録">
+<input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
  </form>
  </body>
  </html>
