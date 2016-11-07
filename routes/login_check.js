@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
             }
         });
     } else {
-        res.redirect('/login');
+        res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
     }
 });
 

@@ -19,5 +19,9 @@
 <input type="button" onclick=location.href="/register" value="新規登録">
 <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
  </form>
+ <br>
+ <form action="/login_check" method="post">
+     <input type="submit" value="test">
+ </form>
  </body>
  </html>
