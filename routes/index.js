@@ -8,7 +8,8 @@ var routes = {
     login_check: require('./login_check'),
     register: require('./register'),
     register_check: require('./register_check'),
-    logout: require('./logout')
+    logout: require('./logout'),
+    mypage: require('./mypage')
 };
 
 module.exports = routes;

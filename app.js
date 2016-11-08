@@ -44,7 +44,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     saveUninitialized: false,
     cookie: {
         httpOnly: false,
-        maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1day.
+        maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
     }
 }));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
@@ -59,6 +59,7 @@ app.use('/login_check', routes.login_check);
 app.use('/register', routes.register);
 app.use('/register_check', routes.register_check);
 app.use('/logout', routes.logout);
+app.use('/mypage', routes.mypage);
 app.use('/success', routes.success);
 
 // 404が返ってきた場合の処理
