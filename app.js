@@ -12,6 +12,7 @@ var store = new ConnectCouchDB({ //セッション管理用DB接続設定
     username: '',
     password: '',
     host: 'localhost',
+    reapInterval: 600000
 });
 var csurf = require('csurf');
 
@@ -21,7 +22,7 @@ var routes = require('./routes/index.js');
 var app = express();
 
 // サーバーの起動を告知
-console.log('Example app listening at http://localhost');
+console.log('Example app listening at http://localhost:8080');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));　 //joinは結合（__dirnameはソースが入っているディレクトリを表す）

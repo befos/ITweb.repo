@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
                 var passhash = createhash.method(password, salt, STRETCH);
                 if (dbpass === passhash) {
                     req.session.user_id = id;
-                    res.redirect('/contents');
+                    res.redirect('/');
                 } else {
                     res.redirect('/login');
                 }
