@@ -1,15 +1,32 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html ,body{
+  width: auto;
+  height: auto;
+  background-color: #000;
 }
-
 a {
   color: #00B7FF;
 }
 
+.topimg{
+  display: block;
+  /* Set rules to fill background */
+min-height: 100%;
+min-width: 1024px;
+/* Set up proportionate scaling */
+width: 100%;
+height: auto;
+/* Set up positioning */
+position: fixed;
+/* またはabsolute; */
+top: 0;
+left: 0;
+
+}
 #title{
   font-size: 40px;
 }
+
+div .conten
 
 
 /*スマホで見た時*/
