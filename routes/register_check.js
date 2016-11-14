@@ -18,21 +18,32 @@ router.post('/', function(req, res, next) {
         var Email = req.body.Email;
         var salt = randword.method(10);
         var passhash = createhash.method(password, salt, STRETCH);
-        userdata.get(Email, function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
+        userdata.get(Email, function(err) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
             if (err) {
-                console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
-                userdata.insert({
-                    _id: Email,
-                    uid: id,
-                    prop: null,
-                    inout: null,
-                    hashpass: passhash,
-                    salt: salt
-                }, function(err, body) {
-                    if (!err)
-                        console.log(body);
-                    res.redirect('/success');
-                });
+                    //メールアドレスの認証をかませる
+                    console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
+                    userdata.view('uid', 'userserch', {keys: [id]}, function(err, doc) {
+                        if (!err) {
+                            var array = doc.rows; //viewで返されたJsonobjをarrayに入れる
+                            if(array.length === 0){ //同じuidが無い場合はDB上にデータが見つからないので0
+                                userdata.insert({
+                                    _id: Email,
+                                    uid: id,
+                                    prop: null,
+                                    hashpass: passhash,
+                                    salt: salt
+                                } , function(err, body) {
+                                    if (!err){
+                                        console.log(body);
+                                        res.redirect('/success');
+                                    }
+                                });
+                            }else{
+                            //uidがかぶっているのでリダイレクト
+                            res.redirect('/register');
+                            }
+                        }
+                    });
             }
             if (!err) { //見つかった場合(リダイレクト)
                 console.log("suchdoc Removepage");
@@ -43,6 +54,5 @@ router.post('/', function(req, res, next) {
         res.redirect('/register'); //もし（多分無いが）送られてきたフォームの要素が欠けていたら
     }
 });
-
 
 module.exports = router;
