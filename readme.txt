@@ -52,6 +52,11 @@ dbに接続する方法
     }
   }));
 
+ 現在時刻の取得方法
+    require('date-utils');
+    var hoge = new Date();//現在時刻取得
+    var fuga = hoge.toFormat("YYYY/MM/DD HH24:MI:SS");←フォーマットで自由に形を変えられるよ
+
 nodeやnpmのエラー対処
   本当に困ったらこれ↓
   【その1】 Node.jsの再インストール

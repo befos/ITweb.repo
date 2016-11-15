@@ -3,7 +3,15 @@ var router = express.Router();
 var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
+var mailer = require('nodemailer');
+var ejs = require('ejs');
 require('date-utils');
+var generator = require('xoauth2').createXOAuth2Generator({
+    user: 'stichies01@gmail.com',
+    clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
+    clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
+    refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
+});
 
 
 //データベース接続および設定
@@ -13,6 +21,11 @@ var nano = require('nano')(DB_ADDRESS + DB_PORT);
 var userdata = nano.db.use('userdata'); //スコープの設定(この状態だとuserdataにスコープがある)
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
+var URL = 'http://localhost:8080/register_confirm?';
+
+generator.on('token', function(token) {
+    console.log('New token for %s: %s', token.user, token.accessToken);
+});
 
 router.post('/', function(req, res, next) {
     req.session.error_status = 0;
@@ -22,7 +35,6 @@ router.post('/', function(req, res, next) {
     var salt = randword.method(10);
     var url_pass = sha256(randword.method(32));
     var passhash = createhash.method(password, salt, STRETCH);
-
     userdata.get(email, function(err) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
         if (err) {
             console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
@@ -43,11 +55,40 @@ router.post('/', function(req, res, next) {
                             hashpass: passhash,
                             salt: salt,
                             url_pass: url_pass,
-                            regetime:regetime,
-                            changepass:null
+                            regetime: regetime,
+                            changepass: null
                         }, function(err, body) {
                             if (!err) {
                                 console.log(body);
+                                var mailOptions = {
+                                    from: 'Stichies運営<stichies01@gmail.com>',
+                                    to: email,
+                                    subject: 'Stichies本登録について',
+                                    html: '以下のアドレスからアカウトを有効にしてください。<br>'+
+                                    'アドレスの有効時間は１０分間です。<br>'+
+                                    '有効時間後はアカウントの作り直しを行ってください。<br>'+
+                                    URL + url_pass + '<br><br>'
+                                };
+                                //SMTPの接続
+                                var transporter = mailer.createTransport(({
+                                    service: 'gmail',
+                                    auth: {
+                                        xoauth2: generator
+                                    }
+                                }));
+                                //メールの送信
+                                transporter.sendMail(mailOptions, function(err, res) {
+                                    //送信に失敗したとき
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    //送信に成功したとき
+                                    if (!err) {
+                                        console.log('Message sent');
+                                    }
+                                    //SMTPの切断
+                                    transporter.close();
+                                });
                                 res.render('register_submit');
                             }
                         });
