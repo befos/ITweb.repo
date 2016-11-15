@@ -25,6 +25,7 @@ router.post('/', function(req, res, next) {
                 var salt = jsonobj.salt;
                 var passhash = createhash.method(password, salt, STRETCH);
                 if (dbpass === passhash) {
+                    //IDは見つかったがパスワードが一致しない
                     req.session.user_id = id;
                     res.redirect('/');
                 } else {
