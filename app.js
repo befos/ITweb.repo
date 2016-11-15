@@ -58,6 +58,8 @@ app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
 app.use('/register', routes.register);
 app.use('/register_check', routes.register_check);
+app.use('/register_submit', routes.register_submit);
+app.use('/register_confirm', routes.register_confirm);
 app.use('/logout', routes.logout);
 app.use('/mypage', routes.mypage);
 app.use('/success', routes.success);

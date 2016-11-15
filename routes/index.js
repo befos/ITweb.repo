@@ -8,6 +8,8 @@ var routes = {
     login_check: require('./login_check'),
     register: require('./register'),
     register_check: require('./register_check'),
+    register_submit: require('./register_submit'),
+    register_confirm: require('./register_confirm'),
     logout: require('./logout'),
     mypage: require('./mypage')
 };
