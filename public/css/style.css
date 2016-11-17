@@ -25,6 +25,9 @@ html, body {
 .label_form {
     color: #FFF;
 }
+.label_form2{
+  color: #000;
+}
 
 .top_space {
     display: block;
