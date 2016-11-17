@@ -11,55 +11,68 @@ html, body {
     min-width: 1024px;
     width: 100%;
     height: auto;
-    margin-top: 60;
+    margin: 0 0 0 0;
     left: 0;
+    top: 10px;
     position: absolute;
 }
 
-.top_space{
-  display: block;
-  position: relative;
+.form-group{
+  min-width: 1024px;
+  width: 100%;
+}
+
+.label_form {
+    color: #FFF;
+}
+
+.top_space {
+    display: block;
+    position: relative;
+    top: 200px;
 }
 
 /*タイトルの設定*/
-#title {
-  margin-top: 50px;
-    font-size: 40px;
 
+#title {
+    margin-top: 50px;
+    font-size: 40px;
 }
+
 
 /*コンテンツごとの設定*/
-.container {
-  display: block;
-  width: 80em;
-  margin-left: 10px;
-  position: relative;;
-  background-color: #FFF;
-  border-radius: 20px;
-  opacity: 0.9;
-  text-align: center;
-  margin: auto;
-  margin-top: 800px;
-  margin-bottom: 10px;
+
+.description {
+    display: block;
+    width: 80%;
+    position: relative;
+    background-color: #FFF;
+    text-align: center;
+    margin: 550px 10% 10px 10%;
 }
+
+
 /*コンテンツ全体の設定*/
-#content{
-  position: relative;
+
+#content {
+    position: relative;
 }
 
 /* トップへ戻るボタン*/
+
 .toTop {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     display: block;
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
     background: rgba(21, 78, 103, 0.8);
     color: #fff;
     text-decoration: none;
     text-align: center;
     font-weight: bold;
+    margin-bottom: 0;
+    padding-top: 7.5px;
 }
 
 
@@ -69,12 +82,14 @@ html, body {
     .toTop {
         display: none;
         position: fixed;
-        bottom: 100px;
-        right: 50px;
-        width: 100px;
+        bottom: 50px;
+        right: 0px;
+        width: 70px;
         height: 50px;
-        line-height: 50px;
         font-size: 13px;
+        border-radius: 25px 0 0 25px;
     }
 }
+
+
 /*---------------------*/
