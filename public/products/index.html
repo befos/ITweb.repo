@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8">
+    <link href="../css/normalize.css">
     <title>Stichies</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="../js/Dfolder/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/Dfolder/jquery_program.js"></script>
+    <script src="../js/Dfolder/jquery-3.1.1.min.js"></script>
+    <script src="../js/Dfolder/jquery_program.js"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -18,7 +19,7 @@
 
 <body>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/Dfolder/bootstrap.min.js"></script>
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-header">
@@ -44,33 +45,36 @@
     </header>
     <section>
         <img class="topimg" src="../img/topimg.jpg" alt="stichies">
-        <h1 id="title">stitchies</h1>
-        <div class="top_space">
+        <div class="glaybox">
+              <h1 class="title">Stichies</h1>
+              <p class="title_text">人と人を繋ぐ</p>
+        </div>
+        <div class="top_space"></div>
             <div class="col-sm-6"></div>
             <form class="form-horizontal Loginform">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="email"><p class="label_form">Email</p></label>
+                    <label class="control-label col-sm-2" for="email"><p class="label_form"><span class="glyphicon glyphicon-envelope icon"></span></p></label>
                     <div class="col-sm-3">
                         <input type="text" id="email" class="form-control" placeholder="email">
                     </div>
                 </div>
                 <div class="col-sm-6"></div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="password"><p class="label_form">Password</p></label>
+                    <label class="control-label col-sm-2" for="password"><p class="label_form"><span class="glyphicon glyphicon-lock icon"></span></p></label>
                     <div class="col-sm-3">
                         <input type="text" id="email" class="form-control" placeholder="Password">
                     </div>
                 </div>
                 <div class="col-sm-6"></div>
                 <div class="form-group submit">
-                    <div class="col-sm-offset-4 col-sm-1">
-                        <input type="submit" value="submit" class="btn btn-primary">
+                    <div class="col-sm-offset-2 col-sm-3">
+                        <div id="Loginbtn"><img src="../img/btn_login.jpg" alt="ログイン" width="100px" height="59px"></div>
+                        <!-- <input id="Loginbtn" type="image" alt="ログイン" width="100" height="59" src="../img/btn_login.jpg"> -->
                     </div>
                 </div>
             </form>
         </div>
     </section>
-    <section>
         <section class="description">
             <h1>サイトの紹介</h1>
             <p>ようこそstitchiesへ！stitchiesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
@@ -80,43 +84,6 @@
             <h1>登録への案内</h1>
             <p>stitchiesは無料の登録制サイトとなっております。お手数ですがサイト上部のマイページもしくはこちらのURLからご登録ください。</p>
         </section>
-        <section class="description">
-            <h1>サイトの紹介</h1>
-            <p>ようこそstitchiesへ！stitchiesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
-            <p>学問や人生相談など様々な事を気軽に聞ける質問広場、ご自身の活動可能範囲の設定から勉強会への開催及び参加への手助けをいたします。</p>
-            <h1>登録メリット</h1>
-            <p>ユーザ登録1つで全てのサービスをご利用いただく事ができます。質問広場や勉強会、マイページの使用など全てを無料でご利用する事ができます。</p>
-            <h1>登録への案内</h1>
-            <p>stitchiesは無料の登録制サイトとなっております。お手数ですがサイト上部のマイページもしくはこちらのURLからご登録ください。</p>
-        </section>
-        <section class="description">
-            <h1>サイトの紹介</h1>
-            <p>ようこそstitchiesへ！stitchiesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
-            <p>学問や人生相談など様々な事を気軽に聞ける質問広場、ご自身の活動可能範囲の設定から勉強会への開催及び参加への手助けをいたします。</p>
-            <h1>登録メリット</h1>
-            <p>ユーザ登録1つで全てのサービスをご利用いただく事ができます。質問広場や勉強会、マイページの使用など全てを無料でご利用する事ができます。</p>
-            <h1>登録への案内</h1>
-            <p>stitchiesは無料の登録制サイトとなっております。お手数ですがサイト上部のマイページもしくはこちらのURLからご登録ください。</p>
-        </section>
-        <section class="description">
-            <h1>サイトの紹介</h1>
-            <p>ようこそstitchiesへ！stitchiesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
-            <p>学問や人生相談など様々な事を気軽に聞ける質問広場、ご自身の活動可能範囲の設定から勉強会への開催及び参加への手助けをいたします。</p>
-            <h1>登録メリット</h1>
-            <p>ユーザ登録1つで全てのサービスをご利用いただく事ができます。質問広場や勉強会、マイページの使用など全てを無料でご利用する事ができます。</p>
-            <h1>登録への案内</h1>
-            <p>stitchiesは無料の登録制サイトとなっております。お手数ですがサイト上部のマイページもしくはこちらのURLからご登録ください。</p>
-        </section>
-        <section class="description">
-            <h1>サイトの紹介</h1>
-            <p>ようこそstitchiesへ！stitchiesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
-            <p>学問や人生相談など様々な事を気軽に聞ける質問広場、ご自身の活動可能範囲の設定から勉強会への開催及び参加への手助けをいたします。</p>
-            <h1>登録メリット</h1>
-            <p>ユーザ登録1つで全てのサービスをご利用いただく事ができます。質問広場や勉強会、マイページの使用など全てを無料でご利用する事ができます。</p>
-            <h1>登録への案内</h1>
-            <p>stitchiesは無料の登録制サイトとなっております。お手数ですがサイト上部のマイページもしくはこちらのURLからご登録ください。</p>
-        </section>
-    </section>
     <p class="toTop"><i class="glyphicon glyphicon-plane"></i></p>
     <footer>
     </footer>

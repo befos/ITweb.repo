@@ -13,3 +13,28 @@ $(function(){
     }
   });
 });
+
+/*バリデーション validation engine*/
+//
+// (function($) {
+//   $(jQueryObject).validationEngine({
+//     promptPosition: "topLeft",
+//     showArrowOnRadioAndCheckbox: true,
+//     focusFirstField: false,
+//     scroll: false
+//   });
+// })(jQuery);
+//
+// // ログインボタンの処理
+// $(document).ready(function(){
+//   $(function() {
+//       $('#Loginbtn li img').hover(
+//           function(){
+//               $(this).stop().animate({'marginTop':'-29px'},'fast');
+//           },
+//           function () {
+//               $(this).stop().animate({'marginTop':'0px'},'fast');
+//           }
+//       );
+//   });
+// });
