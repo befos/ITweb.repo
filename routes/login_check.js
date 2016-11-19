@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
                         User.find({uid: id}, function(err, result) {
                             if (result) {
                                 if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
-                                    req.session.error_status = 2;
+                                    req.session.error_status = 1;
                                     res.redirect('/login');
                                     mongoose.disconnect();
                                 } else {
@@ -31,16 +31,16 @@ router.post('/', function(req, res, next) {
                                     //認証フェーズ
                                     var dbpass = result[0].hashpass;
                                     var salt = result[0].salt;
-                                    var accout_status = result[0].ac_st;
+                                    var account_status = result[0].ac_st;
                                     var passhash = createhash.method(password, salt, STRETCH);
-                                    if (dbpass === passhash && accout_status === true) {
+                                    if (dbpass === passhash) {
                                         req.session.error_status = 0;
                                         req.session.user_id = id;
-                                        res.redirect('/');
+                                        res.redirect('/mypage');
                                         mongoose.disconnect();
                                     } else {
                                         //IDは見つかったがパスワードが一致しない
-                                        req.session.error_status = 2;
+                                        req.session.error_status = 1;
                                         res.redirect('/login');
                                         mongoose.disconnect();
                                     }
@@ -57,11 +57,11 @@ router.post('/', function(req, res, next) {
                         if (dbpass === passhash && accout_status === true) {
                             req.session.error_status = 0;
                             req.session.user_id = id;
-                            res.redirect('/');
+                            res.redirect('/mypage');
                             mongoose.disconnect();
                         } else {
                             //IDは見つかったがパスワードが一致しない
-                            req.session.error_status = 2;
+                            req.session.error_status = 1;
                             res.redirect('/login');
                             mongoose.disconnect();
                         }
@@ -70,6 +70,7 @@ router.post('/', function(req, res, next) {
         });
     } else {
         res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
+        req.session.error_status = 1;
         mongoose.disconnect();
     }
 });

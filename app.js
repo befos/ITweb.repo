@@ -13,7 +13,6 @@ var store = new ConnectMongoDB({ //セッション管理用DB接続設定
 });
 var csurf = require('csurf');
 
-
 var routes = require('./routes/index.js');
 
 var app = express();
@@ -48,18 +47,21 @@ app.use(csurf());//セッションとクッキーパーサーの設定後に記�
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.homepage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
-app.use('/users', routes.users);
-app.use('/hoge', routes.hoge);
 app.use('/contents', routes.home);
+app.use('/mypage', routes.mypage);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
+app.use('/logout', routes.logout);
 app.use('/register', routes.register);
 app.use('/register_check', routes.register_check);
 app.use('/register_submit', routes.register_submit);
 app.use('/register_confirm', routes.register_confirm);
-app.use('/logout', routes.logout);
-app.use('/mypage', routes.mypage);
+app.use('/password_reset', routes.password_reset);
+app.use('/password_reset_mail', routes.password_reset_mail);
+app.use('/password_reset_regene', routes.password_reset_regene);
+app.use('/password_reset_submit', routes.password_reset_submit);
 app.use('/success', routes.success);
+
 
 // 404が返ってきた場合の処理
 app.use(function(req, res, next) {

@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var randword = require('../public/js/Kfolder/randword.js').randword;
+var createhash = require('../public/js/Kfolder/createhash.js').createhash;
+var sha256 = require('js-sha256');
 var url = require('url');
 require('date-utils');
 
@@ -7,6 +10,8 @@ require('date-utils');
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
+
+var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata');
@@ -19,34 +24,25 @@ router.get('/', function(req, res, next) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                     console.log("nosuch"); //見つからなかった場合の処理(時間外)
                     req.session.error_status = 5;
-                    res.redirect('/register');
+                    res.redirect('/password_reset');
                     mongoose.disconnect();
                 } else {
                     //見つかった
-                    var email = result[0]._id;
-                    var status = result[0].ac_st;
-                    if(status === true){
+                    if(reset == false){
                       req.session.error_status = 3;
-                      console.log('this account Activeted');
-                      res.redirect('/login');
+                      console.log('WTF!');
+                      res.redirect('/password_reset');
                       mongoose.disconnect();
                     }
-                    User.update({_id: email},{$set: {ac_use:true}},function(err){
-                      if(!err){
-                        User.update({_id: email},{$set: {ac_st:true}},function(err){
-                          if(!err){
-                            console.log("Acitvete account");
-                            req.session.error_status = 0;
-                            res.render('register_confirm');
-                            mongoose.disconnect();
-                          }
-                        });
-                      }
-                    });
+                    var reset = result[0].ac_reset;
+                    req.session.one_shot_id = result[0].uid;
+                    res.render('password_reset_regene',{reqCsrf:req.csrfToken()});
+                    mongoose.disconnect();
                 }
             }
-            mongoose.disconnect();
     });
 });
+
+
 
 module.exports = router;

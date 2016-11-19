@@ -4,7 +4,6 @@ var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
 var mailer = require('nodemailer');
-var ejs = require('ejs');
 require('date-utils');
 var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     user: 'stichies01@gmail.com',
@@ -50,7 +49,6 @@ router.post('/', function(req, res, next) {
                     User.find({uid: id}, function(err, result) {
                         if (result) {
                             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
-                                req.session.error_status = 0;
                                 var dt = new Date();
                                 var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
                                 console.log(regetime);
@@ -69,7 +67,8 @@ router.post('/', function(req, res, next) {
                                   regest: regetime,
                                   chpst: null,
                                   ac_st: false,
-                                  ac_use: false
+                                  ac_use: false,
+                                  ac_reset: false
                                 });
                                 onetimeuser.save(function(err) {
                                   if(!err){
@@ -84,6 +83,7 @@ router.post('/', function(req, res, next) {
                                         if (err) { //送信に失敗したとき
                                             console.log(err);
                                             res.redirect('/register');
+                                            req.session.error_status = 4;
                                             mongoose.disconnect();
                                         }
                                         if (!err) { //送信に成功したとき
@@ -92,6 +92,7 @@ router.post('/', function(req, res, next) {
                                         transporter.close(); //SMTPの切断
                                     });
                                     res.render('register_submit');
+                                    req.session.error_status = 0;
                                     mongoose.disconnect();
                                   }
                                 });
