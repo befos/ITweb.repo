@@ -7,6 +7,8 @@ var Users = new Schema({
   age: Number,//年齢
   sex: {type: Number, min:0, max:1},//0男性 1女性
   work: String,//職業
+  uf_pl: String,//自分にとって使いやすい言語
+  place: String,//自分の住んでいる場所  
   hashpass: String,//ハッシュ化されたパスワード
   salt: String,//お塩
   prop: String,//プロフィール用画像のURL予定

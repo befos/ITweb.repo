@@ -57,7 +57,12 @@ router.post('/', function(req, res, next) {
                                 var onetimeuser = new User({
                                   _id: email,
                                   uid: id,
+                                  age: null,
+                                  sex: null,
+                                  work: null,
                                   prop: null,
+                                  uf_pl: null,
+                                  place: null,
                                   hashpass: passhash,
                                   salt: salt,
                                   url_pass: url_pass,
