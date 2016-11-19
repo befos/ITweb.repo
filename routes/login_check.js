@@ -48,8 +48,8 @@ router.post('/', function(req, res, next) {
                         });
                     } else {//Emailaddressが見つかった
                         console.log("such Emailaddress");
-                        var dbpass = result.hashpass;
-                        var salt = result.salt;
+                        var dbpass = result[0].hashpass;
+                        var salt = result[0].salt;
                         var passhash = createhash.method(password, salt, STRETCH);
                         //認証フェーズ
                         if (dbpass === passhash) {
