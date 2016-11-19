@@ -31,8 +31,9 @@ router.post('/', function(req, res, next) {
                                     //認証フェーズ
                                     var dbpass = result[0].hashpass;
                                     var salt = result[0].salt;
+                                    var accout_status = result[0].ac_st;
                                     var passhash = createhash.method(password, salt, STRETCH);
-                                    if (dbpass === passhash) {
+                                    if (dbpass === passhash && accout_status === true) {
                                         req.session.error_status = 0;
                                         req.session.user_id = id;
                                         res.redirect('/');
@@ -50,9 +51,10 @@ router.post('/', function(req, res, next) {
                         console.log("such Emailaddress");
                         var dbpass = result[0].hashpass;
                         var salt = result[0].salt;
+                        var accout_status = result[0].ac_st;
                         var passhash = createhash.method(password, salt, STRETCH);
                         //認証フェーズ
-                        if (dbpass === passhash) {
+                        if (dbpass === passhash && accout_status === true) {
                             req.session.error_status = 0;
                             req.session.user_id = id;
                             res.redirect('/');
