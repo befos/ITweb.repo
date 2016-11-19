@@ -6,13 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var connect = require('connect');
-var ConnectCouchDB = require('connect-couchdb')(session);
-var store = new ConnectCouchDB({ //セッション管理用DB接続設定
-    name: 'sessiondata',
-    username: '',
-    password: '',
-    host: 'localhost',
-    reapInterval: 600000
+var ConnectMongoDB = require('connect-mongo')(session);
+var store = new ConnectMongoDB({ //セッション管理用DB接続設定
+    url: 'mongodb://localhost:27017/sessiondata',
+    ttl: 60 * 60 //1hour
 });
 var csurf = require('csurf');
 

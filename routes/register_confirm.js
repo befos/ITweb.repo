@@ -4,39 +4,53 @@ var url = require('url');
 require('date-utils');
 
 //データベース接続および設定
-var DB_PORT = "5984";
-var DB_ADDRESS = "http://localhost:";
-var nano = require('nano')(DB_ADDRESS + DB_PORT);
-var userdata = nano.db.use('userdata'); //スコープの設定(この状態だとuserdataにスコープがある)
+var mongoose = require('mongoose');
+var models = require('../models/models.js');
+var User = models.Users;
 
 router.get('/', function(req, res, next) {
+    mongoose.connect('mongodb://localhost:27017/userdata');
     var u = url.parse(req.url, false);
     var dt = new Date();
-    var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+    var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     console.log(u.query);
-    userdata.view('uid', 'finalcheck', {
-        keys: [u.query]
-    }, function(err, doc) {
-        if (!err) {
-            var array = doc.rows[0]; //viewで返されたJsonobjをarrayに入れる
-            console.log(array["value"]);
-            if (array.length === 0) { //見つからない場合は時間切れか未知のエラー
-                req.session.error_status = 1;
-                res.render('register');
-            }else{
-                req.session.error_status = 2;
-                userdata.get(array["value"], function(err) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
-                    if (err) {
-                        console.log("WTF!"); //見つからなかった場合の処理（新規作衛)
+    User.find({url_pass:u.query}, function(err, result) {
+            if (result) {
+                if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
+                    console.log("nosuch"); //見つからなかった場合の処理(時間外)
+                    req.session.error_status = 1;
+                    res.redirect('/register');
+                    mongoose.disconnect();
+                } else {
+                    //見つかった
+                    var email = result[0]._id;
+                    var status = result[0].ac_st;
+                    if(status === true){
+                      req.session.error_status = 1;
+                      console.log('this account Activeted');
+                      res.redirect('/login');
+                      mongoose.disconnect();
                     }
-                    if (!err) { //見つかった場合(リダイレクト)
-                        console.log("Accitvete account");
-                        req.session.error_status = 2;
-                        res.render('register_confirm');
-                    }
-                });
+                    User.update({_id: email},{$set: {ac_use:true}},function(err){
+                      if(err){
+                        console.log("nosuch"); //見つからなかった場合の処理(時間外)
+                        req.session.error_status = 1;//時間外になりました
+                        res.redirect('/register');
+                        mongoose.disconnect();
+                      }
+                      if(!err){
+                        User.update({_id: email},{$set: {ac_st:true}},function(err){
+                          if(!err){
+                            console.log("Acitvete account");
+                            req.session.error_status = 0;
+                            res.render('register_confirm');
+                            mongoose.disconnect();
+                          }
+                        });
+                      }
+                    });
+                }
             }
-        }
     });
 });
 

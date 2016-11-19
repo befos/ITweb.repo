@@ -1,0 +1,21 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var Users = new Schema({
+  _id: String,//Email(被りなし)
+  uid: String,//uid(被りなし)
+  age: Number,//年齢
+  sex: {type: Number, min:0, max:1},//0男性 1女性
+  work: String,//職業
+  hashpass: String,//ハッシュ化されたパスワード
+  salt: String,//お塩
+  prop: String,//プロフィール用画像のURL予定
+  url_pass: String,//認証用の一時url
+  regest: { type: Date, default: Date.now},//新規登録した時間
+  chpst: Date,//changepass time
+  ac_st: {type: Boolean, default:false},//accountstatus falseなら1時間で消去
+  ac_use: {type: Boolean, default:false}//現在accountが使用中か確認
+});
+
+mongoose.Promise = global.Promise;
+exports.Users = mongoose.model("Users", Users);
