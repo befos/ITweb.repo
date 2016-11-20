@@ -27,9 +27,9 @@ router.post('/', function(req, res, next) {
                 res.redirect('/password_reset');
                 mongoose.disconnect();
             }else{
-                if(result[0].ac_reset != true){
+                if(result[0].ac_reset !== true){
                     req.session.error_status = 5;
-                    res.redirect('/password_reset')
+                    res.redirect('/password_reset');
                     mongoose.disconnect();
                 }
                 User.update({uid:uid},{$set:{hashpass:passhash,ac_reset:false,salt:salt}},function(err){
@@ -39,6 +39,9 @@ router.post('/', function(req, res, next) {
                         mongoose.disconnect();
                     }
                 });
+            }
+            if(err){
+                mongoose.disconnect();
             }
         }
     });

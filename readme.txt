@@ -27,7 +27,7 @@ var hoge = models.hoge;//スキーマの参照
                   console.log("nosuch"); //見つからなかった場合の処理(時間外)
                   req.session.error_status = 1;
                   res.redirect('/register');
-                  mongoose.disconnect(); //最後に絶対disconnectする事   
+                  mongoose.disconnect(); //最後に絶対disconnectする事
               }
           }
     });
@@ -71,3 +71,6 @@ nodeやnpmのエラー対処
     $ npm install -g npm
    その3 node.js　インストール時に死にかけたら
    sudo apt-get install nodejs-legacy
+
+   Socket hugup　のエラーが出た場合
+   セキュリティソフトが悪さをしている可能性が高い

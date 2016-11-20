@@ -18,7 +18,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var URL = 'http://localhost:8080/register_confirm/?';//メール認証用のURL
+var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
         html: '以下のアドレスからアカウトを有効にしてください。<br>' +
             'アドレスの有効時間は10分間です。<br>' +
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
-            URL + url_pass + '<br><br>'
+            '<a href="' + URL + url_pass + '">' + URL + url_pass + '</a>' + '<br><br>'
     };
     User.find({_id: email}, function(err, result) {
             if (result) {
@@ -82,8 +82,8 @@ router.post('/', function(req, res, next) {
                                     transporter.sendMail(mailOptions, function(err, res) { //メールの送信
                                         if (err) { //送信に失敗したとき
                                             console.log(err);
-                                            res.redirect('/register');
                                             req.session.error_status = 4;
+                                            res.redirect('/register');
                                             mongoose.disconnect();
                                         }
                                         if (!err) { //送信に成功したとき
@@ -91,8 +91,8 @@ router.post('/', function(req, res, next) {
                                         }
                                         transporter.close(); //SMTPの切断
                                     });
-                                    res.render('register_submit');
                                     req.session.error_status = 0;
+                                    res.render('register_submit');
                                     mongoose.disconnect();
                                   }
                                 });
@@ -106,7 +106,7 @@ router.post('/', function(req, res, next) {
                         }
                     });
                 } else {
-                    console.log("suchdoc Removepage");
+                    console.log("such email");
                     req.session.error_status = 2;
                     res.redirect('/register');
                     mongoose.disconnect();
