@@ -18,7 +18,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
+var URL = 'http://localhost:8080/register_confirm/?';//メール認証用のURL
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
