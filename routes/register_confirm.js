@@ -14,7 +14,8 @@ router.get('/', function(req, res, next) {
     var dt = new Date();
     var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     console.log(u.query);
-    User.find({url_pass:u.query}, function(err, result) {
+    var one_shot_query = u.query;
+    User.find({url_pass:one_shot_query}, function(err, result) {
             if (result) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                     console.log("nosuch"); //見つからなかった場合の処理(時間外)
