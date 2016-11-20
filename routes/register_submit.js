@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
         html: '以下のアドレスからアカウトを有効にしてください。<br>' +
             'アドレスの有効時間は10分間です。<br>' +
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
-            '<a href="' + URL + url_pass + '">' + URL + url_pass + '</a>' + '<br><br>'
+            URL + url_pass + '<br><br>'
     };
     User.find({_id: email}, function(err, result) {
             if (result) {
@@ -111,6 +111,9 @@ router.post('/', function(req, res, next) {
                     res.redirect('/register');
                     mongoose.disconnect();
                 }
+            }
+            if(err){
+                mongoose.disconnect();
             }
     });
 });
