@@ -31,26 +31,21 @@
   <form action="/register_check" method="post" onsubmit="return conrimMessage();">
   <table border="0">
     <tr>
-      <td>ID</td>
-      <td><input type="text" name="id" id="id"></td>
+      <td><input type="text" name="id" id="id" placeholder="使用したいユーザIDを入力"></td>
     </tr>
     <tr>
-      <td>Email</td>
-      <td><input type="email" name="Email" id="Email" size="20" maxlength="40"></td>
+      <td><input type="email" name="Email" id="Email" size="20" maxlength="40" placeholder="メールアドレスを入力"></td>
     </tr>
     <tr>
-      <td>Email(確認)</td>
-      <td><input type="email" name="confirm_Email" id="confirm_Email" size="20" maxlength="40" onkeyup=setConfirmMessage1(this.value);</td>
+      <td><input type="email" name="confirm_Email" id="confirm_Email" size="20" maxlength="40" placeholder="メールアドレスを再度入力" onkeyup=setConfirmMessage1(this.value); </td>
       <td><div id="Email_confirm_message"></div></td>
     </tr>
     <tr>
-      <td>パスワード</td>
-      <td><input type="password" name="password" id="password" onkeyup="setMessage(this.value);"></td>
+      <td><input type="password" name="password" placeholder= "パスワードを入力" id="password" onkeyup="setMessage(this.value);"></td>
       <td><div id="pass_message"></div></td>
     </tr>
     <tr>
-      <td>パスワード（確認）</td>
-      <td><input type="password" name="confirm_password" id="confirm_password" onkeyup="setConfirmMessage(this.value);"></td>
+      <td><input type="password" name="confirm_password" placeholder= "再度パスワードを入力" id="confirm_password" onkeyup="setConfirmMessage(this.value);"></td>
       <td><div id="pass_confirm_message"></div></td>
     </tr>
   </table>
@@ -60,9 +55,7 @@
   <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
   </form>
   <br>
-  <form action="/register_check" method="post">
-      <input type="submit" value="test">
-  </form>
+   <a href="/password_reset">パスワードリセット</a>
   </body>
 
 </html>

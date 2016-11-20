@@ -3,38 +3,75 @@ var router = express.Router();
 var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 
-
 //データベース接続および設定
-var DB_PORT = "5984";
-var DB_ADDRESS = "http://localhost:";
-var nano = require('nano')(DB_ADDRESS + DB_PORT);
-var userdata = nano.db.use('userdata'); //スコープの設定(この状態だとuserdataにスコープがある)
+var mongoose = require('mongoose');
+var models = require('../models/models.js');
+var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 router.post('/', function(req, res, next) {
+    mongoose.connect('mongodb://localhost:27017/userdata');
     if (req.body.id !== null && req.body.password !== null) {
-        var id = req.body.id; // public/login.htmlのformから飛ばされた情報を受け取って変数に格納
+        var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
         var password = req.body.password; //上と同じ
-        userdata.get(id, function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
-            if (err) { //見つからなかった場合の処理
-                res.redirect('/login');
-            }
-            if (!err) { //見つかった場合
-                var dbpass = jsonobj.hashpass; //jsonオブジェクトからhashpassを参照し変数に格納
-                var salt = jsonobj.salt;
-                var passhash = createhash.method(password, salt, STRETCH);
-                if (dbpass === passhash) {
-                    //IDは見つかったがパスワードが一致しない
-                    req.session.user_id = id;
-                    res.redirect('/');
-                } else {
-                    res.redirect('/login');
-                }
-            }
+        User.find({_id: id}, function(err, result) {
+                if (result) {
+                    if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
+                        console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）
+                        User.find({uid: id}, function(err, result) {
+                            if (result) {
+                                if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
+                                    req.session.error_status = 1;
+                                    res.redirect('/login');
+                                    mongoose.disconnect();
+                                } else {
+                                    //uidが見つかった
+                                    console.log("such uid");
+                                    //認証フェーズ
+                                    var dbpass = result[0].hashpass;
+                                    var salt = result[0].salt;
+                                    var account_status = result[0].ac_st;
+                                    var passhash = createhash.method(password, salt, STRETCH);
+                                    if (dbpass === passhash) {
+                                        req.session.error_status = 0;
+                                        req.session.user_id = id;
+                                        res.redirect('/mypage');
+                                        mongoose.disconnect();
+                                    } else {
+                                        //IDは見つかったがパスワードが一致しない
+                                        req.session.error_status = 1;
+                                        res.redirect('/login');
+                                        mongoose.disconnect();
+                                    }
+                                }
+                            }
+                        });
+                    } else {//Emailaddressが見つかった
+                        console.log("such Emailaddress");
+                        var dbpass = result[0].hashpass;
+                        var salt = result[0].salt;
+                        var account_status = result[0].ac_st;
+                        var passhash = createhash.method(password, salt, STRETCH);
+                        //認証フェーズ
+                        if (dbpass === passhash && account_status === true) {
+                            req.session.error_status = 0;
+                            req.session.user_id = id;
+                            res.redirect('/mypage');
+                            mongoose.disconnect();
+                        } else {
+                            //IDは見つかったがパスワードが一致しない
+                            req.session.error_status = 1;
+                            res.redirect('/login');
+                            mongoose.disconnect();
+                        }
+                    }
+                  }
         });
     } else {
         res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
+        req.session.error_status = 1;
+        mongoose.disconnect();
     }
 });
 

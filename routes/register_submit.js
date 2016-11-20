@@ -4,7 +4,6 @@ var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
 var mailer = require('nodemailer');
-var ejs = require('ejs');
 require('date-utils');
 var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     user: 'stichies01@gmail.com',
@@ -13,12 +12,10 @@ var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
 
-
 //データベース接続および設定
-var DB_PORT = "5984";
-var DB_ADDRESS = "http://localhost:";
-var nano = require('nano')(DB_ADDRESS + DB_PORT);
-var userdata = nano.db.use('userdata'); //スコープの設定(この状態だとuserdataにスコープがある)
+var mongoose = require('mongoose');
+var models = require('../models/models.js');
+var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
 var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
@@ -28,6 +25,7 @@ generator.on('token', function(token) {
 });
 
 router.post('/', function(req, res, next) {
+    mongoose.connect('mongodb://localhost:27017/userdata');
     req.session.error_status = 0;
     var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ
@@ -44,63 +42,76 @@ router.post('/', function(req, res, next) {
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    userdata.get(email, function(err) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
-        if (err) {
-            console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
-            userdata.view('uid', 'userserch', {
-                keys: [id]
-            }, function(err, doc) {
-                if (!err) {
-                    var array = doc.rows; //viewで返されたJsonobjをarrayに入れる
-                    if (array.length === 0) { //同じuidが無い場合はDB上にデータが見つからないので0
-                        req.session.error_status = 0;
-                        var dt = new Date();
-                        var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
-                        console.log(regetime);
-                        userdata.insert({
-                            _id: email,
-                            uid: id,
-                            prop: null,
-                            hashpass: passhash,
-                            salt: salt,
-                            url_pass: url_pass,
-                            regetime: regetime,
-                            changepasstime: null,
-                            account_status: false
-                        }, function(err, body) {
-                            if (!err) {
-                                console.log(body);//この下からメールを送信する処理
-                                var transporter = mailer.createTransport(({ //SMTPの接続
-                                    service: 'gmail',
-                                    auth: {
-                                        xoauth2: generator
-                                    }
-                                }));
-                                transporter.sendMail(mailOptions, function(err, res) { //メールの送信
-                                    if (err) { //送信に失敗したとき
-                                        console.log(err);
-                                    }
-                                    if (!err) { //送信に成功したとき
-                                        console.log('Message sent');
-                                    }
-                                    transporter.close(); //SMTPの切断
+    User.find({_id: email}, function(err, result) {
+            if (result) {
+                if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
+                    console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
+                    User.find({uid: id}, function(err, result) {
+                        if (result) {
+                            if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
+                                var dt = new Date();
+                                var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
+                                console.log(regetime);
+                                var onetimeuser = new User({
+                                  _id: email,
+                                  uid: id,
+                                  age: null,
+                                  sex: null,
+                                  work: null,
+                                  prop: null,
+                                  uf_pl: null,
+                                  place: null,
+                                  hashpass: passhash,
+                                  salt: salt,
+                                  url_pass: url_pass,
+                                  regest: regetime,
+                                  chpst: null,
+                                  ac_st: false,
+                                  ac_use: false,
+                                  ac_reset: false
                                 });
-                                res.render('register_submit');
+                                onetimeuser.save(function(err) {
+                                  if(!err){
+                                    //この下からメールを送信する処理
+                                    var transporter = mailer.createTransport(({ //SMTPの接続
+                                        service: 'gmail',
+                                        auth: {
+                                            xoauth2: generator
+                                        }
+                                    }));
+                                    transporter.sendMail(mailOptions, function(err, res) { //メールの送信
+                                        if (err) { //送信に失敗したとき
+                                            console.log(err);
+                                            res.redirect('/register');
+                                            req.session.error_status = 4;
+                                            mongoose.disconnect();
+                                        }
+                                        if (!err) { //送信に成功したとき
+                                            console.log('Message sent');
+                                        }
+                                        transporter.close(); //SMTPの切断
+                                    });
+                                    res.render('register_submit');
+                                    req.session.error_status = 0;
+                                    mongoose.disconnect();
+                                  }
+                                });
+                            } else {
+                                //uidがかぶっているのでリダイレクト
+                                console.log("such uid");
+                                req.session.error_status = 2;
+                                res.redirect('/register');
+                                mongoose.disconnect();
                             }
-                        });
-                    } else {
-                        //uidがかぶっているのでリダイレクト
-                        req.session.error_status = 2;
-                        res.redirect('/register');
-                    }
+                        }
+                    });
+                } else {
+                    console.log("suchdoc Removepage");
+                    req.session.error_status = 2;
+                    res.redirect('/register');
+                    mongoose.disconnect();
                 }
-            });
-        }
-        if (!err) { //見つかった場合(リダイレクト)
-            console.log("suchdoc Removepage");
-            req.session.error_status = 2;
-            res.redirect('/register');
-        }
+            }
     });
 });
 

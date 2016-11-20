@@ -14,22 +14,23 @@ webページを追加する
   4.localhost/hoge　でアクセス可能！やったぜ
 
 dbに接続する方法
-  var DB_PORT = "5984";
-  var DB_ADDRESS = "http://localhost:";
-  var nano = require('nano')(DB_ADDRESS + DB_PORT);
-  var hoge = nano.db.use('hoge');//スコープの設定(この状態だとhogeにスコープがある)
-     hogeはDB名を記述
+var mongoose = require('mongoose');
+var models = require('../models/models.js');
+var hoge = models.hoge;//スキーマの参照
+
 制御方法
   Example
-  var userdata = nano.db.use('userdata');
-  userdata.get(id,function(err, jsonobj) { //フォームに入力されたIDと同名のドキュメントをコレクションuserdataから探してくる
-   if(err){
-     console.log("nosuch");//見つからなかった場合の処理
-   }
-   if (!err) { //見つかった場合
-     console.log("suchdoc");
-     var dbpass =  jsonobj.hashpass;//jsonオブジェクトからhashpassを参照し変数に格納
-     var salt = jsonobj.salt;//DB内参照
+  mongoose.connect('mongodb://localhost:27017/userdata');//接続先のDB
+  hoge.find({url_pass:u.query}, function(err, result) {
+          if (result) {
+              if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
+                  console.log("nosuch"); //見つからなかった場合の処理(時間外)
+                  req.session.error_status = 1;
+                  res.redirect('/register');
+                  mongoose.disconnect(); //最後に絶対disconnectする事   
+              }
+          }
+    });
 
   セッション
   ~connect-couchdb + express-session~

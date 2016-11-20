@@ -3,25 +3,23 @@
 <html lang="ja">
 </head>
 <body>
+<h1>ログイン</h1>
 <form action="/login_check" method="post">
   <table border="0">
     <tr>
-      <td>Email</td>
-      <td><input type="email" name="id" size="20" maxlength="40"</td>
+      <td><input type="text" name="id" id="id" placeholder="ユーザIDまたはメールアドレス"></td>
     </tr>
     <tr>
-      <td>Password</td>
-      <td><input type="password" name="password"></td>
+      <td><input type="password" name="password" placeholder="パスワードを入力してください"></td>
     </tr>
   </table>
 <input type="submit" value="ログイン">
 <input type="reset" value="リセット">
-<input type="button" onclick=location.href="/register" value="新規登録">
 <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
  </form>
  <br>
- <form action="/login_check" method="post">
-     <input type="submit" value="test">
- </form>
+ <a href="/register">新規登録</a>
+ <br>
+ <a href="/password_reset">パスワードリセット</a>
  </body>
  </html>
