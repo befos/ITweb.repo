@@ -1,17 +1,18 @@
 var Users = new Schema({
-  _id: String,//Email(”í‚è‚È‚µ)
-  uid: String,//uid(”í‚è‚È‚µ)
-  age: Number,//”N—î
-  sex: {type: Number, min:0, max:1},//0’j« 1—«
-  work: String,//E‹Æ
-  uf_pl: String,//©•ª‚É‚Æ‚Á‚Äg‚¢‚â‚·‚¢Œ¾Œê
-  place: String,//©•ª‚ÌZ‚ñ‚Å‚¢‚éêŠ  
-  hashpass: String,//ƒnƒbƒVƒ…‰»‚³‚ê‚½ƒpƒXƒ[ƒh
-  salt: String,//‚¨‰–
-  prop: String,//ƒvƒƒtƒB[ƒ‹—p‰æ‘œ‚ÌURL—\’è
-  url_pass: String,//”FØ—p‚Ìˆêurl
-  regest: { type: Date, default: Date.now},//V‹K“o˜^‚µ‚½ŠÔ
-  chpst: Date,//changepass time
-  ac_st: {type: Boolean, default:false},//accountstatus false‚È‚ç1ŠÔ‚ÅÁ‹
-  ac_use: {type: Boolean, default:false}//Œ»İaccount‚ªg—p’†‚©Šm”F
+    email: String,//Email(è¢«ã‚Šãªã—?)
+    uid: String,//uid(è¢«ã‚Šãªã—)
+    age: Number,//å¹´é½¢
+    sex: {type: Number, min:0, max:1},//0ç”·æ€§ 1å¥³æ€§
+    work: String,//è·æ¥­
+    uf_pl: String,//è‡ªåˆ†ã«ã¨ã£ã¦ä½¿ã„ã‚„ã™ã„è¨€èª
+    place: String,//è‡ªåˆ†ã®ä½ã‚“ã§ã„ã‚‹å ´æ‰€
+    hashpass: String,//ãƒãƒƒã‚·ãƒ¥åŒ–ã•ã‚ŒãŸãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+    salt: String,//ãŠå¡©
+    prop: String,//ãƒ—ãƒ­ãƒ•ã‚£ãƒ¼ãƒ«ç”¨ç”»åƒã®URLäºˆå®š
+    url_pass: String,//èªè¨¼ç”¨ã®ä¸€æ™‚url
+    regest: { type: Date, default: Date.now},//æ–°è¦ç™»éŒ²ã—ãŸæ™‚é–“
+    chpst: Date,//changepass time
+    ac_st: {type: Boolean, default:false},//accountstatus falseãªã‚‰1æ™‚é–“ã§æ¶ˆå»
+    ac_use: {type: Boolean, default:false},//ç¾åœ¨accountãŒä½¿ç”¨ä¸­ã‹ç¢ºèª
+    ac_reset: {type:Boolean, default:false}//ç¾åœ¨accountã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒãƒªã‚»ãƒƒãƒˆçŠ¶æ…‹ã«ã‚ã‚‹ã‹
 });

@@ -15,15 +15,15 @@ router.post('/', function(req, res, next) {
                 var Email = req.body.Email;
                 if (password != confirm_password) {
                     //ポストされたパスワードが一致しない
-                    req.session.error_status = 1;
-                    res.redirect('/register');
-                    mongoose.disconnect();
+                    return hadInputdataError(req, res);
                 }
-                User.find({email: Email}, function(err, result) {
+                User.find({email: Email},{safe:true}, function(err, result) {
+                        if(err) return hadDbError(err, req, res);
                         if (result) {
                             if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                                 console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
-                                User.find({uid: id}, function(err, result) {
+                                User.find({uid: id},{safe:true}, function(err, result) {
+                                    if(err) return hadDbError(err, req, res);
                                     if (result) {
                                         if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                                             req.session.error_status = 0;
@@ -37,24 +37,14 @@ router.post('/', function(req, res, next) {
                                         } else {
                                             //uidがかぶっているのでリダイレクト
                                             console.log("such uid");
-                                            req.session.error_status = 2;
-                                            res.redirect('/register');
-                                            mongoose.disconnect();
+                                            return hadOverlapError(req, res);
                                         }
                                     }
                                 });
                             }else{
                                 console.log("suchdoc Removepage");
-                                req.session.error_status = 2;
-                                res.redirect('/register');
-                                mongoose.disconnect();
+                                return hadOverlapError(req, res);
                             }
-                        }
-                        if(err){
-                            console.log(err);
-                            req.session.error_status = 6;
-                            res.redirect('/register');
-                            mongoose.disconnect();
                         }
                 });
         } else {
@@ -63,4 +53,24 @@ router.post('/', function(req, res, next) {
       }
 });
 
-        module.exports = router;
+//エラーハンドル
+function hadInputdataError(req, res){
+    req.session.error_status = 1;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadOverlapError(req ,res){
+    req.session.error_status = 2;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+module.exports = router;

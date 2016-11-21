@@ -17,6 +17,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
+var MINUTES = 10;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -33,12 +34,13 @@ router.post('/', function(req, res, next) {
         to: email,
         subject: 'パスワードのリセットについて',
         html: '以下のアドレスからパスワードのリセットを行ってください。<br>' +
-            'アドレスの有効時間は10分間です。<br>' +
+            'アドレスの有効時間は'+ MINUTES +'分間です。<br>' +
             '有効時間後は再度パスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
     User.find({email:email},function(err, result){
-      if(result){
+        if(err) return hadDbError(err, res, req);
+        if(result){
           if (result.length === 0) {
               req.session.error_status = 1;//入力されたメールアドレスは存在しません
               res.redirect('/password_reset');
@@ -50,44 +52,51 @@ router.post('/', function(req, res, next) {
                   mongoose.disconnect();
               }
               var dbemail = result[0].email;
-              User.update({email:dbemail}, {$set:{ac_reset:true}},function(err){
+              var dt = new Date();
+              dt.setMinutes(dt.getMinutes() + MINUTES);
+              var regentime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
+              console.log(regentime);
+              User.update({email:dbemail}, {$set:{ac_reset:true, url_pass:url_pass,regent:regentime}},{safe:true},function(err){
+                  if(err) return hadError(err, res, req);
                   if(!err){
-                      User.update({email:dbemail},{$set:{url_pass:url_pass}},function(err){
-                        if(!err){
-                            //この下からメールを送信する処理
-                            var transporter = mailer.createTransport(({ //SMTPの接続
-                                service: 'gmail',
-                                auth: {
-                                    xoauth2: generator
-                                }
-                            }));
-                            transporter.sendMail(mailOptions, function(err, res) { //メールの送信
-                            if (err) { //送信に失敗したとき
-                                console.log(err);
-                                res.redirect('/password_reset');
-                                req.session.error_status = 4;
-                                mongoose.disconnect();
+                        //この下からメールを送信する処理
+                        var transporter = mailer.createTransport(({ //SMTPの接続
+                            service: 'gmail',
+                            auth: {
+                                xoauth2: generator
                             }
-                            if (!err) { //送信に成功したとき
-                                console.log('Message sent');
-                            }
-                            transporter.close(); //SMTPの切断
-                            });
-                            res.render('password_reset_mail');
-                            mongoose.disconnect();
+                        }));
+                        transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
+                        if (err) { //送信に失敗したとき
+                            return hadSendmailError(err, req, res, resp);
                         }
-                      });
+                        if (!err) { //送信に成功したとき
+                            console.log('Message sent');
+                        }
+                        transporter.close(); //SMTPの切断
+                        });
+                        res.render('password_reset_mail');
+                        mongoose.disconnect();
                   }
               });
           }
       }
-      if(err){
-          console.log(err);
-          req.sessin.error_status = 6;
-          res.redirect('/password_reset');
-          mongoose.disconnect();
-      }
     });
 });
+
+//エラーハンドル
+function hadSendmailError(err, req, res, resp){
+    console.log(err);
+    req.session.error_status = 4;
+    res.redirect('/password_reset');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, res, req){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/password_reset');
+    mongoose.disconnect();
+}
 
 module.exports = router;

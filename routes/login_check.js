@@ -16,10 +16,12 @@ router.post('/', function(req, res, next) {
         var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
         var password = req.body.password; //上と同じ
         User.find({email: id}, function(err, result) {
+                if(err) return hadDbError(err, req, res);
                 if (result) {
                     if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                         console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）
                         User.find({uid: id}, function(err, result) {
+                            if(err) return hadDbError(err, req, res);
                             if (result) {
                                 if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                                     req.session.error_status = 1;
@@ -40,17 +42,9 @@ router.post('/', function(req, res, next) {
                                         mongoose.disconnect();
                                     } else {
                                         //IDは見つかったがパスワードが一致しない
-                                        req.session.error_status = 1;
-                                        res.redirect('/login');
-                                        mongoose.disconnect();
+                                        return hadInputdataError(req, res);
                                     }
                                 }
-                            }
-                            if(err){
-                                console.log(err);
-                                req.session.error_status = 6;
-                                res.redirect('/login');
-                                mongoose.disconnect();
                             }
                         });
                     } else {//Emailaddressが見つかった
@@ -67,25 +61,29 @@ router.post('/', function(req, res, next) {
                             mongoose.disconnect();
                         } else {
                             //IDは見つかったがパスワードが一致しない
-                            req.session.error_status = 1;
-                            res.redirect('/login');
-                            mongoose.disconnect();
+                            return hadInputdataError(req, res);
                         }
                     }
                   }
-                  if(err){
-                      console.log(err);
-                      req.session.error_status = 6;
-                      res.redirect('/login');
-                      mongoose.disconnect();
-                  }
         });
     } else {
-        res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
-        req.session.error_status = 1;
-        mongoose.disconnect();
+        return hadInputdataError(req, res);
     }
 });
+
+//エラーハンドル
+function hadInputdataError(req, res){
+    req.session.error_status = 1;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
 
 
 module.exports = router;

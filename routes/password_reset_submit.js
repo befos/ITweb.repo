@@ -19,32 +19,47 @@ router.post('/', function(req, res, next) {
     var salt = randword.method(10);
     var passhash = createhash.method(password, salt, STRETCH);
     var uid = req.session.one_shot_id;
+    var string = '変更';
     User.find({uid:uid},function(err,result){
+        if(err) return hadDbError(err, req, res);
         if(result){
             if (result.length === 0) {
                 console.log("nosuch"); //見つからなかった場合の処理(時間外)
-                req.session.error_status = 5;
-                res.redirect('/password_reset');
-                mongoose.disconnect();
+                return hadUrlError(req, res);
             }else{
                 if(result[0].ac_reset !== true){
-                    req.session.error_status = 5;
-                    res.redirect('/password_reset');
-                    mongoose.disconnect();
+                    //不正なアクセス（リセットフラグが立ってないのにアクセス）
+                    return hadUrlError(req, res);
                 }
-                User.update({uid:uid},{$set:{hashpass:passhash,ac_reset:false,salt:salt}},function(err){
+                if(result[0].ac_st === false){
+                    //もし認証が済んでいなかったらついでに認証も済ませる
+                    string ='認証及び変更'
+                }
+                User.update({uid:uid},{$set:{hashpass:passhash,　ac_reset:false,　salt:salt, ac_st:true}},function(err){
+                    if(err) return hadDbError(err, req, res);
                     if(!err){
                         req.session.one_shot_id = null;
-                        res.render('password_reset_submit');
+                        res.render('password_reset_submit', {string:string});
                         mongoose.disconnect();
                     }
                 });
             }
-            if(err){
-                mongoose.disconnect();
-            }
         }
     });
 });
+
+//エラーハンドル
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
+    res.redirect('/password_reset');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/password_reset');
+    mongoose.disconnect();
+}
 
 module.exports = router;
