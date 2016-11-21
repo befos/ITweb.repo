@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
                                     var passhash = createhash.method(password, salt, STRETCH);
                                     if (dbpass === passhash) {
                                         req.session.error_status = 0;
-                                        req.session.user_id = id;
+                                        req.session.user_id = result[0].uid;
                                         res.redirect('/mypage');
                                         mongoose.disconnect();
                                     } else {
@@ -45,6 +45,12 @@ router.post('/', function(req, res, next) {
                                         mongoose.disconnect();
                                     }
                                 }
+                            }
+                            if(err){
+                                console.log(err);
+                                req.session.error_status = 6;
+                                res.redirect('/login');
+                                mongoose.disconnect();
                             }
                         });
                     } else {//Emailaddressが見つかった
