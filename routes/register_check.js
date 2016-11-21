@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
                     res.redirect('/register');
                     mongoose.disconnect();
                 }
-                User.find({_id: Email}, function(err, result) {
+                User.find({email: Email}, function(err, result) {
                         if (result) {
                             if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                                 console.log("nosuch"); //見つからなかった場合の処理（新規作衛）

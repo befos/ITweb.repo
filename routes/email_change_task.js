@@ -37,7 +37,7 @@ router.post('/', function(req, res, next) {
             '有効時間後は再度パスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({email:email},function(err, result){
+    User.find({_id:email},function(err, result){
       if(result){
           if (result.length === 0) {
               req.session.error_status = 1;//入力されたメールアドレスは存在しません
@@ -49,10 +49,10 @@ router.post('/', function(req, res, next) {
                   res.redirect('/password_reset');
                   mongoose.disconnect();
               }
-              var dbemail = result[0].email;
-              User.update({email:dbemail}, {$set:{ac_reset:true}},function(err){
+              var dbemail = result[0]._id;
+              User.update({_id:dbemail}, {$set:{ac_reset:true}},function(err){
                   if(!err){
-                      User.update({email:dbemail},{$set:{url_pass:url_pass}},function(err){
+                      User.update({_id:dbemail},{$set:{url_pass:url_pass}},function(err){
                         if(!err){
                             //この下からメールを送信する処理
                             var transporter = mailer.createTransport(({ //SMTPの接続

@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
                     mongoose.disconnect();
                 } else {
                     //見つかった
-                    var email = result[0]._id;
+                    var email = result[0].email;
                     var status = result[0].ac_st;
                     if(status === true){
                       req.session.error_status = 3;
@@ -32,9 +32,9 @@ router.get('/', function(req, res, next) {
                       res.redirect('/login');
                       mongoose.disconnect();
                     }
-                    User.update({_id: email},{$set: {ac_use:true}},function(err){
+                    User.update({email: email},{$set: {ac_use:true}},function(err){
                       if(!err){
-                        User.update({_id: email},{$set: {ac_st:true}},function(err){
+                        User.update({email: email},{$set: {ac_st:true}},function(err){
                           if(!err){
                             console.log("Acitvete account");
                             req.session.error_status = 0;

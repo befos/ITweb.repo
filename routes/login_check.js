@@ -15,7 +15,7 @@ router.post('/', function(req, res, next) {
     if (req.body.id !== null && req.body.password !== null) {
         var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
         var password = req.body.password; //上と同じ
-        User.find({_id: id}, function(err, result) {
+        User.find({email: id}, function(err, result) {
                 if (result) {
                     if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                         console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）

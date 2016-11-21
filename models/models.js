@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Users = new Schema({
-  _id: String,//Email(被りなし)
+  email: String,//Email(被りなし?)
   uid: String,//uid(被りなし)
   age: Number,//年齢
   sex: {type: Number, min:0, max:1},//0男性 1女性

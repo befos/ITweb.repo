@@ -42,7 +42,7 @@ router.post('/', function(req, res, next) {
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({_id: email}, function(err, result) {
+    User.find({email: email}, function(err, result) {
             if (result) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                     console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
                                 var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
                                 console.log(regetime);
                                 var onetimeuser = new User({
-                                  _id: email,
+                                  email: email,
                                   uid: id,
                                   age: null,
                                   sex: null,

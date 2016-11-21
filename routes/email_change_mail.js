@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
 
-var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
+var URL = 'http://localhost:8080/email_change_task?';//メール認証用のURL
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -27,17 +27,18 @@ router.post('/', function(req, res, next) {
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var email = req.body.id;
+    var uid = req.body.uid;
     var url_pass = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
-        subject: 'パスワードのリセットについて',
-        html: '以下のアドレスからパスワードのリセットを行ってください。<br>' +
+        subject: 'メールアドレスの変更について',
+        html: '以下のアドレスからメールアドレスの変更を行ってください。<br>' +
             'アドレスの有効時間は10分間です。<br>' +
             '有効時間後は再度パスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({email:email},function(err, result){
+    User.find({uid:uid},function(err, result){
       if(result){
           if (result.length === 0) {
               req.session.error_status = 1;//入力されたメールアドレスは存在しません
