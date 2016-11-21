@@ -38,8 +38,8 @@ router.post('/', function(req, res, next) {
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
         subject: 'Stichies本登録について',
-        html: '以下のアドレスからアカウトを有効にしてください。<br>' +
-            'アドレスの有効時間は'+ MINUTES +'分間です。<br>' +
+        html: '以下のURLからアカウトを有効にしてください。<br>' +
+            'URLの有効時間は'+ MINUTES +'分間です。<br>' +
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };

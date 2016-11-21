@@ -24,9 +24,7 @@ router.get('/', function(req, res, next) {
         if (result) {
             if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                 console.log("nosuch"); //見つからなかった場合の処理(時間外)
-                req.session.error_status = 5;
-                res.redirect('/password_reset');
-                mongoose.disconnect();
+                return hadUrlError(req, res);
             } else {
                 //見つかった
                 var expiretime = result[0].regest;

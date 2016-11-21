@@ -58,6 +58,10 @@ app.use('/password_reset', routes.password_reset);
 app.use('/password_reset_mail', routes.password_reset_mail);
 app.use('/password_reset_regene', routes.password_reset_regene);
 app.use('/password_reset_submit', routes.password_reset_submit);
+app.use('/email_change', routes.email_change);
+app.use('/email_change_mail', routes.email_change_mail);
+app.use('/email_change_task', routes.email_change_task);
+app.use('/email_change_submit', routes.email_change_submit);
 app.use('/success', routes.success);
 
 

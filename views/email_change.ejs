@@ -3,9 +3,6 @@
 <head>
    <meta charset="UTF-8">
    <script type="text/javascript">
-      /*
-      * 登録前チェック
-      */
       function conrimMessage() {
         var id = document.getElementById("id").value;
 
@@ -22,7 +19,7 @@
 </head>
   <body>
   <h1>メールアドレス変更画面</h1>
-  <form action="/password_reset_mail" method="post" onsubmit="return conrimMessage();">
+  <form action="/email_change_mail" method="post" onsubmit="return conrimMessage();">
   <table border="0">
     <tr>
       <td><input type="text" name="uid" id="id" placeholder="ユーザーIDを入力"></td>

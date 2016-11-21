@@ -33,8 +33,8 @@ router.post('/', function(req, res, next) {
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
         subject: 'パスワードのリセットについて',
-        html: '以下のアドレスからパスワードのリセットを行ってください。<br>' +
-            'アドレスの有効時間は'+ MINUTES +'分間です。<br>' +
+        html: '以下のURLからパスワードのリセットを行ってください。<br>' +
+            'URLの有効時間は'+ MINUTES +'分間です。<br>' +
             '有効時間後は再度パスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
@@ -42,15 +42,8 @@ router.post('/', function(req, res, next) {
         if(err) return hadDbError(err, res, req);
         if(result){
           if (result.length === 0) {
-              req.session.error_status = 1;//入力されたメールアドレスは存在しません
-              res.redirect('/password_reset');
-              mongoose.disconnect();
+              return hadInputdataError(req, res);
           }else{
-              if(result[0].ac_reset === true){
-                  req.session.error_status = 4;
-                  res.redirect('/password_reset');
-                  mongoose.disconnect();
-              }
               var dbemail = result[0].email;
               var dt = new Date();
               dt.setMinutes(dt.getMinutes() + MINUTES);
@@ -85,6 +78,12 @@ router.post('/', function(req, res, next) {
 });
 
 //エラーハンドル
+function hadInputdataError(req, res){
+    req.session.error_status = 1;
+    res.redirect('/password_reset');
+    mongoose.disconnect();
+}
+
 function hadSendmailError(err, req, res, resp){
     console.log(err);
     req.session.error_status = 4;

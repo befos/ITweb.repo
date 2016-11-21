@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
                         console.log('URL error');
                         return hadUrlError(req, res);
                     }
-                    User.update({email: email},{$set: {ac_use:true,ac_st:true}},function(err){
+                    User.update({email: email},{$set: {ac_st:true}},function(err){
                         if(err) return hadDbError(err, req, res);
                         if(!err){
                             console.log("Acitvete account");

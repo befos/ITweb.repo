@@ -3,91 +3,62 @@ var router = express.Router();
 var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
-var mailer = require('nodemailer');
-var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
-    user: 'stichies01@gmail.com',
-    clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
-    clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
-    refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
-});
+var url = require('url');
+require('date-utils');
 
 //データベース接続および設定
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
 
-var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
+var STRETCH = 10000; //パスワードをストレッチする際の回数
 
-generator.on('token', function(token) {
-    console.log('New token for %s: %s', token.user, token.accessToken);
-});
-
-router.post('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata');
-    req.session.error_status = 0;
-    //formから飛ばされた情報を受け取って変数に格納
-    var email = req.body.id;
-    var url_pass = sha256(randword.method(16));
-    var mailOptions = { //メールの送信内容
-        from: 'Stichies運営<stichies01@gmail.com>',
-        to: email,
-        subject: 'パスワードのリセットについて',
-        html: '以下のアドレスからパスワードのリセットを行ってください。<br>' +
-            'アドレスの有効時間は10分間です。<br>' +
-            '有効時間後は再度パスワードのリセットを行ってください。<br>' +
-            URL + url_pass + '<br><br>'
-    };
-    User.find({_id:email},function(err, result){
-      if(result){
-          if (result.length === 0) {
-              req.session.error_status = 1;//入力されたメールアドレスは存在しません
-              res.redirect('/password_reset');
-              mongoose.disconnect();
-          }else{
-              if(result[0].ac_reset === true){
-                  req.session.error_status = 4;
-                  res.redirect('/password_reset');
-                  mongoose.disconnect();
-              }
-              var dbemail = result[0]._id;
-              User.update({_id:dbemail}, {$set:{ac_reset:true}},function(err){
-                  if(!err){
-                      User.update({_id:dbemail},{$set:{url_pass:url_pass}},function(err){
-                        if(!err){
-                            //この下からメールを送信する処理
-                            var transporter = mailer.createTransport(({ //SMTPの接続
-                                service: 'gmail',
-                                auth: {
-                                    xoauth2: generator
-                                }
-                            }));
-                            transporter.sendMail(mailOptions, function(err, res) { //メールの送信
-                            if (err) { //送信に失敗したとき
-                                console.log(err);
-                                res.redirect('/password_reset');
-                                req.session.error_status = 4;
-                                mongoose.disconnect();
-                            }
-                            if (!err) { //送信に成功したとき
-                                console.log('Message sent');
-                            }
-                            transporter.close(); //SMTPの切断
-                            });
-                            res.render('password_reset_mail');
-                            mongoose.disconnect();
-                        }
-                      });
-                  }
-              });
-          }
-      }
-      if(err){
-          console.log(err);
-          req.sessin.error_status = 6;
-          res.redirect('/password_reset');
-          mongoose.disconnect();
-      }
+    var u = url.parse(req.url, false);
+    var dt = new Date();
+    var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+    console.log(u.query);
+    User.find({url_pass:u.query}, function(err, result) {
+        if(err) return hadDbError(err, req, res);
+        if (result) {
+            if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
+                console.log("nosuch"); //見つからなかった場合の処理(時間外)
+                return hadUrlError(req, res);
+            } else {
+                //見つかった
+                var expiretime = result[0].ect;
+                var change = result[0].ac_ec;
+                if(change === false){
+                  console.log('WTF!');
+                  return hadUrlError(req, res);
+                }
+                if(expiretime <= dt){
+                    console.log('URL error');
+                    return hadUrlError(req, res);
+                }
+                var email = result[0].cemail;
+                var id = result[0].uid;
+                res.render('email_change_task',{reqCsrf:req.csrfToken(), email:email, uid:id});
+                mongoose.disconnect();
+            }
+        }
     });
 });
+
+//エラーハンドラー
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
+    res.redirect('/email_change');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/email_change');
+    mongoose.disconnect();
+}
+
 
 module.exports = router;

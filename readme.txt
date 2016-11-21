@@ -35,7 +35,7 @@ var hoge = models.hoge;//スキーマの参照
           }
     });
 
-  セッション
+ セッション
   ~connect-mongo + express-session~
   var ConnectMongoDB = require('connect-mongo')(session);
   var store = new ConnectMongoDB({ //セッション管理用DB接続設定
