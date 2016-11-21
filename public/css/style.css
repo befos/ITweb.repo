@@ -1,10 +1,12 @@
 /* Copyright 2014-2015 Twitter, Inc.*/
 /* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
+
 html, body {
     background-color: #FFF;
     min-height: 680px;
     min-width: 1100px;
 }
+/*トップ画像のスタイル*/
 .topimg {
     display: block;
     min-height: 680px;
@@ -15,6 +17,7 @@ html, body {
     top: 10px;
     position: absolute;
 }
+/*トップ画像の中のグレイのボックス*/
 .glaybox {
     display: none;
     position: absolute;
@@ -24,59 +27,62 @@ html, body {
     margin: 80px 0 0 30px;
     padding: 20px;
 }
+/*タイトルの文字*/
 .title {
     text-align: center;
     color: #FFF;
     font-size: 12vw;
 }
+/*タイトルの下の文字*/
 .title_text {
     text-align: center;
     color: #FFF;
     font-size: 4vw;
     margin-left: 50px;
 }
+/*一つ一つのフォームの区切り*/
 .form-group {
     display: block;
     min-width: 1024px;
     width: 100%;
 }
+/*トップの部分がabsoluteなのでその分のスペース*/
 .top_space {
     display: block;
     position: relative;
     height: 200px;
 }
-.label_form {
-    color: #FFF;
-}
-.label_form2 {
-    color: #000;
-}
+/*フォームラベルの画像*/
 .icon {
     font-size: 20px;
+    color: #FFF;
 }
-/*コンテンツごとの設定*/
+/*メインコンテンツ全体の設定*/
 .description {
     display: block;
     position: relative;
     width: 90%;
     margin: 400px 5% 0 5%;
 }
-.description_sg{
-  display: block;
-  text-align: center;
-
+/*コンテンツ一つ一つの設定*/
+.description_sg {
+    display: block;
+    text-align: center;
 }
-.description_sg img{
-  float: left;
+/*コンテンツの画像の設定*/
+.description_sg img {
+    float: left;
     width: 40%;
     height: 15%;
     padding-bottom: 100px;
 }
-.description_sg p{
+/*コンテンツの文書の設定*/
+.description_sg p {
     margin-top: 40px;
     font-size: 20px;
 }
-/* トップへ戻るボタン*/
+
+/*---------トップへ戻るボタン----------*/
 .toTop {
     position: fixed;
     bottom: 0;
@@ -104,4 +110,4 @@ html, body {
         border-radius: 25px 0 0 25px;
     }
 }
-/*---------------------*/
+/*-----------------------------------*/
