@@ -50,6 +50,12 @@ router.post('/', function(req, res, next) {
                                 mongoose.disconnect();
                             }
                         }
+                        if(err){
+                            console.log(err);
+                            req.session.error_status = 6;
+                            res.redirect('/register');
+                            mongoose.disconnect();
+                        }
                 });
         } else {
               res.redirect('/register'); //もし（多分無いが）送られてきたフォームの要素が欠けていたら

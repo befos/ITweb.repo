@@ -4,3 +4,5 @@ error_status 2 //入力されたIDまたはアドレスは登録済みです
 error_status 3 //このアカウントは承認済みです
 error_status 4 //メールの送信に失敗しました
 error_status 5 //URLが不正です
+error_status 6 //DBのエラーです
+error_status 7 //パスワードリセットが要求済みです
