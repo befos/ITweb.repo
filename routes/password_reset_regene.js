@@ -41,6 +41,9 @@ router.get('/', function(req, res, next) {
                 }
             }
             if(err){
+                console.log(err);
+                req.session.error_status =6;
+                res.redirect('/password_reset');
                 mongoose.disconnect();
             }
     });

@@ -113,6 +113,9 @@ router.post('/', function(req, res, next) {
                 }
             }
             if(err){
+                console.log(err);
+                req.session.error_status = 6;
+                res.redirect('/register');
                 mongoose.disconnect();
             }
     });

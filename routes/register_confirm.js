@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
                     var status = result[0].ac_st;
                     if(status === true){
                       req.session.error_status = 3;
-                      console.log('this account Activeted');
+                      console.log('This account activeted');
                       res.redirect('/login');
                       mongoose.disconnect();
                     }
@@ -48,6 +48,8 @@ router.get('/', function(req, res, next) {
             }
             if(err){
                 console.log(err);
+                req.session.error_status = 6;
+                res.redirect('/register');
                 mongoose.disconnect();
             }
     });

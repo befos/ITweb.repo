@@ -44,6 +44,11 @@ router.post('/', function(req, res, next) {
               res.redirect('/password_reset');
               mongoose.disconnect();
           }else{
+              if(result[0].ac_reset === true){
+                  req.session.error_status = 4;
+                  res.redirect('/password_reset');
+                  mongoose.disconnect();
+              }
               var dbemail = result[0]._id;
               User.update({_id:dbemail}, {$set:{ac_reset:true}},function(err){
                   if(!err){
@@ -75,6 +80,12 @@ router.post('/', function(req, res, next) {
                   }
               });
           }
+      }
+      if(err){
+          console.log(err);
+          req.sessin.error_status = 6;
+          res.redirect('/password_reset');
+          mongoose.disconnect();
       }
     });
 });

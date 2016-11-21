@@ -67,6 +67,12 @@ router.post('/', function(req, res, next) {
                         }
                     }
                   }
+                  if(err){
+                      console.log(err);
+                      req.session.error_status = 6;
+                      res.redirect('/login');
+                      mongoose.disconnect();
+                  }
         });
     } else {
         res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
