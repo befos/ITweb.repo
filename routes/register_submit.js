@@ -82,8 +82,8 @@ router.post('/', function(req, res, next) {
                                     transporter.sendMail(mailOptions, function(err, res) { //メールの送信
                                         if (err) { //送信に失敗したとき
                                             console.log(err);
-                                            res.redirect('/register');
                                             req.session.error_status = 4;
+                                            res.redirect('/register');
                                             mongoose.disconnect();
                                         }
                                         if (!err) { //送信に成功したとき
@@ -91,8 +91,8 @@ router.post('/', function(req, res, next) {
                                         }
                                         transporter.close(); //SMTPの切断
                                     });
-                                    res.render('register_submit');
                                     req.session.error_status = 0;
+                                    res.render('register_submit');
                                     mongoose.disconnect();
                                   }
                                 });
@@ -106,11 +106,14 @@ router.post('/', function(req, res, next) {
                         }
                     });
                 } else {
-                    console.log("suchdoc Removepage");
+                    console.log("such email");
                     req.session.error_status = 2;
                     res.redirect('/register');
                     mongoose.disconnect();
                 }
+            }
+            if(err){
+                mongoose.disconnect();
             }
     });
 });

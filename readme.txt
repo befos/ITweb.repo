@@ -23,24 +23,24 @@ var hoge = models.hoge;//スキーマの参照
   mongoose.connect('mongodb://localhost:27017/userdata');//接続先のDB
   hoge.find({url_pass:u.query}, function(err, result) {
           if (result) {
-              if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
-                  console.log("nosuch"); //見つからなかった場合の処理(時間外)
+              if (result.length === 0) {//result.length === 0とはデータが見つからない状態を表す
+                  console.log("nosuch");
                   req.session.error_status = 1;
                   res.redirect('/register');
-                  mongoose.disconnect(); //最後に絶対disconnectする事   
+                  mongoose.disconnect(); //最後に絶対disconnectする事
               }
+          }
+          if(err){
+            mongoose.disconnect(); //エラー後にもつけておくと安心
           }
     });
 
   セッション
-  ~connect-couchdb + express-session~
-  var connect = require('connect');
-  var ConnectCouchDB = require('connect-couchdb')(session);
-  var store = new ConnectCouchDB({ //セッション管理用DB接続設定
-    name: 'sessiondata',
-    username: '',
-    password: '',
-    host: 'localhost',
+  ~connect-mongo + express-session~
+  var ConnectMongoDB = require('connect-mongo')(session);
+  var store = new ConnectMongoDB({ //セッション管理用DB接続設定
+      url: 'mongodb://localhost:27017/sessiondata',
+      ttl: 60 * 60 //1hour
   });
   app.use(session({         // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho',               // 符号化。改ざんを防ぐ
@@ -71,3 +71,6 @@ nodeやnpmのエラー対処
     $ npm install -g npm
    その3 node.js　インストール時に死にかけたら
    sudo apt-get install nodejs-legacy
+
+ Socket hung up　のエラーが出た場合
+   セキュリティソフトが悪さをしている可能性が高い

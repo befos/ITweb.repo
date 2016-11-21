@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
                     mongoose.disconnect();
                 } else {
                     //見つかった
-                    if(reset == false){
+                    if(reset === false){
                       req.session.error_status = 3;
                       console.log('WTF!');
                       res.redirect('/password_reset');
@@ -39,6 +39,9 @@ router.get('/', function(req, res, next) {
                     res.render('password_reset_regene',{reqCsrf:req.csrfToken()});
                     mongoose.disconnect();
                 }
+            }
+            if(err){
+                mongoose.disconnect();
             }
     });
 });

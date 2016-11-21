@@ -8,7 +8,7 @@ body {
     font-family: Verdana, Helvetica, sans-serif;
     color: #333;
     letter-spacing: 1px;
-    background: #fff url(../../img/bg_body.gif) 0 0 repeat-x;
+    background: #fff url(../../img/) 0 0 repeat-x;
 }
 
 br {
