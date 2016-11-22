@@ -1,8 +1,32 @@
-var express = require('express');
-var router = express.Router();
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+</head>
 
-router.get('/', function(req, res, next) {
+<body>
+  <h1>勉強会募集情報入力画面</h1>
+  <form action="/register_check" method="post" onsubmit="return conrimMessage();">
+  <table border="0">
+    <tr>
+      <td><input type="text" name="uid" placeholder="ユーザーIDを入力"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="mname" placeholder="勉強会の名前を入力"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="place" placeholder="開催場所を入力"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="" placeholder=""></td>
+    </tr>
 
-});
+  </table>
+  <input type="submit" value="登録">
+  <input type="reset" value="リセット">
+  <input type="button" value="戻る" onclick="history.back();">
+  <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
+  </form>
+  </body>
 
-module.exports = router;
+</html>

@@ -24,7 +24,7 @@ var Users = new Schema({
   cemail: String//変更時に一時的にEメールアドレスを保存
 },{ collection: 'user'});
 
-var StudyM = new schema({
+var StudyM = new Schema({
     mname: String,//勉強会の名前
     host: String,//主催者の名前(uidと紐付け)
     place: String,//場所
@@ -33,7 +33,7 @@ var StudyM = new schema({
     mday: Date, //勉強会開催日
     cont: String,//勉強会の募集内容
     m_st: {type:Boolean, default:true},//勉強会の募集状態(終わったらfalse)
-    menber: [String]
+    menber: [String]//uidで管理
 },{ collection: 'studymeeting'});
 
 mongoose.Promise = global.Promise;
