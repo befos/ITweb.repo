@@ -19,6 +19,7 @@ var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
 var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
+var MINUTES = 10;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -37,24 +38,28 @@ router.post('/', function(req, res, next) {
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
         subject: 'Stichies本登録について',
-        html: '以下のアドレスからアカウトを有効にしてください。<br>' +
-            'アドレスの有効時間は10分間です。<br>' +
+        html: '以下のURLからアカウトを有効にしてください。<br>' +
+            'URLの有効時間は'+ MINUTES +'分間です。<br>' +
             '有効時間後はアカウントの作り直しを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({_id: email}, function(err, result) {
+    User.find({email: email}, function(err, result) {
+        if(err) return hadDbError(err, req, res);
             if (result) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                     console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
                     User.find({uid: id}, function(err, result) {
+                        if (err) return hadDbError(err, req, res);
                         if (result) {
                             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                                 var dt = new Date();
+                                dt.setMinutes(dt.getMinutes() + MINUTES);
                                 var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
                                 console.log(regetime);
                                 var onetimeuser = new User({
-                                  _id: email,
+                                  email: email,
                                   uid: id,
+                                  name: null,
                                   age: null,
                                   sex: null,
                                   work: null,
@@ -65,10 +70,12 @@ router.post('/', function(req, res, next) {
                                   salt: salt,
                                   url_pass: url_pass,
                                   regest: regetime,
+                                  regentime: null,
                                   chpst: null,
                                   ac_st: false,
                                   ac_use: false,
-                                  ac_reset: false
+                                  ac_reset: false,
+                                  ac_ec: false
                                 });
                                 onetimeuser.save(function(err) {
                                   if(!err){
@@ -79,12 +86,9 @@ router.post('/', function(req, res, next) {
                                             xoauth2: generator
                                         }
                                     }));
-                                    transporter.sendMail(mailOptions, function(err, res) { //メールの送信
+                                    transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
                                         if (err) { //送信に失敗したとき
-                                            console.log(err);
-                                            req.session.error_status = 4;
-                                            res.redirect('/register');
-                                            mongoose.disconnect();
+                                            return hadSendmailError(err, req, res, resp);
                                         }
                                         if (!err) { //送信に成功したとき
                                             console.log('Message sent');
@@ -99,26 +103,37 @@ router.post('/', function(req, res, next) {
                             } else {
                                 //uidがかぶっているのでリダイレクト
                                 console.log("such uid");
-                                req.session.error_status = 2;
-                                res.redirect('/register');
-                                mongoose.disconnect();
+                                hadOverlapError(req, res);
                             }
                         }
                     });
                 } else {
                     console.log("such email");
-                    req.session.error_status = 2;
-                    res.redirect('/register');
-                    mongoose.disconnect();
+                    hadOverlapError(req, res);
                 }
-            }
-            if(err){
-                console.log(err);
-                req.session.error_status = 6;
-                res.redirect('/register');
-                mongoose.disconnect();
             }
     });
 });
+
+//エラーハンドル
+function hadOverlapError(req ,res){
+    req.session.error_status = 2;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadSendmailError(err, req, res, resp){
+    console.log(err);
+    req.session.error_status = 4;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
 
 module.exports = router;

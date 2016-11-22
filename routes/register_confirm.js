@@ -16,43 +16,61 @@ router.get('/', function(req, res, next) {
     console.log(u.query);
     var one_shot_query = u.query;
     User.find({url_pass:one_shot_query}, function(err, result) {
+            if(err) return hadDbError(err, res);
             if (result) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                     console.log("nosuch url_pass"); //見つからなかった場合の処理(時間外)
-                    req.session.error_status = 5;
-                    res.redirect('/register');
-                    mongoose.disconnect();
+                    return hadUrlError(req, res);
                 } else {
                     //見つかった
-                    var email = result[0]._id;
+                    var email = result[0].email;
                     var status = result[0].ac_st;
+                    var expiretime = result[0].regest;
                     if(status === true){
-                      req.session.error_status = 3;
-                      console.log('This account activeted');
-                      res.redirect('/login');
-                      mongoose.disconnect();
+                        console.log('This account activeted');
+                        return hadActivatedError(req, res);
                     }
-                    User.update({_id: email},{$set: {ac_use:true}},function(err){
-                      if(!err){
-                        User.update({_id: email},{$set: {ac_st:true}},function(err){
-                          if(!err){
+                    if(expiretime <= dt){
+                        console.log('URL error');
+                        return hadUrlError(req, res);
+                    }
+                    User.update({email: email},{$set: {ac_st:true}},function(err){
+                        if(err) return hadDbError(err, req, res);
+                        if(!err){
                             console.log("Acitvete account");
                             req.session.error_status = 0;
                             res.render('register_confirm');
                             mongoose.disconnect();
-                          }
+                        }
                         });
-                      }
-                    });
                 }
-            }
-            if(err){
-                console.log(err);
-                req.session.error_status = 6;
-                res.redirect('/register');
-                mongoose.disconnect();
             }
     });
 });
+
+//エラーハンドラー
+function hadActivatedError(req, res){
+    req.session.error_status = 3;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
+
+
+
+
 
 module.exports = router;

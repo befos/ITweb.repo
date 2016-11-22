@@ -30,7 +30,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想ディレクトリを作成
 app.use(session({ // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
@@ -58,10 +58,14 @@ app.use('/password_reset', routes.password_reset);
 app.use('/password_reset_mail', routes.password_reset_mail);
 app.use('/password_reset_regene', routes.password_reset_regene);
 app.use('/password_reset_submit', routes.password_reset_submit);
+app.use('/email_change', routes.email_change);
+app.use('/email_change_mail', routes.email_change_mail);
+app.use('/email_change_task', routes.email_change_task);
+app.use('/email_change_submit', routes.email_change_submit);
 app.use('/success', routes.success);
 
 
-// 404が返ってきた場合の処理
+//ミドルウェアを使いつくしたので404を生成
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;

@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
 
-var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
+var URL = 'http://localhost:8080/email_change_task?';//メール認証用のURL
 var MINUTES = 10;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
@@ -28,29 +28,33 @@ router.post('/', function(req, res, next) {
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var email = req.body.id;
+    var uid = req.body.uid;
     var url_pass = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
-        subject: 'パスワードのリセットについて',
-        html: '以下のURLからパスワードのリセットを行ってください。<br>' +
+        subject: 'メールアドレスの変更について',
+        html: '以下のURLからメールアドレスの変更を行ってください。<br>' +
             'URLの有効時間は'+ MINUTES +'分間です。<br>' +
-            '有効時間後は再度パスワードのリセットを行ってください。<br>' +
+            '有効時間後は再度メールアドレスの変更を行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({email:email},function(err, result){
+    User.find({uid:uid},function(err, result){
         if(err) return hadDbError(err, res, req);
         if(result){
           if (result.length === 0) {
-              return hadInputdataError(req, res);
+             return hadInputdataError(req, res);
           }else{
-              var dbemail = result[0].email;
+              if(result[0].email == email){
+                  //変更後と変更前が同じ場合
+                  return hadInputdataError(req, res);
+              }
               var dt = new Date();
               dt.setMinutes(dt.getMinutes() + MINUTES);
-              var regentime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
-              console.log(regentime);
-              User.update({email:dbemail}, {$set:{ac_reset:true, url_pass:url_pass,regent:regentime}},{safe:true},function(err){
-                  if(err) return hadError(err, res, req);
+              var ect = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
+              console.log(ect);
+              User.update({uid:uid}, {$set:{ac_ec:true, url_pass:url_pass, ect:ect, cemail:email}},{safe:true},function(err){
+                  if(err) return hadDbError(err, res, req);
                   if(!err){
                         //この下からメールを送信する処理
                         var transporter = mailer.createTransport(({ //SMTPの接続
@@ -68,7 +72,7 @@ router.post('/', function(req, res, next) {
                         }
                         transporter.close(); //SMTPの切断
                         });
-                        res.render('password_reset_mail');
+                        res.render('email_change_mail');
                         mongoose.disconnect();
                   }
               });
@@ -80,21 +84,21 @@ router.post('/', function(req, res, next) {
 //エラーハンドル
 function hadInputdataError(req, res){
     req.session.error_status = 1;
-    res.redirect('/password_reset');
+    res.redirect('/email_change');
     mongoose.disconnect();
 }
 
 function hadSendmailError(err, req, res, resp){
     console.log(err);
     req.session.error_status = 4;
-    res.redirect('/password_reset');
+    res.redirect('/email_change');
     mongoose.disconnect();
 }
 
 function hadDbError(err, res, req){
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/password_reset');
+    res.redirect('/email_change');
     mongoose.disconnect();
 }
 

@@ -1,5 +1,6 @@
 ITweb.repoのファイル構造についての説明
   bin //サーバー起動時のリッスンポートなどについて記述したファイルを入れるディレクトリ
+  models //db用のスキーマが入っているディレクトリ
   node_modules //触らないで。
   public //静的コンテンツを配置するディレクトリ(.html,.css,.js)(htmlファイルはpublic直下に置く)
   routes //ルーティングに関するファイルを配置
@@ -35,7 +36,7 @@ var hoge = models.hoge;//スキーマの参照
           }
     });
 
-  セッション
+ セッション
   ~connect-mongo + express-session~
   var ConnectMongoDB = require('connect-mongo')(session);
   var store = new ConnectMongoDB({ //セッション管理用DB接続設定

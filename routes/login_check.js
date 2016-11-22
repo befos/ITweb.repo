@@ -15,11 +15,13 @@ router.post('/', function(req, res, next) {
     if (req.body.id !== null && req.body.password !== null) {
         var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
         var password = req.body.password; //上と同じ
-        User.find({_id: id}, function(err, result) {
+        User.find({email: id}, function(err, result) {
+                if(err) return hadDbError(err, req, res);
                 if (result) {
                     if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                         console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）
                         User.find({uid: id}, function(err, result) {
+                            if(err) return hadDbError(err, req, res);
                             if (result) {
                                 if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                                     req.session.error_status = 1;
@@ -28,29 +30,35 @@ router.post('/', function(req, res, next) {
                                 } else {
                                     //uidが見つかった
                                     console.log("such uid");
-                                    //認証フェーズ
                                     var dbpass = result[0].hashpass;
                                     var salt = result[0].salt;
                                     var account_status = result[0].ac_st;
                                     var passhash = createhash.method(password, salt, STRETCH);
+                                    if(account_status === false){//本登録が済んでいなかったらリダイレクト
+                                        return hadLoginError(req, res);
+                                    }
+                                    //認証フェーズ
                                     if (dbpass === passhash) {
-                                        req.session.error_status = 0;
-                                        req.session.user_id = result[0].uid;
-                                        res.redirect('/mypage');
-                                        mongoose.disconnect();
+                                        User.update({uid:id},{$set:{ac_use:true}},function(err){
+                                            if(err) return hadDbError(err, req, res);
+                                            if(!err){
+                                                req.session.regenerate(function(err){
+                                                    if(err) return hadSessionError(err, req, res);
+                                                    if(!err){
+                                                        req.session.error_status = 0;
+                                                        req.session.user_id = id;
+                                                        req.session.user_email = result[0].email;
+                                                        res.redirect('/mypage');
+                                                        mongoose.disconnect();
+                                                    }
+                                                });
+                                            }
+                                        });
                                     } else {
                                         //IDは見つかったがパスワードが一致しない
-                                        req.session.error_status = 1;
-                                        res.redirect('/login');
-                                        mongoose.disconnect();
+                                        return hadInputdataError(req, res);
                                     }
                                 }
-                            }
-                            if(err){
-                                console.log(err);
-                                req.session.error_status = 6;
-                                res.redirect('/login');
-                                mongoose.disconnect();
                             }
                         });
                     } else {//Emailaddressが見つかった
@@ -59,33 +67,65 @@ router.post('/', function(req, res, next) {
                         var salt = result[0].salt;
                         var account_status = result[0].ac_st;
                         var passhash = createhash.method(password, salt, STRETCH);
+                        if(account_status === false){//本登録が済んでいなかったらリダイレクト
+                            return hadLoginError(req, res);
+                        }
                         //認証フェーズ
                         if (dbpass === passhash && account_status === true) {
-                            req.session.error_status = 0;
-                            req.session.user_id = id;
-                            res.redirect('/mypage');
-                            mongoose.disconnect();
+                            User.update({email:id},{$set:{ac_use:true}},function(err){
+                                if(err) return hadDbError(err, req, res);
+                                if(!err){
+                                    req.session.regenerate(function(err){
+                                        if(err) return hadSessionError(err, req, res);
+                                        if(!err){
+                                            req.session.error_status = 0;
+                                            req.session.user_email = id;
+                                            req.session.user_id = result[0].uid;
+                                            res.redirect('/mypage');
+                                            mongoose.disconnect();
+                                        }
+                                    });
+
+                                }
+                            });
                         } else {
                             //IDは見つかったがパスワードが一致しない
-                            req.session.error_status = 1;
-                            res.redirect('/login');
-                            mongoose.disconnect();
+                            return hadInputdataError(req, res);
                         }
                     }
                   }
-                  if(err){
-                      console.log(err);
-                      req.session.error_status = 6;
-                      res.redirect('/login');
-                      mongoose.disconnect();
-                  }
         });
     } else {
-        res.redirect('/login');//フォームに情報が欠けているのでリダイレクト
-        req.session.error_status = 1;
-        mongoose.disconnect();
+        return hadInputdataError(req, res);
     }
 });
+
+//エラーハンドル
+function hadInputdataError(req, res){
+    req.session.error_status = 1;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadDbError(err, req, res){
+    console.log(err);
+    req.session.error_status = 6;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadSessionError(err, req, res){
+    console.log(err);
+    req.session.error_status = 8;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadLoginError(req, res){
+    req.session.error_status = 9;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
 
 
 module.exports = router;

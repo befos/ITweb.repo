@@ -27,9 +27,9 @@ router.get('/', function(req, res, next) {
                 return hadUrlError(req, res);
             } else {
                 //見つかった
-                var expiretime = result[0].regest;
-                var reset = result[0].ac_reset;
-                if(reset === false){
+                var expiretime = result[0].ect;
+                var change = result[0].ac_ec;
+                if(change === false){
                   console.log('WTF!');
                   return hadUrlError(req, res);
                 }
@@ -37,8 +37,9 @@ router.get('/', function(req, res, next) {
                     console.log('URL error');
                     return hadUrlError(req, res);
                 }
-                req.session.one_shot_id = result[0].uid;
-                res.render('password_reset_regene',{reqCsrf:req.csrfToken()});
+                var email = result[0].cemail;
+                var id = result[0].uid;
+                res.render('email_change_task',{reqCsrf:req.csrfToken(), email:email, uid:id});
                 mongoose.disconnect();
             }
         }
@@ -48,14 +49,14 @@ router.get('/', function(req, res, next) {
 //エラーハンドラー
 function hadUrlError(req ,res){
     req.session.error_status = 5;
-    res.redirect('/password_reset');
+    res.redirect('/email_change');
     mongoose.disconnect();
 }
 
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/password_reset');
+    res.redirect('/email_change');
     mongoose.disconnect();
 }
 
