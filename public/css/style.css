@@ -2,6 +2,8 @@
 /* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
 
 html, body {
+    font-family: "Hiragino Kaku Gothic Pro", sans-serif, "メイリオ", "Meiryo","游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
+    font-weight: 500;
     background-color: #FFF;
     min-height: 680px;
     min-width: 1100px;
@@ -81,7 +83,18 @@ html, body {
     margin-top: 40px;
     font-size: 20px;
 }
-
+/*問い合わせのコンテンツ設定------------*/
+.description_contact{
+  text-align: center;
+  margin: 80px 10% 0 10%;
+}
+.description_contact article{
+  margin:30px 5% 0 5%;
+}
+.description_contact > p{
+  margin-top: 20px;
+}
+/*---------------------------------------*/
 /*---------トップへ戻るボタン----------*/
 .toTop {
     position: fixed;
