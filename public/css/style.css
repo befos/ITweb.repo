@@ -2,7 +2,7 @@
 /* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
 
 html, body {
-    font-family: "Hiragino Kaku Gothic Pro", sans-serif, "メイリオ", "Meiryo","游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
+    font-family:  "メイリオ", "Hiragino Kaku Gothic Pro", sans-serif,"Meiryo","游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
     font-weight: 500;
     background-color: #FFF;
     min-height: 680px;
@@ -89,8 +89,8 @@ html, body {
 .description_sg h1 {
   padding-top: 30px;
 }
-.description_sg p {
-    margin-top: 40px;
+.description_sg  p {
+    margin-top: 20px;
     font-size: 20px;
 }
 /*問い合わせのコンテンツ設定------------*/
