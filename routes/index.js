@@ -20,9 +20,9 @@ var routes = {
     email_change_submit: require('./email_change_submit'),
     study_meeting_top: require('./study_meeting_top'),
     study_meeting: require('./study_meeting'),
-    study_meeting_confirem: require('./study_meeting_confirem'),
+    study_meeting_confirem: require('./study_meeting_confirm'),
     study_meeting_submit: require('./study_meeting_submit'),
-    study_meeting_view: requre('./study_meeting_view')
+    study_meeting_view: require('./study_meeting_view')
 };
 
 module.exports = routes;
