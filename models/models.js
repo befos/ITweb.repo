@@ -22,7 +22,19 @@ var Users = new Schema({
   ac_reset: {type:Boolean, default:false},//現在accountのパスワードがリセット状態にあるか
   ac_ec: {type:Boolean, default:false},//現在accountのemailが変更されようとしているか
   cemail: String//変更時に一時的にEメールアドレスを保存
-});
+},{ collection: 'user'});
+
+var StudyM = new Schema({
+    mname: String,//勉強会の名前
+    host: String,//主催者の名前(uidと紐付け)
+    place: String,//場所
+    cate: String,//カテゴリ
+    uday: {type: Date, dafault: Date.now},//投稿日
+    mday: Date, //勉強会開催日
+    cont: String,//勉強会の募集内容
+    m_st: {type:Boolean, default:true},//勉強会の募集状態(終わったらfalse)
+    menber: [String]//uidで管理
+},{ collection: 'studymeeting'});
 
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
