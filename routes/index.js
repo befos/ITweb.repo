@@ -22,7 +22,12 @@ var routes = {
     study_meeting: require('./study_meeting'),
     study_meeting_confirem: require('./study_meeting_confirm'),
     study_meeting_submit: require('./study_meeting_submit'),
-    study_meeting_view: require('./study_meeting_view')
+    study_meeting_view: require('./study_meeting_view'),
+    question_board_top: require('./question_board_top'),
+    question_board: require('./question_board'),
+    question_board_confirem: require('./question_board_confirm'),
+    question_board_submit: require('./question_board_submit'),
+    question_board_view: require('./question_board_view')
 };
 
 module.exports = routes;

@@ -62,10 +62,10 @@ app.use('/email_change', routes.email_change);
 app.use('/email_change_mail', routes.email_change_mail);
 app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
-app.use('/study_meeting_top', routes.study_meeting_top);
-app.use('/study_meeting', routes.study_meeting_confirem);
-app.use('/study_meeting_submit', routes.study_meeting_submit);
-app.use('/study_meeting_view', routes.study_meeting_view);
+app.use('/question_board_top', routes.question_board_top);
+app.use('/question_board', routes.question_board_confirem);
+app.use('/question_board_submit', routes.question_board_submit);
+app.use('/question_board_view', routes.question_board_view);
 app.use('/success', routes.success);
 
 
