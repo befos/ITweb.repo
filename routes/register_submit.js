@@ -75,9 +75,11 @@ router.post('/', function(req, res, next) {
                                   ac_st: false,
                                   ac_use: false,
                                   ac_reset: false,
-                                  ac_ec: false
+                                  ac_ec: false,
+                                  ac_gr: false
                                 });
                                 onetimeuser.save(function(err) {
+                                  if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)
                                   if(!err){
                                     //この下からメールを送信する処理
                                     var transporter = mailer.createTransport(({ //SMTPの接続

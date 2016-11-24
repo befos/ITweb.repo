@@ -39,15 +39,15 @@ var StudyM = new Schema({
 },{ collection: 'studymeeting'});
 
 var MGroup = new Schema({
-    gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
+    mgid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
     gname: String,//グループの名前
     host: String,//グループを作った人
-    cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)
+    cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)(追加して欲しい場合は申請してもらう)
     place: String,//活動範囲？
     gmday: Date,//グループを作成した日
-    menber: [String],//uidで管理
-    g_st: {type:Boolean, default:true}//グループの状態
-},{ collection: 'groupe'});
+    menberg: [String],//uidで管理
+    g_st: {type:Boolean, default:true}//グループの状態//親グループがfalseになった場合子グループもすべてfalse
+},{ collection: 'mgroup'});;
 
 Users.plugin(uniqueValidator);
 StudyM.plugin(uniqueValidator);
