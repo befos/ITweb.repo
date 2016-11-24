@@ -8,6 +8,7 @@ html, body {
     min-height: 680px;
     min-width: 1100px;
 }
+/*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
 .topimg {
     display: block;
@@ -57,7 +58,7 @@ html, body {
 .top_space_nav {
   display: block;
   position: relative;
-  height: 30px;
+  height: 50px;
 }
 /*フォームラベルの画像*/
 .icon {
@@ -93,10 +94,18 @@ html, body {
     margin-top: 20px;
     font-size: 20px;
 }
-/*問い合わせのコンテンツ設定------------*/
+/*------------問い合わせCSS-------------*/
+.header_img{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height:30%;
+  opacity: 0.5;
+}
 .description_contact{
+  position: relative;
   text-align: center;
-  margin: 80px 10% 0 10%;
+  margin: 60px 10% 0 10%;
 }
 .description_contact article{
   margin:30px 5% 0 5%;
@@ -107,8 +116,20 @@ html, body {
 .shadow{
   box-shadow: 0px 0px 10px 0px #000;
 }
-/*---------------------------------------*/
-/*---------トップへ戻るボタン----------*/
+/*-------------------------------------*/
+/*------------マイページCSS------------*/
+.mypage_main{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.mypage_sub{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+
+}
+/*---トップへ戻るボタン（全体）----------*/
 .toTop {
     position: fixed;
     bottom: 0;
