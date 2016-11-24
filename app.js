@@ -12,6 +12,7 @@ var store = new ConnectMongoDB({ //セッション管理用DB接続設定
     ttl: 60 * 60 //1hour
 });
 var csurf = require('csurf');
+var helmet = require('helmet');
 
 var routes = require('./routes/index.js');
 
@@ -42,6 +43,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     }
 }));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
+app.use(helmet());  
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.homepage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
