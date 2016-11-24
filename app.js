@@ -39,11 +39,12 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
+        secure:true,
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
     }
 }));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
-app.use(helmet());  
+app.use(helmet());
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.homepage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
