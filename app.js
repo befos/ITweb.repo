@@ -35,8 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想デ�
 app.use(session({ // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
         httpOnly: true,
         secure:true,
