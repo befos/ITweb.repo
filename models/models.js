@@ -15,7 +15,7 @@ var Users = new Schema({
   salt: String,//お塩
   prop: String,//プロフィール用画像のURL予定
   url_pass: {type:String, required:true, index:true, unique:true},//認証用の一時url
-  groupe: Groupe.gid,
+  groupe: String,
   regest: {type: Date, default: Date.now},//新規登録した時間の十分後
   regent: {type: Date, default: Date.now},//パスワードリセットを申請した時間の十分後
   ect: {type: Date, default: Date.now},//メールアドレス変更を申請した十分後
@@ -29,31 +29,31 @@ var Users = new Schema({
 
 var StudyM = new Schema({
     mname: String,//勉強会の名前
-    host: Group.gid,//主催グループの名前（gidと紐付け)
+    host: String,//主催グループの名前（gidと紐付け)
     cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)
     uday: {type: Date, dafault: Date.now},//投稿日
     mday: Date, //勉強会開催日
     cont: String,//勉強会の募集内容
     m_st: {type:Boolean, default:true},//勉強会の募集状態(終わったらfalse)
-    menber: [User.uid]//uidで管理
+    menber: [String]//uidで管理
 },{ collection: 'studymeeting'});
 
-var MGroup = new Scema({
+var MGroup = new Schema({
     gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
     gname: String,//グループの名前
     host: String,//グループを作った人
     cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)
     place: String,//活動範囲？
     gmday: Date,//グループを作成した日
-    menber: [User.uid],//uidで管理
+    menber: [String],//uidで管理
     g_st: {type:Boolean, default:true}//グループの状態
 },{ collection: 'groupe'});
 
-User.plugin('uniqueValidator');
-StudyM.plugin('uniqueValidator');
-Group.plugin('uniqueValidator');
+Users.plugin(uniqueValidator);
+StudyM.plugin(uniqueValidator);
+MGroup.plugin(uniqueValidator);
 
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
 exports.StudyM = mongoose.model("StudyM", StudyM);
-exports.Groupe = mongoose.model("Groupe", Groupe);
+exports.MGroup = mongoose.model("MGroup", MGroup);
