@@ -47,7 +47,7 @@ var MGroup = new Schema({
     gmday: Date,//グループを作成した日
     menberg: [String],//uidで管理
     g_st: {type:Boolean, default:true}//グループの状態//親グループがfalseになった場合子グループもすべてfalse
-},{ collection: 'mgroup'});;
+},{ collection: 'mgroup'});
 
 Users.plugin(uniqueValidator);
 StudyM.plugin(uniqueValidator);

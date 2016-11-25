@@ -39,7 +39,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure:true,
+        secure:false,
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
     }
 }));
