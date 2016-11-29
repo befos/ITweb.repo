@@ -38,23 +38,21 @@ var StudyM = new Schema({
     menber: [String]//uidで管理
 },{ collection:'studymeeting'});
 
-var MGroup = new Schema({
-    todoc: {type:Number, index:true, unique:true},//都道府県コードを47都道府県分、初期値としていれる
-    group: [{type: Schema.Types.ObjectId, ref:'Group'},{id:false}]//
-},{collection:'mgroup'});
-
 var Group = new Schema({
-    todoc: {type: Number, ref:'MGroup'},//結合先から持ってきた都道府県コード
-    gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
-    gname:{type:String, unique:true},//グループの名前//被りなし
-    host: String,//グループを作った人
-    cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)(追加して欲しい場合は申請してもらう)
-    place: String,//活動範囲？
-    gmood: String,//グループの雰囲気
-    gmday: Date,//グループを作成した日
-    gintro: String,//グループ紹介文
-    menber: [String],//uidで管理
-    g_st: {type:Boolean, default:true}//グループの状態//親グループがfalseになった場合子グループもすべてfalse
+    todoc: {type:Number, index:true, unique:true},//結合先から持ってきた都道府県コード
+    todon:String,
+    cgroup:[{//children 子グループを格納する
+        gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
+        gname:String,//グループの名前//被りはあってもいいかな
+        host: String,//グループを作った人
+        cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)(追加して欲しい場合は申請してもらう)
+        place: String,//活動範囲？
+        gmood: String,//グループの雰囲気
+        gmday: Date,//グループを作成した日
+        gintro: String,//グループ紹介文
+        menber: [String],//uidで管理
+        g_st: {type:Boolean, default:true}//グループの状態
+    },{_id:false}]
 },{ collection:'group'});
 
 var Forum = new Schema({
@@ -78,13 +76,11 @@ var Forum = new Schema({
 
 Users.plugin(uniqueValidator);
 StudyM.plugin(uniqueValidator);
-MGroup.plugin(uniqueValidator);
 Group.plugin(uniqueValidator);
 Forum.plugin(uniqueValidator);
 
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
 exports.StudyM = mongoose.model("StudyM", StudyM);
-exports.Mgroup = mongoose.model("MGroup", MGroup);
 exports.Group = mongoose.model("Group", Group);
 exports.Forum = mongoose.model("Forum", Forum);
