@@ -23,9 +23,12 @@ $(function() {
             var windowHeight = $(window).height();
             if (scroll > elemPos - windowHeight + 200) {
                 $(this).addClass('scrollin');
-            }
+              }
         });
     });
+    $(".mypage_main h1").on("click", function() {
+            $(this).next().slideToggle();
+        });
 });
 
 

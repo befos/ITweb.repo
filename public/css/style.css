@@ -1,15 +1,22 @@
 /* Copyright 2014-2015 Twitter, Inc.*/
+
+
 /* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
 
 html, body {
-    font-family:  "メイリオ", "Hiragino Kaku Gothic Pro", sans-serif,"Meiryo","游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
+    font-family: "メイリオ", "Hiragino Kaku Gothic Pro", sans-serif, "Meiryo", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
     font-weight: 500;
     background-color: #FFF;
     min-height: 680px;
     min-width: 1100px;
 }
+
+
 /*------------トップページCSS------------*/
+
+
 /*トップ画像のスタイル*/
+
 .topimg {
     display: block;
     min-height: 680px;
@@ -20,7 +27,10 @@ html, body {
     top: 10px;
     position: absolute;
 }
+
+
 /*トップ画像の中のグレイのボックス*/
+
 .glaybox {
     display: none;
     position: absolute;
@@ -30,131 +40,226 @@ html, body {
     margin: 80px 0 0 30px;
     padding: 20px;
 }
+
+
 /*タイトルの文字*/
+
 .title {
     text-align: center;
     color: #FFF;
     font-size: 12vw;
 }
+
+
 /*タイトルの下の文字*/
+
 .title_text {
     text-align: center;
     color: #FFF;
     font-size: 4vw;
     margin-left: 50px;
 }
+
+
 /*一つ一つのフォームの区切り*/
+
 .form-group {
     display: block;
     min-width: 1024px;
     width: 100%;
 }
+
+
 /*トップの部分がabsoluteなのでその分のスペース*/
+
 .top_space {
     display: block;
     position: relative;
     height: 200px;
 }
+
 .top_space_nav {
-  display: block;
-  position: relative;
-  height: 50px;
+    display: block;
+    position: relative;
+    height: 50px;
 }
+
+
 /*フォームラベルの画像*/
+
 .icon {
     font-size: 20px;
     color: #FFF;
 }
+
+
 /*メインコンテンツ全体の設定*/
+
 .description {
     display: block;
     position: relative;
     width: 90%;
     margin: 400px 5% 0 5%;
 }
+
+
 /*コンテンツ一つ一つの設定*/
+
 .description_sg {
     display: block;
     text-align: center;
 }
+
+
 /*コンテンツの画像の設定*/
+
 .description_sg img {
     float: left;
     width: 40%;
     height: 20%;
-    margin:0 10px 100px 0;
+    margin: 0 10px 100px 0;
     box-shadow: 2px 2px 3px 3px #CCC;
     border-radius: 2% 2% 2% 2%;
 }
+
+
 /*コンテンツの文書の設定*/
+
 .description_sg h1 {
-  padding-top: 30px;
+    padding-top: 30px;
 }
-.description_sg  p {
+
+.description_sg p {
     margin-top: 20px;
     font-size: 20px;
 }
-/*------------問い合わせCSS-------------*/
-.header_img{
-  display: block;
-  position: absolute;
-  width: 100%;
-  height:30%;
-  opacity: 0.5;
-}
-.description_contact{
-  position: relative;
-  text-align: center;
-  margin: 60px 10% 0 10%;
-}
-.description_contact article{
-  margin:30px 5% 0 5%;
-}
-.description_contact > p{
-  margin-top: 20px;
-}
-.shadow{
-  box-shadow: 0px 0px 10px 0px #000;
-}
-/*-------------------------------------*/
-/*------------マイページCSS------------*/
-.mypage_main{
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-.mypage_sub{
-  padding: 0;
-  margin: 0;
-  width: 100%;
 
+
+/*--------------------------------------*/
+
+
+/*------------質問広場CSS---------------*/
+
+.mypage_main h1 {
+    display: block;
+    width: 100%;
+    height: 35px;
+    font-size: 30px;
+    background-color: rgba(186, 226, 187, 0.5);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
 }
+
+.search textarea {
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.topic {
+    display: block;
+    width: 100%;
+    height: 150px;
+    border: solid 1px #aaa;
+    background-color: #FFF;
+    box-shadow: 15px;
+    overflow: scroll;
+    display: none;
+}
+
+.topic ul {
+    list-style: none;
+}
+
+.topic li {
+    font-size: 15px;
+    color: rgb(255, 228, 0);
+}
+
+.category h1 {
+    padding: 0;
+    margin: 0;
+}
+
+
+/*--------------------------------------*/
+
+
+/*------------問い合わせCSS-------------*/
+
+.header_img {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    opacity: 0.5;
+}
+
+.description_contact {
+    position: relative;
+    text-align: center;
+    margin: 60px 10% 0 10%;
+}
+
+.description_contact article {
+    margin: 30px 5% 0 5%;
+}
+
+.description_contact>p {
+    margin-top: 20px;
+}
+
+.shadow {
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
+
+/*-------------------------------------*/
+
+
+/*------------マイページCSS------------*/
+
+.mypage_main {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.mypage_sub {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+
 /*---トップへ戻るボタン（全体）----------*/
+
 .toTop {
+    background: url("../img/top_nav.png") no-repeat;
+    height: 100px;
+    width: 100px;
     position: fixed;
     bottom: 0;
     display: block;
-    width: 100%;
-    height: 30px;
-    background: rgba(21, 78, 103, 0.8);
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
     margin-bottom: 0;
-    padding-top: 7.5px;
 }
+
+
 /*PCで見た時*/
+
 @media screen and (min-width: 601px) {
     .toTop {
+        background: url("../img/hituzi.png") no-repeat;
         display: none;
         position: fixed;
         bottom: 50px;
         right: 0px;
-        width: 70px;
-        height: 50px;
-        font-size: 13px;
-        border-radius: 25px 0 0 25px;
+    }
+    .toTop:hover {
+        background: url("../img/top_nav.png") no-repeat;
     }
 }
+
+
 /*-----------------------------------*/
