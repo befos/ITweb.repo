@@ -22,7 +22,7 @@ var app = express();
 console.log('Example app listening at http://localhost:8080');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));　 //joinは結合（__dirnameはソースが入っているディレクトリを表す）
+app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想デ�
 app.use(session({ // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
