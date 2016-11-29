@@ -94,6 +94,45 @@ html, body {
     margin-top: 20px;
     font-size: 20px;
 }
+/*--------------------------------------*/
+/*------------質問広場CSS---------------*/
+.mypage_main h1{
+  display:block;
+  width: 100%;
+  height:35px;
+  font-size: 30px;
+  background-color:rgba(186, 226, 187, 0.5) ;
+  padding: 0;
+  margin: 0;
+  text-align:center;
+  cursor:pointer;
+}
+.search textarea{
+   resize:none;
+   margin-bottom: 20px;
+}
+.topic{
+  display: block;
+  width: 100%;
+  height: 150px;
+  border: solid 1px #aaa;
+  background-color: #FFF;
+  box-shadow: 15px;
+  overflow: scroll;
+  display:none;
+}
+.topic ul{
+  list-style: none;
+}
+.topic li{
+  font-size: 15px;
+  color: rgb(255, 228, 0);
+}
+.category h1{
+  padding: 0;
+  margin: 0;
+}
+/*--------------------------------------*/
 /*------------問い合わせCSS-------------*/
 .header_img{
   display: block;

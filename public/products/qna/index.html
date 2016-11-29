@@ -6,8 +6,6 @@
     <title>Stichies</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="../../css/pictonic.css">
-    <script src="../../js/Dfolder/pictonic.min.js"></script>
     <script src="../../js/Dfolder/jquery-3.1.1.min.js"></script>
     <script src="../../js/Dfolder/jquery_program.js"></script>
     <!--[if lt IE 9]>
@@ -50,23 +48,41 @@
     <div class="description_contact">
       <h1>質問広場</h1>
     </div>
-    <div class="col-sm-3">
+    <div class="top_space"></div>
+    <div class="col-sm-2">
       <section class="mypage_sub">
-      <article class="profile">
-        <img src="../../img/player_img.png" alt="プロフィール画像" height="150px" width="150px">
-        <p>名前</p>
-        <p>befos</p>
-        <p>所属グループ</p>
-        <p>神戸電子専門学校</p>
-        <p>神戸地区勉強会</p>
-        <p>befos.group</p>
+      <article class="category">
+        <h1>カテゴリー</h1>
+        <p>JavaScript</p>
+        <p>Ruby</p>
+        <p>Python</p>
+        <p>PHP</p>
+        <p>JAVA</p>
+        <p>C</p>
+        <p>Swift</p>
+        <p>SQL</p>
       </article>
     </section>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="margin-left:30px;">
       <section class=mypage_main>
-      <div style="background-color : rgb(37, 252, 188);">
-        <p>ss</p>
+        <article class="search row">
+          <div class="col-sm-10">
+          <textarea placeholder="検索" rows="1" class="form-control" id="InputTextarea"></textarea>
+          </div>
+          <div class="col-sm-2">
+            <input type="submit" value="検索" class="btn btn-primary btn-block">
+          </div>
+        </article>
+        <h1>話題の質問<span class="glyphicon glyphicon-triangle-bottom"></span></h1>
+      <div class="topic">
+        <ul>
+          <li><a href="##">1.HTMLのタグについて</a></li>
+          <li><a href="##">2.Javascriptの書き方を教えてください</a></li>
+          <li><a href="##">3.C言語でのAI実装について</a></li>
+          <li><a href="##">4.【急】Pythonで行列計算</a></li>
+          <li><a href="##">5.rubyを使ったwebアプリケーション</a></li>
+        </ul>
       </div>
     </section>
     </div>
