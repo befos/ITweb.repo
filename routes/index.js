@@ -27,7 +27,10 @@ var routes = {
     question_board: require('./question_board'),
     question_board_confirem: require('./question_board_confirm'),
     question_board_submit: require('./question_board_submit'),
-    question_board_view: require('./question_board_view')
+    question_board_view: require('./question_board_view'),
+    group_makeing: require('./group_makeing'),
+    group_makeing_confirm: require('./group_makeing_confirm'),
+    group_makeing_submit: require('./group_makeing_submit')
 };
 
 module.exports = routes;

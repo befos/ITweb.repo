@@ -69,6 +69,9 @@ app.use('/question_board_top', routes.question_board_top);
 app.use('/question_board', routes.question_board_confirem);
 app.use('/question_board_submit', routes.question_board_submit);
 app.use('/question_board_view', routes.question_board_view);
+app.use('/group_makeing',routes.group_makeing);
+app.use('/group_makeing_confirm', routes.group_makeing_confirm);
+app.use('/group_makeing_submit', routes.group_makeing_submit);
 app.use('/success', routes.success);
 
 

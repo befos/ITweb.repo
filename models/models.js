@@ -46,11 +46,13 @@ var MGroup = new Schema({
 var Group = new Schema({
     todoc: {type: Number, ref:'MGroup'},//結合先から持ってきた都道府県コード
     gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
-    gname: String,//グループの名前
+    gname:{type:String, unique:true},//グループの名前//被りなし
     host: String,//グループを作った人
     cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)(追加して欲しい場合は申請してもらう)
     place: String,//活動範囲？
+    gmood: String,//グループの雰囲気
     gmday: Date,//グループを作成した日
+    gintro: String,//グループ紹介文
     menber: [String],//uidで管理
     g_st: {type:Boolean, default:true}//グループの状態//親グループがfalseになった場合子グループもすべてfalse
 },{ collection:'group'});

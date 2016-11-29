@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
                 }
                 if(result[0].ac_st === false){
                     //もし認証が済んでいなかったらついでに認証も済ませる
-                    string ='認証及び変更'
+                    string ='認証及び変更';
                 }
                 User.update({uid:uid},{$set:{hashpass:passhash,　ac_reset:false,　salt:salt, ac_st:true}},function(err){
                     if(err) return hadDbError(err, req, res);
