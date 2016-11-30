@@ -140,16 +140,11 @@ html, body {
 
 /*------------質問広場CSS---------------*/
 
-.mypage_main h1 {
-    display: block;
+.qna_header_img {
+    height: 100%;
     width: 100%;
-    height: 35px;
-    font-size: 30px;
-    background-color: rgba(186, 226, 187, 0.5);
     padding: 0;
     margin: 0;
-    text-align: center;
-    cursor: pointer;
 }
 
 .search textarea {
@@ -178,8 +173,19 @@ html, body {
 }
 
 .category h1 {
-    padding: 0;
+    font-size: 2em;
+    padding: 0 0 10px 0;
     margin: 0;
+}
+
+.stitchbox {
+    background-color: #f1ebe1;
+    border: 2px dashed #259543;
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px #f1ebe1;
+    color: #000;
+    margin: 1em 0;
+    padding: 1em;
 }
 
 
@@ -188,7 +194,7 @@ html, body {
 
 /*------------問い合わせCSS-------------*/
 
-.header_img {
+.contact_header_img {
     display: block;
     position: absolute;
     width: 100%;
