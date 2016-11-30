@@ -27,34 +27,6 @@ var Users = new Schema({
   cemail: String//変更時に一時的にEメールアドレスを保存
 },{ collection:'user'});
 
-var StudyM = new Schema({
-    mname: String,//勉強会の名前
-    host: String,//主催グループの名前（gidと紐付け)
-    cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)
-    uday: {type: Date, dafault: Date.now},//投稿日
-    mday: Date, //勉強会開催日
-    cont: String,//勉強会の募集内容
-    m_st: {type:Boolean, default:true},//勉強会の募集状態(終わったらfalse)
-    menber: [String]//uidで管理
-},{ collection:'studymeeting'});
-
-var Group = new Schema({
-    todoc: {type:Number, index:true, unique:true},//結合先から持ってきた都道府県コード
-    todon:String,
-    cgroup:[{//children 子グループを格納する
-        gid: {type:String, required:true, index:true, unique:true},//グループにつけるユニークなID
-        gname:String,//グループの名前//被りはあってもいいかな
-        host: String,//グループを作った人
-        cate: String,//カテゴリー（ユーザーには指定させない）(あらかじめ用意したのを使わせる)(追加して欲しい場合は申請してもらう)
-        place: String,//活動範囲？
-        gmood: String,//グループの雰囲気
-        gmday: Date,//グループを作成した日
-        gintro: String,//グループ紹介文
-        menber: [String],//uidで管理
-        g_st: {type:Boolean, default:true}//グループの状態
-    },{_id:false}]
-},{ collection:'group'});
-
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
     host: String,//uid
@@ -75,12 +47,8 @@ var Forum = new Schema({
 //質問掲示板メモ　話題の質問　自分が出した質問
 
 Users.plugin(uniqueValidator);
-StudyM.plugin(uniqueValidator);
-Group.plugin(uniqueValidator);
 Forum.plugin(uniqueValidator);
 
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
-exports.StudyM = mongoose.model("StudyM", StudyM);
-exports.Group = mongoose.model("Group", Group);
 exports.Forum = mongoose.model("Forum", Forum);

@@ -18,19 +18,11 @@ var routes = {
     email_change_mail: require('./email_change_mail'),
     email_change_task: require('./email_change_task'),
     email_change_submit: require('./email_change_submit'),
-    study_meeting_top: require('./study_meeting_top'),
-    study_meeting: require('./study_meeting'),
-    study_meeting_confirem: require('./study_meeting_confirm'),
-    study_meeting_submit: require('./study_meeting_submit'),
-    study_meeting_view: require('./study_meeting_view'),
     question_board_top: require('./question_board_top'),
     question_board: require('./question_board'),
     question_board_confirem: require('./question_board_confirm'),
     question_board_submit: require('./question_board_submit'),
-    question_board_view: require('./question_board_view'),
-    group_makeing: require('./group_makeing'),
-    group_makeing_confirm: require('./group_makeing_confirm'),
-    group_makeing_submit: require('./group_makeing_submit')
+    question_board_view: require('./question_board_view')
 };
 
 module.exports = routes;
