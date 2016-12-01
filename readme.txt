@@ -23,6 +23,7 @@ var hoge = models.hoge;//スキーマの参照
   Example
   mongoose.connect('mongodb://localhost:27017/userdata');//接続先のDB
   hoge.find({url_pass:u.query}, function(err, result) {
+          if(err) return hadHogeError(err, req, res);//事前にエラーハンドラを用意しておきerrが返ってきた場合は即リターンさせる
           if (result) {
               if (result.length === 0) {//result.length === 0とはデータが見つからない状態を表す
                   console.log("nosuch");
@@ -31,10 +32,13 @@ var hoge = models.hoge;//スキーマの参照
                   mongoose.disconnect(); //最後に絶対disconnectする事
               }
           }
-          if(err){
-            mongoose.disconnect(); //エラー後にもつけておくと安心
-          }
     });
+//エラーハンドラの記述（例）
+function hadInputdataError(err, req, res){
+    req.session.error_status = 1;
+    res.redirect('/hoge');
+    mongoose.disconnect();
+}
 
  セッション
   ~connect-mongo + express-session~
