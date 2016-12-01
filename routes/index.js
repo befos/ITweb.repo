@@ -1,7 +1,7 @@
 var routes = {
     success: require('./success'),
     home: require('./home'), //routesディレクト内のjsファイルを参照
-    homepage: require('./homepage'),
+    toppage: require('./toppage'),
     mypage: require('./mypage'),
     login: require('./login'),
     login_check: require('./login_check'),

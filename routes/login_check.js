@@ -75,7 +75,7 @@ router.post('/', function(req, res, next) {
                             User.update({email:id},{$set:{ac_use:true}},function(err){
                                 if(err) return hadDbError(err, req, res);
                                 if(!err){
-                                    req.session.regenerate(function(err){
+                                    req.session.regenerate(function(err){//セッションフィクセーション対策(セッションIDの再発行)
                                         if(err) return hadSessionError(err, req, res);
                                         if(!err){
                                             req.session.error_status = 0;
