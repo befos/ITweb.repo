@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 // ページを追加する(静的コンテンツの追加)
-router.get('/', function(req, res, next) {
-    if (req.session.user_id) {//セッションにユーザIDが格納されているかを判定
-      res.render('mypage');
-    } else {
-      res.redirect('/login');//ログインしてないのでログイン画面にリダイレクト
-    }
+router.get('/', function(req, res, next){
+    res.render('ckeditor', {reqCsrf:req.csrfToken()});
+});
+
+router.post('/', function(req, res, next) {
+    var test = req.body.editor1;
+    var posttest = req.body.posttest;
+    console.log(test);
+    console.log(posttest);
 });
 
 module.exports = router;
