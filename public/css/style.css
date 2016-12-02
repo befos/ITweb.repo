@@ -1,202 +1,225 @@
 /* Copyright 2014-2015 Twitter, Inc.*/
-
-
 /* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
-
-html, body {
-    font-family: "メイリオ", "Hiragino Kaku Gothic Pro", sans-serif, "Meiryo", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro";
+body,
+html {
+    font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif, 'Meiryo', '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro';
     font-weight: 500;
-    background-color: #FFF;
-    min-height: 680px;
     min-width: 1100px;
+    min-height: 680px;
+    background-color: #fff;
 }
-
-
 /*------------トップページCSS------------*/
-
-
 /*トップ画像のスタイル*/
-
 .topimg {
-    display: block;
-    min-height: 680px;
-    min-width: 1100px;
-    width: 100%;
-    height: 600px;
-    left: 0px;
+    position: absolute;
     top: 10px;
-    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    min-width: 1100px;
+    height: 600px;
+    min-height: 680px;
 }
-
-
 /*トップ画像の中のグレイのボックス*/
-
 .glaybox {
-    display: none;
     position: absolute;
-    background: rgba(64, 64, 64, 0.3);
+    display: none;
     width: 50%;
     height: auto;
     margin: 80px 0 0 30px;
     padding: 20px;
+    background: rgba(64, 64, 64, .3);
 }
-
-
 /*タイトルの文字*/
-
 .title {
-    text-align: center;
-    color: #FFF;
     font-size: 12vw;
-}
-
-
-/*タイトルの下の文字*/
-
-.title_text {
     text-align: center;
-    color: #FFF;
+    color: #fff;
+}
+/*タイトルの下の文字*/
+.title_text {
     font-size: 4vw;
     margin-left: 50px;
+    text-align: center;
+    color: #fff;
 }
-
-
 /*一つ一つのフォームの区切り*/
-
 .form-group {
     display: block;
-    min-width: 1024px;
     width: 100%;
+    min-width: 1024px;
 }
-
-
 /*トップの部分がabsoluteなのでその分のスペース*/
-
 .top_space {
-    display: block;
     position: relative;
+    display: block;
     height: 200px;
 }
 
 .top_space_nav {
-    display: block;
     position: relative;
+    display: block;
     height: 50px;
 }
-
-
 /*フォームラベルの画像*/
-
 .icon {
     font-size: 20px;
-    color: #FFF;
+    color: #fff;
 }
-
-
 /*メインコンテンツ全体の設定*/
-
 .description {
-    display: block;
     position: relative;
+    display: block;
     width: 90%;
-    margin: 400px 5% 0 5%;
+    margin: 400px 5% 0;
 }
-
-
 /*コンテンツ一つ一つの設定*/
-
 .description_sg {
     display: block;
     text-align: center;
 }
-
-
 /*コンテンツの画像の設定*/
-
 .description_sg img {
     float: left;
     width: 40%;
     height: 20%;
     margin: 0 10px 100px 0;
-    box-shadow: 2px 2px 3px 3px #CCC;
     border-radius: 2% 2% 2% 2%;
+    box-shadow: 2px 2px 3px 3px #ccc;
 }
-
-
 /*コンテンツの文書の設定*/
-
 .description_sg h1 {
     padding-top: 30px;
 }
 
 .description_sg p {
-    margin-top: 20px;
     font-size: 20px;
+    margin-top: 20px;
+}
+/*--------------------------------------*/
+/*------------質問広場CSS---------------*/
+.qna_header_img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
 }
 
+.searchbox {
+    margin-top: 1em;
+}
 
-/*--------------------------------------*/
+.searchbox textarea {
+    resize: none;
+}
+/* 04.吹き出し */
+.title_design {
+    position: relative;
+    margin: 20px 0 20px 0;
+    padding: 2px 5px 5px 5px;
+    font: bold 15px/1.6 Arial, Helvetica, sans-serif;
+    color: #333;
+    border: #333 solid 1px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: -7px -5px 0 0 #e8e8e8 inset, 2px 3px 0 0 #000;
+}
 
+.title_design:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 4%;
+    width: 0;
+    height: 0;
+    border-width: 20px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #333;
+}
 
-/*------------質問広場CSS---------------*/
+.title_design:after {
+    content: " ";
+    position: absolute;
+    bottom: -27px;
+    left: 4%;
+    width: 0;
+    height: 0;
+    border-width: 14px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #e8e8e8;
+}
 
-.qna_header_img {
-    height: 100%;
-    width: 100%;
+.defaultlist,
+.defaultlist li {
     padding: 0;
     margin: 0;
 }
 
-.search textarea {
-    resize: none;
-    margin-bottom: 20px;
+.defaultlist li {
+    list-style-type: none !important;
+    list-style-image: none !important;
+    margin: 5px 0 !important;
 }
 
-.topic {
+.topic_list li {
+    position: relative;
+    padding-left: 20px;
+}
+
+.topic_list li:before {
+    content: '';
+    height: 0;
+    width: 90%;
     display: block;
-    width: 100%;
-    height: 150px;
-    border: solid 1px #aaa;
-    background-color: #FFF;
-    box-shadow: 15px;
-    overflow: scroll;
-    display: none;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    border-bottom: 1px dashed #aaa;
 }
 
-.topic ul {
-    list-style: none;
-}
-
-.topic li {
-    font-size: 15px;
-    color: rgb(255, 228, 0);
+.topic_list li:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #aaa;
+    width: 5px;
+    height: 5px;
+    top: 7px;
+    left: 5px;
+    border-radius: 5px;
 }
 
 .category h1 {
     font-size: 2em;
-    padding: 0 0 10px 0;
     margin: 0;
+    padding: 0 0 10px;
 }
 
 .stitchbox {
-    background-color: #f1ebe1;
-    border: 2px dashed #259543;
-    border-radius: 8px;
-    box-shadow: 0 0 0 4px #f1ebe1;
-    color: #000;
     margin: 1em 0;
     padding: 1em;
+    color: #000;
+    border: 2px dashed #259543;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 0 4px #f7f7f7;
 }
-
-
+.list_now ul{
+  list-style: none;
+}
+.list_now li{
+  margin: 2px;
+  border: solid 1px #daf7ff;
+  font-size: 25px;
+}
 /*--------------------------------------*/
-
-
 /*------------問い合わせCSS-------------*/
-
 .contact_header_img {
-    display: block;
     position: absolute;
+    display: block;
     width: 100%;
     height: 30%;
     opacity: 0.5;
@@ -204,68 +227,56 @@ html, body {
 
 .description_contact {
     position: relative;
+    margin: 60px 10% 0;
     text-align: center;
-    margin: 60px 10% 0 10%;
 }
 
 .description_contact article {
-    margin: 30px 5% 0 5%;
+    margin: 30px 5% 0;
 }
 
-.description_contact>p {
+.description_contact > p {
     margin-top: 20px;
 }
 
 .shadow {
-    box-shadow: 0px 0px 10px 0px #000;
+    box-shadow: 0 0 10px 0 #000;
 }
-
-
 /*-------------------------------------*/
-
-
 /*------------マイページCSS------------*/
-
 .mypage_main {
-    padding: 0;
-    margin: 0;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .mypage_sub {
-    padding: 0;
-    margin: 0;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
-
-
 /*---トップへ戻るボタン（全体）----------*/
-
 .toTop {
-    background: url("../img/top_nav.png") no-repeat;
-    height: 100px;
-    width: 100px;
     position: fixed;
     bottom: 0;
     display: block;
+    width: 100px;
+    height: 100px;
     margin-bottom: 0;
+    background: url('../img/top_nav.png') no-repeat;
 }
-
-
 /*PCで見た時*/
-
 @media screen and (min-width: 601px) {
     .toTop {
-        background: url("../img/hituzi.png") no-repeat;
-        display: none;
         position: fixed;
+        right: 0;
         bottom: 50px;
-        right: 0px;
+        display: none;
+        background: url('../img/hituzi.png') no-repeat;
     }
+
     .toTop:hover {
-        background: url("../img/top_nav.png") no-repeat;
+        background: url('../img/top_nav.png') no-repeat;
     }
 }
-
-
 /*-----------------------------------*/
