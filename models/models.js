@@ -9,7 +9,7 @@ var Users = new Schema({
   age: Number,//年齢
   sex: {type: Number, min:0, max:1},//0男性 1女性
   work: String,//職業
-  uf_pl: String,//自分にとって使いやすい言語//useful programing language
+  uf_pl: String,//得意な言語//useful programing language
   place: String,//自分の住んでいる場所
   hashpass: String,//ハッシュ化されたパスワード
   salt: String,//お塩
@@ -33,22 +33,28 @@ var Forum = new Schema({
     cate: String,//カテゴリ
     count: Number,//アクセスされた回数
     uday: Date,
-    cont: [{//フォーラムの情報を格納する連想配列
-        uid: String,
-        name: String,
-        prop: String,//プロフィールの画像？
-        cuday: {type: Date, default: Date.now},//コンテンツを上げた日
-        chday: Date,//内容を編集した日
-        text: String//本文
-    },{_id: false}],
-    f_st: {type:Boolean, default:true}//forumの内容が解決済みか
+    tag: [String],//多分500要素まで？
+    f_st: {type:Boolean, default:true},//forumの内容が解決済みか
+    cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'},{_id:false}]
 },{collection: 'forum'});
+
+var ForumCont = new Schema({
+    _conid: { type: Number, ref: 'Forum' },//コンテンツID
+    uid: String,
+    name: String,//ユーザーが決めた自由な名前
+    prop: String,//プロフィールの画像？
+    cuday: {type:Date, default: Date.now},//コンテンツを上げた日
+    chday: Date,//内容を編集した日
+    text: String//本文
+},{collection:'forumcont'});
 
 //質問掲示板メモ　話題の質問　自分が出した質問
 
 Users.plugin(uniqueValidator);
 Forum.plugin(uniqueValidator);
+ForumCont.plugin(uniqueValidator);
 
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
 exports.Forum = mongoose.model("Forum", Forum);
+exports.ForumCont = mongoose.model("ForumCont", ForumCont);
