@@ -52,7 +52,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想ディレクトリを作成
-app.use(session(sess);
+app.use(session(sess));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
 
