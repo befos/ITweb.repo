@@ -73,12 +73,21 @@ app.use('/question_board_view', routes.question_board_view);
 app.use('/success', routes.success);
 
 
+
 //ミドルウェアを使いつくしたので404を生成
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
+/*
+*proxyから送信される内容がhttpsのコンテンツだったら？
+*/
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
 
 // error handlers
 
