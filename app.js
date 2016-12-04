@@ -25,14 +25,8 @@ console.log('Example app listening at http://localhost:8080');
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想ディレクトリを作成
-app.use(session({ // cookieに書き込むsessionの仕様を定める
+
+var sess = { // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
     proxy: true,
@@ -40,10 +34,25 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure:false,//ここのオプションはサーバにデプロイ後はtrueにする事
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
     }
-}));
+}
+/*
+*proxyから送信される内容がhttpsのコンテンツだったらcookieにsecure属性をつける？
+*/
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想ディレクトリを作成
+app.use(session(sess);
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
 
@@ -80,14 +89,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-/*
-*proxyから送信される内容がhttpsのコンテンツだったら？
-*/
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
 
 // error handlers
 
