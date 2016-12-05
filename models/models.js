@@ -30,10 +30,9 @@ var Users = new Schema({
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
     host: String,//uid
-    cate: String,//カテゴリ
     count: Number,//アクセスされた回数
     uday: Date,
-    tag: [String],//多分500要素まで？
+    tag: [String],//多分500要素まで？この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
     cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'},{_id:false}]
 },{collection: 'forum'});

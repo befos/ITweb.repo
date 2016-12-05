@@ -10,9 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    var test = req.body.editor1;
     var posttest = req.body.posttest;
-    console.log(test);
     console.log(posttest);
 });
 
