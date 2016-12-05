@@ -25,7 +25,7 @@ console.log('Example app listening at http://localhost:8080');
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
-
+//ここの下はセッションの設定情報を変数に入れ込んでいる
 var sess = { // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
@@ -51,7 +51,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));//nginx用の仮想ディレクトリを作成
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(session(sess));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
