@@ -41,8 +41,8 @@ var sess = { // cookieに書き込むsessionの仕様を定める
 *proxyから送信される内容がhttpsのコンテンツだったらcookieにsecure属性をつける？
 */
 if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
+  app.set('trust proxy', 1);// trust first proxy
+  sess.cookie.secure = true; // serve secure cookies
 }
 
 // uncomment after placing your favicon in /public
@@ -77,7 +77,8 @@ app.use('/email_change_mail', routes.email_change_mail);
 app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
 app.use('/question_board_top', routes.question_board_top);
-app.use('/question_board', routes.question_board_confirem);
+app.use('/question_board_contents', routes.question_board_contents);
+app.use('/question_board_confirm', routes.question_board_confirem);
 app.use('/question_board_submit', routes.question_board_submit);
 app.use('/question_board_view', routes.question_board_view);
 app.use('/success', routes.success);
