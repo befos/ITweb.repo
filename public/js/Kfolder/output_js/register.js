@@ -1,7 +1,7 @@
 /*
 *結果を表示
 */
-function conrimMessage(){
+function conrimMessage(){ 
         var id = document.getElementById("id").value;
         var pass = document.getElementById("password").value;
         var conf = document.getElementById("confirm_password").value;
