@@ -244,17 +244,120 @@ html {
 }
 /*-------------------------------------*/
 /*------------マイページCSS------------*/
-.mypage_main {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.Profile {
+    margin: 20px;
+    width: 350px;
+    height: 800px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    border: 2px dashed #259543;
+    border-radius: 8px;
+    color: #000;
+    box-shadow: 0 0 0 4px #f1ebe1;
+    background-color: #f1ebe1;
 }
 
-.mypage_sub {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.Profile h3 {
+    text-align: center;
+    font-weight: bold;
 }
+
+.Profile img {
+    position: absolute;
+    left: 65px;
+    top: 50px;
+}
+
+.user_name {
+    position: absolute;
+    top: 320px;
+    left: 20px;
+}
+
+.user_sex {
+    position: absolute;
+    top: 390px;
+    left: 20px;
+}
+
+.user_age {
+    position: absolute;
+    top: 460px;
+    left: 20px;
+}
+
+.user_job {
+    position: absolute;
+    top: 530px;
+    left: 20px;
+}
+
+.user_skill {
+    position: absolute;
+    top: 600px;
+    left: 20px;
+}
+
+.Q_his {
+    margin: 20px;
+    padding: 10px;
+    width: 800px;
+    height: 370px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    border: 2px dashed #259543;
+    border-radius: 8px;
+    color: #000;
+    box-shadow: 0 0 0 4px #f1ebe1;
+    background-color: #f1ebe1;
+    overflow-y: auto;
+}
+
+.Q_his h3 {
+    padding: 1em;
+    border: 3px solid #ccc;
+    border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+    font-weight: bold;
+}
+
+.Q_con {
+    line-height: 1.5;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+.S_his {
+    background-color: #e7efff;
+    margin: 20px;
+    padding: 10px;
+    width: 800px;
+    height: 370px;
+    position: absolute;
+    top: 480px;
+    right: 50px;
+    border: 2px dashed #259543;
+    border-radius: 8px;
+    color: #000;
+    box-shadow: 0 0 0 4px #f1ebe1;
+    background-color: #f1ebe1;
+    overflow-y: auto;
+}
+
+.S_his h3 {
+    padding: 1em;
+    border: 3px solid #ccc;
+    border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+    font-weight: bold;
+}
+
+.S_con {
+    line-height: 1.5;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
 /*---トップへ戻るボタン（全体）----------*/
 .toTop {
     position: fixed;
