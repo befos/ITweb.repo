@@ -26,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameは�
 app.set('view engine', 'ejs');
 
 /*
-*proxyから送信される内容がhttpsのコンテンツだったらcookieにsecure属性をつける？
+*proxyから送信される内容がhttpsとして信用する.
 */
 app.set('trust proxy', 'loopback');// trust first proxy
 
