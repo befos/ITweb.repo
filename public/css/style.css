@@ -10,6 +10,9 @@ html {
 }
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
+.nav-padding{
+  padding-right: 30px;
+}
 .topimg {
     position: absolute;
     top: 10px;
@@ -95,6 +98,10 @@ html {
 .description_sg p {
     font-size: 20px;
     margin-top: 20px;
+}
+
+.clear{
+  clear: left;
 }
 /*--------------------------------------*/
 /*------------質問広場CSS---------------*/
