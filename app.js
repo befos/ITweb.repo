@@ -52,6 +52,8 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
 }));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
+app.use(helmet.xssFilter());
+app.use(helmet.frameguard({ action: 'sameorigin' }));
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
