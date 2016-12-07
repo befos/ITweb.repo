@@ -270,39 +270,58 @@ html {
     font-weight: bold;
 }
 
+.Profile p {
+    position: absolute;
+    left: 10px;
+    top: 40px;
+    font-size: 20px;
+}
+
 .Profile img {
     position: absolute;
     left: 65px;
     top: 50px;
 }
 
+.user_id {
+    position: absolute;
+    width: 350px;
+    top: 320px;
+    left: 20px;
+}
+
 .user_name {
     position: absolute;
-    top: 320px;
+    width: 350px;
+    top: 390px;
     left: 20px;
 }
 
 .user_sex {
     position: absolute;
-    top: 390px;
+    width: 350px;
+    top: 460px;
     left: 20px;
 }
 
 .user_age {
     position: absolute;
-    top: 460px;
+    width: 350px;
+    top: 530px;
     left: 20px;
 }
 
 .user_job {
     position: absolute;
-    top: 530px;
+    width: 350px;
+    top: 600px;
     left: 20px;
 }
 
 .user_skill {
     position: absolute;
-    top: 600px;
+    width: 350px;
+    top: 670px;
     left: 20px;
 }
 

@@ -48,6 +48,7 @@ router.post('/', function(req, res, next) {
                                                         req.session.error_status = 0;
                                                         req.session.user_id = id;
                                                         req.session.user_email = result[0].email;
+                                                        req.session.user_name = result[0].name;
                                                         res.redirect('/mypage');
                                                         mongoose.disconnect();
                                                     }

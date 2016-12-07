@@ -12,14 +12,9 @@ router.get('/', function(req, res, next) {
     User.update({uid:id},{$set:{ac_use:false}},function(err){
         if(err) return hadDbError(err, req, res);
         if(!err){
-            User.update({email:id},{$set:{ac_use:false}},function(err){
-                if(err) return hadDbError(err, req, res);
-                if(!err){
-                    req.session.destroy();
-                    res.render('logout');
-                    mongoose.disconnect();
-                }
-            });
+            req.session.destroy();
+            res.redirect('/');
+            mongoose.disconnect();
         }
     });
 });
