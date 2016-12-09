@@ -77,9 +77,7 @@ app.use('/question_board_contents', routes.question_board_contents);
 app.use('/question_board_confirm', routes.question_board_confirem);
 app.use('/question_board_submit', routes.question_board_submit);
 app.use('/question_board_view', routes.question_board_view);
-app.use('/success', routes.success);
-
-
+app.use('/contact', routes.contact);
 
 //ミドルウェアを使いつくしたので404を生成
 app.use(function(req, res, next) {

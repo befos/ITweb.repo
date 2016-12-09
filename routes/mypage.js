@@ -31,6 +31,7 @@ router.get('/', function(req, res, next){
                         user_sex ='';
                     }
                     var insert = {
+                        userName:req.session.user_id,
                         user_name:user_name,
                         user_id:user_id,
                         user_age:user_age,
@@ -38,7 +39,7 @@ router.get('/', function(req, res, next){
                         user_sex:user_sex
                     };
                     res.locals = insert;//テンプレートに読み込む
-                    res.render('mypage',{userName:req.session.user_id});
+                    res.render('mypage');
                     mongoose.disconnect();
                 }
             }
@@ -58,7 +59,7 @@ function hadDbError(err, req, res){
 
 function hadNologinError(req, res){
     req.session.error_status = 10;
-    res.redirect('/');
+    res.redirect('/login');
     mongoose.disconnect();
 }
 
