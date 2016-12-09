@@ -25,6 +25,7 @@ console.log('Stichies app listening at http://localhost:8080');
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
+
 /*
 *proxyから送信される内容をhttpsとして信用する.
 */
@@ -44,7 +45,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     proxy: true,
     resave: false,
     saveUninitialized: true,
-    cookie: {
+    cookie:{
         secure: false,//デプロイ時にtrueにする
         httpOnly: true,
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
