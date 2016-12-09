@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var randword = require('../public/js/Kfolder/randword.js').randword;
-var createhash = require('../public/js/Kfolder/createhash.js').createhash;
-var sha256 = require('js-sha256');
 var mailer = require('nodemailer');
 var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     user: 'stichies01@gmail.com',
@@ -11,10 +8,6 @@ var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
 var template = require('../config/template.json');
-
-generator.on('token', function(token) {
-    console.log('New token for %s: %s', token.user, token.accessToken);
-});
 
 router.post('/', function(req, res, next) {
     req.session.error_status = 0;
