@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
         res.render('contact',{userName:req.session.user_id,reqCsrf:req.csrfToken()});
     }else{
         res.locals = template.common.false;//共通なテンプレートに読み込む
-        res.render('contact');
+        res.render('contact',{reqCsrf:req.csrfToken()});
     }
 });
 
