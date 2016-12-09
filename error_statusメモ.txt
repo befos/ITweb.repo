@@ -10,3 +10,4 @@ error_status 8 //セッションエラー
 error_status 9 //アカウントが仮登録の状態です
 error_status 10 //ログインされていません
 error_status 11 //既にログアウトされています
+error_status 12 //問い合わせ画面からのリダイレクト
