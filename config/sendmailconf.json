@@ -1,0 +1,6 @@
+{
+     "url1":"http://localhost:8080/password_reset_regene?",
+     "url2":"http://localhost:8080/email_change_task?",
+     "url3":"http://localhost:8080/register_confirm?",
+     "minute":"10"
+}
