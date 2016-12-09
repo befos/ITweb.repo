@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
 
-var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
+var URL = 'http://160.16.95.68/password_reset_regene?';//メール認証用のURL
 var MINUTES = 10;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {

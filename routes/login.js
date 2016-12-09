@@ -7,8 +7,7 @@ router.get('/', function(req, res, next) {
     if (req.session.user_id) {
         res.redirect('/mypage'); //ログイン済みなのでリダイレクト
     } else {
-        res.render('login', {reqCsrf: req.csrfToken()
-        });
+        res.render('login', {reqCsrf: req.csrfToken()});
     }
 });
 

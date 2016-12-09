@@ -17,7 +17,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var URL = 'http://localhost:8080/email_change_task?';//メール認証用のURL
-var MINUTES = 10;//数字でURLが有効な分数を指定
+var MINUTES = 1;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -28,8 +28,8 @@ router.post('/', function(req, res, next) {
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var email = req.body.id;
-    var uid = req.body.uid;
     var url_pass = sha256(randword.method(16));
+    var obj_id = req.session.obj_id;
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
             '有効時間後は再度メールアドレスの変更を行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
-    User.find({uid:uid},function(err, result){
+    User.find({_id:obj_id},function(err, result){
         if(err) return hadDbError(err, res, req);
         if(result){
           if (result.length === 0) {
@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
               dt.setMinutes(dt.getMinutes() + MINUTES);
               var ect = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
               console.log(ect);
-              User.update({uid:uid}, {$set:{ac_ec:true, url_pass:url_pass, ect:ect, cemail:email}},{safe:true},function(err){
+              User.update({_id:obj_id}, {$set:{ac_ec:true, url_pass:url_pass, ect:ect, cemail:email}},{safe:true},function(err){
                   if(err) return hadDbError(err, res, req);
                   if(!err){
                         //この下からメールを送信する処理

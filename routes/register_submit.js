@@ -18,7 +18,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
+var URL = 'http://160.16.95.68/register_confirm?';//メール認証用のURL
 var MINUTES = 10;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
         subject: 'Stichies本登録について',
         html: '以下のURLからアカウトを有効にしてください。<br>' +
             'URLの有効時間は'+ MINUTES +'分間です。<br>' +
-            '有効時間後はアカウントの作り直しを行ってください。<br>' +
+            '有効時間後はパスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
     User.find({email: email}, function(err, result) {

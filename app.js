@@ -19,14 +19,14 @@ var routes = require('./routes/index.js');
 var app = express();
 
 // サーバーの起動を告知
-console.log('Example app listening at http://localhost:8080');
+console.log('Stichies app listening at http://localhost:8080');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
 /*
-*proxyから送信される内容がhttpsとして信用する.
+*proxyから送信される内容をhttpsとして信用する.
 */
 app.set('trust proxy', 'loopback');// trust first proxy
 
@@ -52,9 +52,6 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
 }));
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
-app.use(helmet.xssFilter());
-app.use(helmet.frameguard({ action: 'sameorigin' }));
-app.use(helmet.noSniff());
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
