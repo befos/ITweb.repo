@@ -42,8 +42,8 @@ router.post('/', function(req, res, next) {
         }
         transporter.close(); //SMTPの切断
     });
-    res.redirect('/');
     req.session.error_status = 12;
+    res.redirect('/');
 });
 
 //エラーハンドル

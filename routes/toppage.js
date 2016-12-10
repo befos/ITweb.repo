@@ -4,13 +4,16 @@ var template = require('../config/template.json');
 
 router.get('/', function(req, res, next) {
     console.log(req.session.error_status);
-    req.session.error_status = 0;
     if (req.session.user_id) {
+        var error = req.session.error_status;
         res.locals = template.common.true;//共通なテンプレートに読み込む
-        res.render('toppage', {userName: req.session.user_id,reqCsrf:req.csrfToken()});
+        req.session.error_status = 0;
+        res.render('toppage', {userName: req.session.user_id, error:error, eqCsrf:req.csrfToken()});
     } else {
+        var error = req.session.error_status;
         res.locals = template.common.false;//共通なテンプレートに読み込む
-        res.render('toppage', {reqCsrf:req.csrfToken()});
+        req.session.error_status = 0;
+        res.render('toppage', {reqCsrf:req.csrfToken(), error:error});
     }
 });
 
