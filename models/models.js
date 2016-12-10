@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var Users = new Schema({
   email: {type:String, required:true, index:true, unique:true},//Email(被りなし変更化)
   uid: {type:String, required:true, index:true, unique:true},//uid(被りなし)
-  name: String,//ユーザーネーム（被りok!）
+  name: String,//ユーザーネーム（被りok!）(あとで変更可能)
   age: Number,//年齢
   sex: {type: Number, min:0, max:1},//0男性 1女性
   work: String,//職業
@@ -32,19 +32,21 @@ var Forum = new Schema({
     host: String,//uid
     count: Number,//アクセスされた回数
     uday: Date,
+    ques: String,//質問者が入力(質問内容)
     tag: [String],//多分500要素まで？この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
     cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'},{_id:false}]
 },{collection: 'forum'});
 
 var ForumCont = new Schema({
+    //forumcontの_idはforumのIDと同じになる
     _conid: { type: Number, ref: 'Forum' },//コンテンツID
     uid: String,
     name: String,//ユーザーが決めた自由な名前
     prop: String,//プロフィールの画像？
     cuday: {type:Date, default: Date.now},//コンテンツを上げた日
     chday: Date,//内容を編集した日
-    text: String//本文
+    text: String//回答者が入力(回答内容)
 },{collection:'forumcont'});
 
 //質問掲示板メモ　話題の質問　自分が出した質問

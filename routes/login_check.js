@@ -46,8 +46,10 @@ router.post('/', function(req, res, next) {
                                                     if(err) return hadSessionError(err, req, res);
                                                     if(!err){
                                                         req.session.error_status = 0;
+                                                        req.session.obj_id = result[0]._id;
                                                         req.session.user_id = id;
                                                         req.session.user_email = result[0].email;
+                                                        req.session.user_name = result[0].name;
                                                         res.redirect('/mypage');
                                                         mongoose.disconnect();
                                                     }
@@ -79,8 +81,10 @@ router.post('/', function(req, res, next) {
                                         if(err) return hadSessionError(err, req, res);
                                         if(!err){
                                             req.session.error_status = 0;
-                                            req.session.user_email = id;
-                                            req.session.user_id = result[0].uid;
+                                            req.session.obj_id = result[0]._id;
+                                            req.session.user_id = id;
+                                            req.session.user_email = result[0].email;
+                                            req.session.user_name = result[0].name;
                                             res.redirect('/mypage');
                                             mongoose.disconnect();
                                         }

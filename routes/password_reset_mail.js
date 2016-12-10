@@ -10,14 +10,15 @@ var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
+var conf = require('../config/sendmailconf.json');
 
 //データベース接続および設定
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
 
-var URL = 'http://localhost:8080/password_reset_regene?';//メール認証用のURL
-var MINUTES = 10;//数字でURLが有効な分数を指定
+var URL = conf.url1;//メール認証用のURL
+var MINUTES = conf.minute;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);

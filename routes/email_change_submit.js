@@ -14,8 +14,8 @@ router.post('/', function(req, res, next) {
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var email = req.body.email;
-    var uid = req.body.id;
-    User.find({uid:uid},function(err,result){
+    var obj_id = req.session.obj_id;
+    User.find({_id:obj_id},function(err,result){
         if(err) return hadDbError(err, req, res);
         if(result){
             if (result.length === 0) {
@@ -26,9 +26,10 @@ router.post('/', function(req, res, next) {
                     //不正なアクセス（ecフラグが立ってないのにアクセス）
                     return hadUrlError(req, res);
                 }
-                User.update({uid:uid},{$set:{ac_ec:false,　email:email}},function(err){
+                User.update({_id:obj_id},{$set:{ac_ec:false,　email:email}},function(err){
                     if(err) return hadDbError(err, req, res);
                     if(!err){
+                        req.session.destroy();
                         res.render('email_change_submit');
                         mongoose.disconnect();
                     }

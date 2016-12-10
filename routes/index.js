@@ -1,5 +1,6 @@
 var routes = {
-    success: require('./success'),
+    contact: require('./contact'),
+    contact_submit: require('./contact_submit'),
     home: require('./home'), //routesディレクト内のjsファイルを参照
     toppage: require('./toppage'),
     mypage: require('./mypage'),

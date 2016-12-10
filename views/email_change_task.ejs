@@ -9,15 +9,13 @@
   <form action="/email_change_submit" method="post">
     <table border="0">
       <tr>
-        <td>Emailアドレス</td>
+        <td>変更後のEmailアドレス</td>
         <td><%= email %></td>
       </tr?
     </table>
-    <input type="hidden" name="id" value="<%= uid %>">
     <input type="hidden" name="email" value="<%= email %>">
     <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
     <input type="submit" value="変更">
-    <input type="button" value="戻る" onclick="history.back();">
   </form>
 </body>
 </html>

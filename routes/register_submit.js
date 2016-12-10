@@ -11,6 +11,7 @@ var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
+var conf = require('../config/sendmailconf.json');
 
 //データベース接続および設定
 var mongoose = require('mongoose');
@@ -18,8 +19,8 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var URL = 'http://localhost:8080/register_confirm?';//メール認証用のURL
-var MINUTES = 10;//数字でURLが有効な分数を指定
+var URL = conf.url3;//メール認証用のURL
+var MINUTES = conf.minute;//数字でURLが有効な分数を指定
 
 generator.on('token', function(token) {
     console.log('New token for %s: %s', token.user, token.accessToken);
@@ -40,7 +41,7 @@ router.post('/', function(req, res, next) {
         subject: 'Stichies本登録について',
         html: '以下のURLからアカウトを有効にしてください。<br>' +
             'URLの有効時間は'+ MINUTES +'分間です。<br>' +
-            '有効時間後はアカウントの作り直しを行ってください。<br>' +
+            '有効時間後はパスワードのリセットを行ってください。<br>' +
             URL + url_pass + '<br><br>'
     };
     User.find({email: email}, function(err, result) {

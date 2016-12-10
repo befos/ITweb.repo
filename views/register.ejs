@@ -32,8 +32,8 @@
   </table>
   <input type="submit" value="登録">
   <input type="reset" value="リセット">
-  <input type="button" value="戻る" onclick="history.back();">
   <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
+  <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
   </form>
   <br>
    <a href="/password_reset">パスワードリセット</a>

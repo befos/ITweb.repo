@@ -19,14 +19,15 @@ var routes = require('./routes/index.js');
 var app = express();
 
 // サーバーの起動を告知
-console.log('Example app listening at http://localhost:8080');
+console.log('Stichies app listening at http://localhost:8080');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
+
 /*
-*proxyから送信される内容がhttpsのコンテンツだったらcookieにsecure属性をつける？
+*proxyから送信される内容をhttpsとして信用する.
 */
 app.set('trust proxy', 'loopback');// trust first proxy
 
@@ -44,7 +45,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     proxy: true,
     resave: false,
     saveUninitialized: true,
-    cookie: {
+    cookie:{
         secure: false,//デプロイ時にtrueにする
         httpOnly: true,
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
@@ -77,9 +78,8 @@ app.use('/question_board_contents', routes.question_board_contents);
 app.use('/question_board_confirm', routes.question_board_confirem);
 app.use('/question_board_submit', routes.question_board_submit);
 app.use('/question_board_view', routes.question_board_view);
-app.use('/success', routes.success);
-
-
+app.use('/contact', routes.contact);
+app.use('/contact_submit', routes.contact_submit);
 
 //ミドルウェアを使いつくしたので404を生成
 app.use(function(req, res, next) {
