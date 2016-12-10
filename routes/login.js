@@ -5,9 +5,12 @@ router.get('/', function(req, res, next) {
     console.log(req.session.error_status);
     //res.sendFile(process.cwd() + "/public/login.html"); //静的コンテンツの参照(絶対パス)
     if (req.session.user_id) {
+        req.session.error_status = 0;
         res.redirect('/mypage'); //ログイン済みなのでリダイレクト
     } else {
-        res.render('login', {reqCsrf: req.csrfToken()});
+        var error = req.session.error_status;
+        req.session.error_status = 0;
+        res.render('login', {error:error, reqCsrf: req.csrfToken()});
     }
 });
 

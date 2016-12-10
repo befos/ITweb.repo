@@ -3,7 +3,9 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   console.log(req.session.error_status);
-  res.render('register', {reqCsrf:req.csrfToken()});
+  var error = req.session.error_status;
+  req.session.error_status = 0;
+  res.render('register', {error:error,reqCsrf:req.csrfToken()});
 });
 
 module.exports = router;

@@ -3,7 +3,9 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     console.log(req.session.error_status);
-    res.render('password_reset', {reqCsrf:req.csrfToken()});
+    var error = req.session.error_status;
+    req.session.error_status = 0;
+    res.render('password_reset', {error:error, reqCsrf:req.csrfToken()});
 });
 
 module.exports = router;
