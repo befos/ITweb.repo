@@ -1,12 +1,16 @@
 /* Copyright 2014-2015 Twitter, Inc.*/
 /* Licensed under MIT (httwps://github.com/twbs/bootstrap/blob/master/LICENSE)*/
+/*------------    全体CSS    ------------*/
 body,
 html {
-    font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif, 'Meiryo', '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro';
-    font-weight: 500;
-    min-width: 1100px;
-    min-height: 680px;
-    background-color: #fff;
+  font-family: Verdana, Roboto, "Droid Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+	color:#333;
+}
+img {
+    max-width:100%;
+    width /***/:auto; /* IE8のみ */
+    height:auto;
+    vertical-align:bottom;
 }
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
@@ -405,7 +409,6 @@ html {
         display: none;
         background: url('../img/hituzi.png') no-repeat;
     }
-
     .toTop:hover {
         background: url('../img/top_nav.png') no-repeat;
     }
