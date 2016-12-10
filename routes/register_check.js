@@ -13,6 +13,9 @@ router.post('/', function(req, res, next) {
             var password = req.body.password; //上と同じ
             var confirm_password = req.body.confirm_password;
             var Email = req.body.Email;
+            if (!password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}/)) {//もし入力内容がおかしかった場合
+                return hadInputdataError(req, res);
+            }
             if (password != confirm_password) {
                 //ポストされたパスワードが一致しない
                 return hadInputdataError(req, res);
