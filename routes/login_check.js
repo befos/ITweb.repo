@@ -10,9 +10,16 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var limiter = new RateLimiter(15, 60*10*1000, true);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 
-var insert = require('../config/template.json');
+var insert = require('../config/template.json');//テンプレートの読み込み
+var ratelimit = require('../config/commonconf.json');//レートリミットの設定
+
+/*------------rateover-------------*///総当たり攻撃対策
+var request = ratelimit.rateoverconf.request;
+var duration = ratelimit.rateoverconf.duration;
+var use = ratelimit.rateoverconf.use;
+var limiter = new RateLimiter(request, duration, use);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
+/*---------------------------------*/
 
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
@@ -161,6 +168,7 @@ function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
     res.locals = insert.loginrateover;
     res.render('RedirectError');
+    mongoose.disconnect();
 }
 
 
