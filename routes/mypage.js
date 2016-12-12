@@ -58,7 +58,7 @@ function hadDbError(err, req, res){
 }
 
 function hadNologinError(req, res){
-    req.session.error_status = 10;
+    //req.session.error_status = 10;
     res.redirect('/login');
     mongoose.disconnect();
 }

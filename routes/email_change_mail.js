@@ -20,10 +20,6 @@ var User = models.Users;
 var URL = conf.url2;//メール認証用のURL
 var MINUTES = conf.minute;//数字でURLが有効な分数を指定
 
-generator.on('token', function(token) {
-    console.log('New token for %s: %s', token.user, token.accessToken);
-});
-
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata');
     req.session.error_status = 0;

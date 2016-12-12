@@ -25,7 +25,6 @@ console.log('Stichies app listening at http://localhost:8080');
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）
 app.set('view engine', 'ejs');
 
-
 /*
 *proxyから送信される内容をhttpsとして信用する.
 */

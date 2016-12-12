@@ -29,9 +29,9 @@ var Users = new Schema({
 
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
-    host: String,//uid
+    host: String,//obj_idから主催者のデータを拾う
     count: Number,//アクセスされた回数
-    uday: Date,
+    uday: Date,//アップロードした日
     ques: String,//質問者が入力(質問内容)
     tag: [String],//多分500要素まで？この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
