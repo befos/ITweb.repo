@@ -29,7 +29,19 @@ $(function() {
     $(".mypage_main h1").on("click", function() {
             $(this).next().slideToggle();
         });
-});
+    $(window).resize(function(){
+        var w = $(window).width();
+        var x = 960;
+        var tx = $('li.long_tx')
+        if (w <= x) {
+            tx.html("<a href='#'>JS</a>");
+            tx.css({'color' : "white"})
+        } else {
+            tx.html("<a href='#'>JavaScript</a>");
+            tx.css({'color' : 'white'})
+        }
+            });
+          });
 
 
 /*バリデーション validation engine*/
