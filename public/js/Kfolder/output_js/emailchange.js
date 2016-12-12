@@ -1,7 +1,7 @@
 function conrimMessage() {
-    var id = document.getElementById("id").value;
+    var id = document.getElementById("Email").value;
     //必須チェック
-    if (id == "" || confirm_Email == "") {
+    if (id == "") {
         alert("必須項目が入力されていません。");
         return false;
     } else {

@@ -38,6 +38,7 @@ router.get('/', function(req, res, next){
                         user_work:user_work,
                         user_sex:user_sex
                     };
+                    req.session.error_status = 0;
                     res.locals = insert;//テンプレートに読み込む
                     res.render('mypage');
                     mongoose.disconnect();

@@ -39,6 +39,7 @@ router.post('/', function(req, res, next) {
                     if(err) return hadDbError(err, req, res);
                     if(!err){
                         req.session.one_shot_id = null;
+                        req.session.error_status = 0;
                         res.render('password_reset_submit', {string:string});
                         mongoose.disconnect();
                     }

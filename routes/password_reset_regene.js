@@ -38,6 +38,7 @@ router.get('/', function(req, res, next) {
                     return hadUrlError(req, res);
                 }
                 req.session.one_shot_id = result[0].uid;
+                req.session.error_status = 0;
                 res.render('password_reset_regene',{reqCsrf:req.csrfToken()});
                 mongoose.disconnect();
             }

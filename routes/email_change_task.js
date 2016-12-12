@@ -38,6 +38,7 @@ router.get('/', function(req, res, next) {
                     return hadUrlError(req, res);
                 }
                 var email = result[0].cemail;
+                req.session.error_status = 0;
                 res.render('email_change_task',{reqCsrf:req.csrfToken(), email:email});
                 mongoose.disconnect();
             }

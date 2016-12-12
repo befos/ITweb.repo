@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var randword = require('../public/js/Kfolder/randword.js').randword;
-var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
 var mailer = require('nodemailer');　
 var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
@@ -78,15 +77,17 @@ router.post('/', function(req, res, next) {
                                 }));
                                 transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
                                     if (err) { //送信に失敗したとき
+                                        transporter.close();
                                         return hadSendmailError(err, req, res, resp);
                                     }
                                     if (!err) { //送信に成功したとき
                                         console.log('Message sent');
-                                        res.render('email_change_mail');
-                                        mongoose.disconnect();
-                                        transporter.close(); //SMTPの切断
                                     }
+                                    transporter.close(); //SMTPの切断
                                 });
+                                req.session.error_status = 0;
+                                res.render('email_change_mail');
+                                mongoose.disconnect();
                             }
                         });
                     }
@@ -115,7 +116,6 @@ function hadSendmailError(err, req, res, resp) {
     console.log(err);
     req.session.error_status = 4;
     res.redirect('/email_change');
-    transporter.close(); 
     mongoose.disconnect();
 }
 
@@ -128,6 +128,7 @@ function hadDbError(err, res, req) {
 
 function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
+    req.session.destroy();
     res.locals = insert.emailchrateover;
     res.render('RedirectError');
     mongoose.disconnect();

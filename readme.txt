@@ -85,3 +85,19 @@ nodeやnpmのエラー対処
 
  Socket hung up　のエラーが出た場合
    セキュリティソフトが悪さをしている可能性が高い
+
+ transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
+       if (err) { //送信に失敗したとき
+           transporter.close();
+           return hadSendmailError(err, req, res, resp);
+       }
+       if (!err) { //送信に成功したとき
+           console.log('Message sent');
+       }
+       transporter.close(); //SMTPの切断
+       X res.render();
+       X mongoose.redirect();
+   });
+   〇 res.render();
+   〇 mongoose.redirect();
+   メールの送信処理のすぐ後にページのレンダーを書かないこと（非同期にならずにページの表示が遅くなる）

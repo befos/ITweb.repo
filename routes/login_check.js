@@ -44,8 +44,7 @@ router.post('/', function(req, res, next) {
                                         req.session.error_status = 1;
                                         res.redirect('/login');
                                         mongoose.disconnect();
-                                    } else {
-                                        //uidが見つかった
+                                    } else {//uidが見つかった
                                         console.log("such uid");
                                         var dbpass = result[0].hashpass;
                                         var salt = result[0].salt;
@@ -54,8 +53,7 @@ router.post('/', function(req, res, next) {
                                         if (account_status === false) { //本登録が済んでいなかったらリダイレクト
                                             return hadLoginError(req, res);
                                         }
-                                        //認証フェーズ
-                                        if (dbpass === passhash) {
+                                        if (dbpass === passhash) {//認証フェーズ
                                             User.update({
                                                 uid: id
                                             }, {
@@ -79,8 +77,7 @@ router.post('/', function(req, res, next) {
                                                     });
                                                 }
                                             });
-                                        } else {
-                                            //IDは見つかったがパスワードが一致しない
+                                        } else {//IDは見つかったがパスワードが一致しない
                                             return hadInputdataError(req, res);
                                         }
                                     }
