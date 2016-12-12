@@ -104,6 +104,8 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
         case '12':
             alert("お問い合わせ頂きありがとうございます。");
             break;
+        case '13':
+            alert("code:13 異常なアクセスが検知されたので一時的にアクセスを制限します。");
     }
 }
 window.onload = setError;

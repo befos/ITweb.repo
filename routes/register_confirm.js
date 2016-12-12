@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 require('date-utils');
+var RateLimiter = require('limiter').RateLimiter;
 
 //データベース接続および設定
 var mongoose = require('mongoose');
