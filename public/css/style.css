@@ -15,6 +15,11 @@ img {
     height: auto;
     vertical-align: bottom;
 }
+
+.no-gutter > [class*='col-'] {
+    padding-right:2px!important;
+    padding-left:2px!important;
+}
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
 .nav-padding {
@@ -137,6 +142,9 @@ img {
     background-color: #f7f7f7;
     box-shadow: 0 0 0 4px #f7f7f7;
 }
+.mypage_main{
+  padding: 0 1% 0 0;
+}
 #result_toptx{
 	font-size: 28px;
 	line-height:2.5rem;
@@ -211,6 +219,11 @@ img {
 br { display : none ; }
 }
 @media (max-width: 760px) {
+a:link { color: #ffffff; }
+a:visited { color: #ffffff; }
+.qna_user {
+      display: block!important;
+    }
 #result_toptx {
 	width:90%;
 	margin:0 auto;}
@@ -224,7 +237,7 @@ br { display : none ; }
       display:block;
       padding: 0.5rem 0;
       width: 100%;
-	  border-top:none;
+	     border-top:none;
       border-left-width: 0; }
       .resultList tbody td:before {
         display:inline-block;
@@ -236,11 +249,13 @@ br { display : none ; }
         color: #3173ae;
         font-weight: bold; }
       .resultList tbody td:nth-of-type(2):before {
-        content: "学年 :"; }
+        content: "ユーザー :"; }
       .resultList tbody td:nth-of-type(3):before {
-        content: "教科等 :"; }
+        content: "投稿時間 :"; }
       .resultList tbody td:nth-of-type(4):before {
-        content: "連携教育センター 連携大学 :"; }
+        content: "回答状況 :"; }
+      .resultList tbody td:nth-of-type(5):before {
+        content: "難易度 :"; }
     .resultList tbody .title {
       margin: 0 -15px;
       padding-right: 15px;
@@ -251,16 +266,16 @@ br { display : none ; }
       text-align: left; }
 
 .resultList th {
-  display: none; }
+  display: none!important; }
 .resultList tr {
-    padding: 0 15px; }
+    padding: 0; }
 
 .resultList td.qna_title{
 	vertical-align:middle;
 	background:#3173ae;
 	color:#fff;
 	font-weight:bold;
-	padding:1rem 0;
+	padding:1rem 10px 1rem 10px;
 	  }
 .resultList td.qna_user{
 	text-align:left !important;
@@ -275,8 +290,10 @@ br { display : none ; }
 .resultList td.qna_time{
 	text-align: left!important;
 	border-left: none;
+  border-right: none;
 	}
 .resultList td.qna_diff{
+  text-align: left;
 		border-left: none;
 	}
 .resultList td span{
