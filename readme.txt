@@ -64,6 +64,15 @@ function hadInputdataError(err, req, res){
     }
   }));
 
+javascriptの非同期での動かし方
+  スクリプトを非同期にダウンロードし、スクリプトは直ちに実行されます。
+  <script async src="hoge.js"></script>
+  スクリプトを非同期にダウンロードし、スクリプトはページの解析が終了したら実行されます。
+  <script defer src="hoge.js"></script>
+  async として解釈される。ただし async に未対応のブラウザは defer と解釈する。両方に対応していなければ指定は無視される。
+  <script async defer src="hoge.js"></script>
+  遅延読み込みで見える部分を優先する
+
  現在時刻の取得方法
     require('date-utils');
     var hoge = new Date();//現在時刻取得
