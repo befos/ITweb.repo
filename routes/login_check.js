@@ -10,7 +10,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var limiter = new RateLimiter(1, 60*10*1000, true); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
+var limiter = new RateLimiter(15, 60*10*1000, true);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 
 var insert = require('../config/template.json');
 
@@ -159,7 +159,7 @@ function hadLoginError(req, res) {
 
 function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
-    res.locals = insert.rateover;
+    res.locals = insert.loginrateover;
     res.render('RedirectError');
 }
 

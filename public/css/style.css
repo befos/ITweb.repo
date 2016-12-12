@@ -508,11 +508,11 @@ a:visited { color: #ffffff; }
 }
 /*-----------------------------------*/
 
-/*---errorステータス表示）------------*/
+/*---errorステータス表示------------*/
 .error_status h1 {
     position: relative;
     display: block;
     width: 90%;
-    margin: 250px 10% 0;
+    margin: 200px auto;
 }
 /*-----------------------------------*/
