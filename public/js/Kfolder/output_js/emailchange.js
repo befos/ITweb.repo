@@ -1,10 +1,10 @@
 function conrimMessage() {
-  var id = document.getElementById("id").value;
- //必須チェック
- if(id == "") {
-    alert("必須項目が入力されていません。");
-    return false;
- }
-
-  return true;
+    var id = document.getElementById("id").value;
+    //必須チェック
+    if (id == "" || confirm_Email == "") {
+        alert("必須項目が入力されていません。");
+        return false;
+    } else {
+        return true;
+    }
 }

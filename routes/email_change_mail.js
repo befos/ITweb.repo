@@ -30,16 +30,13 @@ var use = conf.rateoverconf.use;
 var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 /*---------------------------------*/
 
-console.log(request);
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
-        if (remainingRequests > 0) {
+        if (remainingRequests > 0) {//formから飛ばされた情報を受け取って変数に格納
             mongoose.connect('mongodb://localhost:27017/userdata');
-            req.session.error_status = 0;
-            //formから飛ばされた情報を受け取って変数に格納
             var email = req.body.id;
-            var url_pass = sha256(randword.method(16));
             var obj_id = req.session.obj_id;
+            var url_pass = sha256(randword.method(16));
             var mailOptions = { //メールの送信内容
                 from: 'Stichies運営<stichies01@gmail.com>',
                 to: email,
@@ -49,33 +46,26 @@ router.post('/', function(req, res, next) {
                     '有効時間後は再度メールアドレスの変更を行ってください。<br>' +
                     URL + url_pass + '<br><br>'
             };
-            User.find({
-                _id: obj_id
-            }, function(err, result) {
+            User.find({_id: obj_id}, function(err, result) {
                 if (err) return hadDbError(err, res, req);
                 if (result) {
                     if (result.length === 0) {
                         return hadInputdataError(req, res);
                     } else {
-                        if (result[0].email == email) {
-                            //変更後と変更前が同じ場合
+                        if (result[0].email == email) {//変更後と変更前が同じ場合
                             return hadInputdataError(req, res);
                         }
                         var dt = new Date();
                         dt.setMinutes(dt.getMinutes() + MINUTES);
                         var ect = dt.toFormat("YYYY/MM/DD HH24:MI:SS"); //時間を取得
                         console.log(ect);
-                        User.update({
-                            _id: obj_id
-                        }, {
+                        User.update({_id: obj_id}, {
                             $set: {
                                 ac_ec: true,
                                 url_pass: url_pass,
                                 ect: ect,
                                 cemail: email
                             }
-                        }, {
-                            safe: true
                         }, function(err) {
                             if (err) return hadDbError(err, res, req);
                             if (!err) {
@@ -92,11 +82,11 @@ router.post('/', function(req, res, next) {
                                     }
                                     if (!err) { //送信に成功したとき
                                         console.log('Message sent');
+                                        res.render('email_change_mail');
+                                        mongoose.disconnect();
+                                        transporter.close(); //SMTPの切断
                                     }
-                                    transporter.close(); //SMTPの切断
                                 });
-                                res.render('email_change_mail');
-                                mongoose.disconnect();
                             }
                         });
                     }
@@ -115,10 +105,17 @@ function hadInputdataError(req, res) {
     mongoose.disconnect();
 }
 
+function hadOverlapError(req ,res){
+    req.session.error_status = 2;
+    res.redirect('/register');
+    mongoose.disconnect();
+}
+
 function hadSendmailError(err, req, res, resp) {
     console.log(err);
     req.session.error_status = 4;
     res.redirect('/email_change');
+    transporter.close(); 
     mongoose.disconnect();
 }
 
