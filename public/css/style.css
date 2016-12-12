@@ -3,20 +3,24 @@
 /*------------    全体CSS    ------------*/
 body,
 html {
-  font-family: Verdana, Roboto, "Droid Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
-	color:#333;
+    font-family: Verdana, Roboto, "Droid Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+    color: #333;
 }
+
 img {
-    max-width:100%;
-    width /***/:auto; /* IE8のみ */
-    height:auto;
-    vertical-align:bottom;
+    max-width: 100%;
+    /***/
+    width: auto;
+    /* IE8のみ */
+    height: auto;
+    vertical-align: bottom;
 }
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
-.nav-padding{
-  padding-right: 30px;
+.nav-padding {
+    padding-right: 30px;
 }
+
 .topimg {
     position: absolute;
     top: 10px;
@@ -104,111 +108,26 @@ img {
     margin-top: 20px;
 }
 
-.clear{
-  clear: left;
+.clear {
+    clear: left;
 }
-/*--------------------------------------*/
 /*------------質問広場CSS---------------*/
 .qna_header_img {
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
-
 }
-
 .searchbox {
     margin-top: 1em;
 }
-
 .searchbox textarea {
     resize: none;
 }
-/* 04.吹き出し */
-.title_design {
-    position: relative;
-    margin: 20px 0 20px 0;
-    padding: 2px 5px 5px 5px;
-    font: bold 15px/1.6 Arial, Helvetica, sans-serif;
-    color: #333;
-    border: #333 solid 1px;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: -7px -5px 0 0 #e8e8e8 inset, 2px 3px 0 0 #000;
-}
-
-.title_design:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 4%;
-    width: 0;
-    height: 0;
-    border-width: 20px;
-    border-style: solid;
-    border-color: transparent;
-    border-top-color: #333;
-}
-
-.title_design:after {
-    content: " ";
-    position: absolute;
-    bottom: -27px;
-    left: 4%;
-    width: 0;
-    height: 0;
-    border-width: 14px;
-    border-style: solid;
-    border-color: transparent;
-    border-top-color: #e8e8e8;
-}
-
-.defaultlist,
-.defaultlist li {
-    padding: 0;
-    margin: 0;
-}
-
-.defaultlist li {
-    list-style-type: none !important;
-    list-style-image: none !important;
-    margin: 5px 0 !important;
-}
-
-.topic_list li {
-    position: relative;
-    padding-left: 20px;
-}
-
-.topic_list li:before {
-    content: '';
-    height: 0;
-    width: 90%;
-    display: block;
-    position: absolute;
-    top: 18px;
-    left: 0;
-    border-bottom: 1px dashed #aaa;
-}
-
-.topic_list li:after {
-    content: '';
-    display: block;
-    position: absolute;
-    background: #aaa;
-    width: 5px;
-    height: 5px;
-    top: 7px;
-    left: 5px;
-    border-radius: 5px;
-}
-
 .category h1 {
-    font-size: 2em;
+    font-size: 2rem;
     margin: 0;
     padding: 0 0 10px;
 }
-
 .stitchbox {
     margin: 1em 0;
     padding: 1em;
@@ -218,15 +137,162 @@ img {
     background-color: #f7f7f7;
     box-shadow: 0 0 0 4px #f7f7f7;
 }
-.list_now ul{
-  list-style: none;
+#result_toptx{
+	font-size: 28px;
+	line-height:2.5rem;
+	font-weight:normal;
+	padding: 0;
+	color: #333333;
 }
-.list_now li{
-  margin: 2px;
-  border: solid 1px #daf7ff;
-  font-size: 25px;
+.qna_diff a:visited{
+	color: #294c7e!important;
 }
-/*--------------------------------------*/
+.qna_diff a{
+	color: #294c7e!important;
+}
+.resultList{
+	width:100%;
+	margin:30px auto;
+	padding:0;
+	}
+
+.resultList th,
+.resultList td{
+	display:table-cell;
+	font-size:16px;
+	}
+
+.resultList td:before {
+    display: none; }
+
+.resultList th{
+	vertical-align:middle;
+  text-align: center;
+	background:#3173ae;
+	color:#fff;
+	padding:1rem;
+	border-left:1px solid #fff;
+	border-right:1px solid #fff;
+	}
+
+.resultList td{
+	border-bottom:1px solid #e5e5e5;
+	border-top:1px solid #e5e5e5;
+	padding:1rem;
+	}
+.resultList td:nth-of-type(1),
+.resultList td:nth-of-type(2),
+.resultList td:nth-of-type(3){
+	text-align:left;
+	border-right:1px solid #e5e5e5;
+	}
+.resultList td:last-child{
+	border-left:1px solid #e5e5e5;
+	text-align: center;
+	}
+	.resultList td:before {
+    display: none; }
+
+.resultList td.qna_user,
+.resultList td.qna_time,
+.resultList td.qna_answer,
+.resultList td.qna_diff,
+.resultList th.qna_diff{
+	white-space:nowrap;
+	}
+@media (max-width: 960px) {
+.qna_user{
+    display: none!important;
+  }
+#result_toptx {
+	width:95%;
+	margin:0 auto;
+	font-size:24px;}
+br { display : none ; }
+}
+@media (max-width: 760px) {
+#result_toptx {
+	width:90%;
+	margin:0 auto;}
+.resultList {
+    width: 100%; }
+    .resultList tbody tr {
+      display: block;
+      padding-bottom: 12px; }
+    .resultList tbody td {
+      text-align:left;
+      display:block;
+      padding: 0.5rem 0;
+      width: 100%;
+	  border-top:none;
+      border-left-width: 0; }
+      .resultList tbody td:before {
+        display:inline-block;
+        vertical-align: middle;
+        *vertical-align: auto;
+        *zoom: 1;
+        *display: inline;
+        margin-right: 5px;
+        color: #3173ae;
+        font-weight: bold; }
+      .resultList tbody td:nth-of-type(2):before {
+        content: "学年 :"; }
+      .resultList tbody td:nth-of-type(3):before {
+        content: "教科等 :"; }
+      .resultList tbody td:nth-of-type(4):before {
+        content: "連携教育センター 連携大学 :"; }
+    .resultList tbody .title {
+      margin: 0 -15px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-bottom: 9px;
+      background-color: #5cc;
+      color: #3173ae;
+      text-align: left; }
+
+.resultList th {
+  display: none; }
+.resultList tr {
+    padding: 0 15px; }
+
+.resultList td.qna_title{
+	vertical-align:middle;
+	background:#3173ae;
+	color:#fff;
+	font-weight:bold;
+	padding:1rem 0;
+	  }
+.resultList td.qna_user{
+	text-align:left !important;
+	border-right:none;
+	}
+
+.resultList td.qna_answer{
+	text-align: left!important;
+	border-left:none;
+	}
+
+.resultList td.qna_time{
+	text-align: left!important;
+	border-left: none;
+	}
+.resultList td.qna_diff{
+		border-left: none;
+	}
+.resultList td span{
+	display:inline-block;
+	vertical-align:middle;
+	}
+.resultList td ul{
+	display:inline-block;
+	vertical-align:top;}
+	}
+@media (max-width: 480px) {
+.resultList tbody td:before {
+        display:block;
+		margin-bottom:0.5rem;
+		}
+	}
 /*------------問い合わせCSS-------------*/
 .contact_header_img {
     position: absolute;
@@ -253,7 +319,6 @@ img {
 .shadow {
     box-shadow: 0 0 10px 0 #000;
 }
-/*-------------------------------------*/
 /*------------マイページCSS------------*/
 .Profile {
     margin: 20px;
@@ -348,7 +413,7 @@ img {
 .Q_his h3 {
     padding: 1em;
     border: 3px solid #ccc;
-    border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+    border-radius: 3em 0.7em 2em 0.7em/.7em 2em 0.7em 3em;
     font-weight: bold;
 }
 
@@ -378,7 +443,7 @@ img {
 .S_his h3 {
     padding: 1em;
     border: 3px solid #ccc;
-    border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+    border-radius: 3em 0.7em 2em 0.7em/.7em 2em 0.7em 3em;
     font-weight: bold;
 }
 
@@ -401,35 +466,27 @@ img {
     top: 900px;
     left: 50px;
     right: 50px;
-    background: gray url(../../img/back.jpg) no-repeat center top;
+    background: gray url("../../img/back.jpg") no-repeat center top;
     background-color: #f1ebe1;
     border: 2px;
     border-radius: 8px;
     box-shadow: 0 0 0 4px #f1ebe1;
     color: #000;
 }
-
 /*---トップへ戻るボタン（全体）----------*/
 .toTop {
     position: fixed;
+    display: none;
     bottom: 0;
-    display: block;
     width: 100px;
     height: 100px;
+    right: 0;
+    bottom: 50px;
     margin-bottom: 0;
-    background: url('../img/top_nav.png') no-repeat;
+    background: url('../img/hituzi.png') no-repeat;
 }
-/*PCで見た時*/
-@media screen and (min-width: 601px) {
-    .toTop {
-        position: fixed;
-        right: 0;
-        bottom: 50px;
-        display: none;
-        background: url('../img/hituzi.png') no-repeat;
-    }
-    .toTop:hover {
-        background: url('../img/top_nav.png') no-repeat;
-    }
+
+.toTop:hover {
+    background: url('../img/top_nav.png') no-repeat;
 }
 /*-----------------------------------*/
