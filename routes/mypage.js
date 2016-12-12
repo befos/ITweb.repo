@@ -23,7 +23,7 @@ router.get('/', function(req, res, next){
                     var user_age = result[0].age;
                     var user_work = result[0].work;
                     var user_sex;
-                    if(result[0].sex == 0){
+                    if(result[0].sex === 0){
                         user_sex = '男';
                     }else if(result[0].sex == 1){
                         user_sex = '女';
