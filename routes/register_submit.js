@@ -75,7 +75,8 @@ router.post('/', function(req, res, next) {
                                   ac_use: false,
                                   ac_reset: false,
                                   ac_ec: false,
-                                  ac_gr: false
+                                  ac_gr: false,
+                                  mypage_st: true,
                                 });
                                 onetimeuser.save(function(err) {
                                   if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)

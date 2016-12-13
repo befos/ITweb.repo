@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 require('date-utils');//現在時刻の取得
 
-//データベース接続および設定
+//データベース接続および設定　
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var Forum = models.Forum;
@@ -15,7 +15,7 @@ router.post('/', function(req, res, next) {
     var question ='<p>むずすぎぃぃ！！</p>'
     var dummytext = '<p>ほげげ</p>';
     var name = "testユーザー";
-    var tag = ["C言語", "難しい"];
+    var tag = ["C言語", "難しい","Javascript"];
     //↑ダミー
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");

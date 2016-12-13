@@ -58,6 +58,7 @@ app.use(helmet());
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/contents', routes.home);
 app.use('/mypage', routes.mypage);
+app.use('/outlook_mypage', routes.outlook_mypage);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
 app.use('/logout', routes.logout);
