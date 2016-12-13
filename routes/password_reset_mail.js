@@ -33,7 +33,9 @@ var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を�
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) { //formから飛ばされた情報を受け取って変数に格納
-            //mongoose.connect('mongodb://localhost:27017/userdata');
+            mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
             //formから飛ばされた情報を受け取って変数に格納
             var email = req.body.id;
             var url_pass = sha256(randword.method(16));

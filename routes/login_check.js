@@ -25,6 +25,9 @@ router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) {
             if (req.body.id !== null && req.body.password !== null) {
+                mongoose.connect('mongodb://localhost:27017/userdata', function(){
+                    console.log('connected');
+                });//コネクションが確立されていれば新規に立てない
                 var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ
                 User.find({

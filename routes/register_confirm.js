@@ -15,7 +15,9 @@ var insert = require('../config/template.json');
 router.get('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) {
-            //mongoose.connect('mongodb://localhost:27017/userdata');
+            mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
             var u = url.parse(req.url, false);
             var dt = new Date();
             var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");

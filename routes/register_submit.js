@@ -23,7 +23,9 @@ var URL = conf.sendmailconf.url3;//メール認証用のURL
 var MINUTES = conf.sendmailconf.minute;//数字でURLが有効な分数を指定
 
 router.post('/', function(req, res, next) {
-    //mongoose.connect('mongodb://localhost:27017/userdata');
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
     req.session.error_status = 0;
     var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ

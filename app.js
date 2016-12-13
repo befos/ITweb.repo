@@ -13,6 +13,7 @@ var store = new ConnectMongoDB({ //セッション管理用DB接続設定
 });
 var csurf = require('csurf');
 var helmet = require('helmet');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index.js');
 
