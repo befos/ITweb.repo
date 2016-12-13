@@ -7,7 +7,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 router.get('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    //mongoose.connect('mongodb://localhost:27017/userdata');
     if(req.session.user_id){
         var obj_id = req.session.obj_id;
         User.update({_id:obj_id},{$set:{ac_use:false}},function(err){

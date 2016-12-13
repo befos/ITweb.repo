@@ -12,9 +12,9 @@ var conf = require('../config/commonconf.json'); //共通設定の読み込み�
 
 /*------------rateover-------------*/
 /*総当たり攻撃対策*/
-var request = conf.rateoverconf.request;
-var duration = conf.rateoverconf.duration;
-var use = conf.rateoverconf.use;
+var request = conf.rateoverconf5.request;
+var duration = conf.rateoverconf5.duration;
+var use = conf.rateoverconf5.use;
 var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（設定はcommonconfに記述）
 /*---------------------------------*/
 
@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
     if (req.body.id !== null && req.body.password !== null && req.body.Email !== null) {
         limiter.removeTokens(1, function(err, remainingRequests) {
             if (remainingRequests > 0) {
-                mongoose.connect('mongodb://localhost:27017/userdata');
+                //mongoose.connect('mongodb://localhost:27017/userdata');
                 var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ
                 var confirm_password = req.body.confirm_password;

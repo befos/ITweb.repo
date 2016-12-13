@@ -15,16 +15,15 @@ var insert = require('../config/template.json');//テンプレートの読み込
 var ratelimit = require('../config/commonconf.json');//レートリミットの設定
 
 /*------------rateover-------------*///総当たり攻撃対策
-var request = ratelimit.rateoverconf.request;
-var duration = ratelimit.rateoverconf.duration;
-var use = ratelimit.rateoverconf.use;
+var request = ratelimit.rateoverconf3.request;
+var duration = ratelimit.rateoverconf3.duration;
+var use = ratelimit.rateoverconf3.use;
 var limiter = new RateLimiter(request, duration, use);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 /*---------------------------------*/
 
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) {
-            mongoose.connect('mongodb://localhost:27017/userdata');
             if (req.body.id !== null && req.body.password !== null) {
                 var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ

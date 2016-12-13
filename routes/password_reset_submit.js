@@ -12,7 +12,7 @@ var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 
 router.post('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    //mongoose.connect('mongodb://localhost:27017/userdata');
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ

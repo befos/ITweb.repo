@@ -56,6 +56,8 @@ Users.plugin(uniqueValidator);
 Forum.plugin(uniqueValidator);
 ForumCont.plugin(uniqueValidator);
 
+mongoose.connect('mongodb://localhost:27017/userdata');
+
 mongoose.Promise = global.Promise;
 exports.Users = mongoose.model("Users", Users);
 exports.Forum = mongoose.model("Forum", Forum);

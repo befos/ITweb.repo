@@ -14,9 +14,9 @@ var conf = require('../config/commonconf.json'); //共通設定の読み込み�
 
 /*------------rateover-------------*/
 /*総当たり攻撃対策*/
-var request = conf.rateoverconf.request;
-var duration = conf.rateoverconf.duration;
-var use = conf.rateoverconf.use;
+var request = conf.rateoverconf1.request;
+var duration = conf.rateoverconf1.duration;
+var use = conf.rateoverconf1.use;
 var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 /*---------------------------------*/
 

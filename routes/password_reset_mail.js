@@ -24,16 +24,16 @@ var MINUTES = conf.sendmailconf.minute; //数字でURLが有効な分数を指�
 
 /*------------rateover-------------*/
 /*総当たり攻撃対策*/
-var request = conf.rateoverconf.request;
-var duration = conf.rateoverconf.duration;
-var use = conf.rateoverconf.use;
+var request = conf.rateoverconf4.request;
+var duration = conf.rateoverconf4.duration;
+var use = conf.rateoverconf4.use;
 var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 /*---------------------------------*/
 
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) { //formから飛ばされた情報を受け取って変数に格納
-            mongoose.connect('mongodb://localhost:27017/userdata');
+            //mongoose.connect('mongodb://localhost:27017/userdata');
             //formから飛ばされた情報を受け取って変数に格納
             var email = req.body.id;
             var url_pass = sha256(randword.method(16));
