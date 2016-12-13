@@ -28,8 +28,10 @@ $(function() {
     });
     $(".mypage_main h1").on("click", function() {
             $(this).next().slideToggle();
-        });
-    $(window).resize(function(){
+    });
+    $(window).resize(replaceText);
+    replaceText();
+    function replaceText(){
         var w = $(window).width();
         var x = 960;
         var tx = $('li.long_tx')
@@ -40,9 +42,11 @@ $(function() {
             tx.html("<a href='#'>JavaScript</a>");
             tx.css({'color' : 'white'})
         }
-            });
-          });
-
+    }
+    $('.category_btn').on('click',function(){
+			$('.category_btn ul').slideToggle(600);
+		});
+});
 
 /*バリデーション validation engine*/
 //

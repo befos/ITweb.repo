@@ -112,26 +112,34 @@ img {
     font-size: 20px;
     margin-top: 20px;
 }
-
 .clear {
     clear: left;
 }
 /*------------質問広場CSS---------------*/
 .qna_header_img {
     width: 100%;
-    margin: 0;
+    margin: 0 0 50px 0;
     padding: 0;
+}
+.blockStyle{
+  width: 100%;
+  padding: 0;
+  margin: 20px 0 0 0;
+  margin-top: 20px;
 }
 .category_btn ul{
     list-style: none;
     padding: 0;
 }
-.category_btn li{
+.category_btn li a{
   display: block;
   text-align: center;
   padding:  1rem;
   margin: 0.5rem;
-  border-radius: 10px;
+  text-decoration: none;
+}
+.category_btn li{
+    border-radius: 10px;
 }
 .category_btn a:link,
 .category_btn a:visited{
@@ -155,7 +163,8 @@ img {
   background-color: #ffac45;}
 .category_btn li:nth-of-type(8){
   background-color: #2ACCA8;}
-
+.category_btn li:nth-of-type(9){
+  background-color: #737373;}
 .searchbox {
     margin-top: 1em;
 }
@@ -170,9 +179,6 @@ img {
     border-radius: 8px;
     background-color: #f7f7f7;
     box-shadow: 0 0 0 4px #f7f7f7;
-}
-.mypage_main{
-  padding: 0 1% 0 0;
 }
 #result_toptx{
 	font-size: 28px;
@@ -238,6 +244,11 @@ img {
 	white-space:nowrap;
 	}
 @media (max-width: 960px) {
+.category_btn li:first-child{
+  width: 110%;
+  height: auto;
+  margin: -2%;
+}
 .qna_user{
     display: none!important;
   }
@@ -247,7 +258,21 @@ img {
 	font-size:24px;}
 br { display : none ; }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
+.category_btn{
+  display: block;
+}
+.category_btn ul{
+  display: none;
+  }
+.category_btn::before{
+  content: "カテゴリ";
+  font-size: 3.5vw;
+  margin: 40%;
+}
+.category_btn li:first-child{
+  display: none;
+}
 a:link { color: #ffffff; }
 a:visited { color: #ffffff; }
 .qna_user {
@@ -524,8 +549,8 @@ a:visited { color: #ffffff; }
     position: fixed;
     display: none;
     bottom: 0;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     right: 0;
     bottom: 50px;
     margin-bottom: 0;
