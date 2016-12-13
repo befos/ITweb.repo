@@ -11,7 +11,7 @@ var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
-var conf = require('../config/sendmailconf.json');
+var conf = require('../config/commonconf.json');
 
 //データベース接続および設定
 var mongoose = require('mongoose');
@@ -19,11 +19,13 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var URL = conf.url3;//メール認証用のURL
-var MINUTES = conf.minute;//数字でURLが有効な分数を指定
+var URL = conf.sendmailconf.url3;//メール認証用のURL
+var MINUTES = conf.sendmailconf.minute;//数字でURLが有効な分数を指定
 
 router.post('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
     req.session.error_status = 0;
     var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ

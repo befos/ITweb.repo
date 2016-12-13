@@ -64,6 +64,15 @@ function hadInputdataError(err, req, res){
     }
   }));
 
+javascriptの非同期での動かし方
+  スクリプトを非同期にダウンロードし、スクリプトは直ちに実行されます。
+  <script async src="hoge.js"></script>
+  スクリプトを非同期にダウンロードし、スクリプトはページの解析が終了したら実行されます。
+  <script defer src="hoge.js"></script>
+  async として解釈される。ただし async に未対応のブラウザは defer と解釈する。両方に対応していなければ指定は無視される。
+  <script async defer src="hoge.js"></script>
+  遅延読み込みで見える部分を優先する
+
  現在時刻の取得方法
     require('date-utils');
     var hoge = new Date();//現在時刻取得
@@ -85,3 +94,19 @@ nodeやnpmのエラー対処
 
  Socket hung up　のエラーが出た場合
    セキュリティソフトが悪さをしている可能性が高い
+
+ transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
+       if (err) { //送信に失敗したとき
+           transporter.close();
+           return hadSendmailError(err, req, res, resp);
+       }
+       if (!err) { //送信に成功したとき
+           console.log('Message sent');
+       }
+       transporter.close(); //SMTPの切断
+       X res.render();
+       X mongoose.redirect();
+   });
+   〇 res.render();
+   〇 mongoose.redirect();
+   メールの送信処理のすぐ後にページのレンダーを書かないこと（非同期にならずにページの表示が遅くなる）

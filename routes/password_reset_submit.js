@@ -12,7 +12,9 @@ var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 
 router.post('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ
@@ -39,6 +41,7 @@ router.post('/', function(req, res, next) {
                     if(err) return hadDbError(err, req, res);
                     if(!err){
                         req.session.one_shot_id = null;
+                        req.session.error_status = 0;
                         res.render('password_reset_submit', {string:string});
                         mongoose.disconnect();
                     }

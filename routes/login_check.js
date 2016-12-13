@@ -10,15 +10,24 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 var STRETCH = 10000; //パスワードをストレッチする際の回数
-var limiter = new RateLimiter(15, 60*10*1000, true);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
 
-var insert = require('../config/template.json');
+var insert = require('../config/template.json');//テンプレートの読み込み
+var ratelimit = require('../config/commonconf.json');//レートリミットの設定
+
+/*------------rateover-------------*///総当たり攻撃対策
+var request = ratelimit.rateoverconf3.request;
+var duration = ratelimit.rateoverconf3.duration;
+var use = ratelimit.rateoverconf3.use;
+var limiter = new RateLimiter(request, duration, use);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
+/*---------------------------------*/
 
 router.post('/', function(req, res, next) {
     limiter.removeTokens(1, function(err, remainingRequests) {
         if (remainingRequests > 0) {
-            mongoose.connect('mongodb://localhost:27017/userdata');
             if (req.body.id !== null && req.body.password !== null) {
+                mongoose.connect('mongodb://localhost:27017/userdata', function(){
+                    console.log('connected');
+                });//コネクションが確立されていれば新規に立てない
                 var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ
                 User.find({
@@ -37,8 +46,7 @@ router.post('/', function(req, res, next) {
                                         req.session.error_status = 1;
                                         res.redirect('/login');
                                         mongoose.disconnect();
-                                    } else {
-                                        //uidが見つかった
+                                    } else {//uidが見つかった
                                         console.log("such uid");
                                         var dbpass = result[0].hashpass;
                                         var salt = result[0].salt;
@@ -47,8 +55,7 @@ router.post('/', function(req, res, next) {
                                         if (account_status === false) { //本登録が済んでいなかったらリダイレクト
                                             return hadLoginError(req, res);
                                         }
-                                        //認証フェーズ
-                                        if (dbpass === passhash) {
+                                        if (dbpass === passhash) {//認証フェーズ
                                             User.update({
                                                 uid: id
                                             }, {
@@ -72,8 +79,7 @@ router.post('/', function(req, res, next) {
                                                     });
                                                 }
                                             });
-                                        } else {
-                                            //IDは見つかったがパスワードが一致しない
+                                        } else {//IDは見つかったがパスワードが一致しない
                                             return hadInputdataError(req, res);
                                         }
                                     }
@@ -161,6 +167,7 @@ function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
     res.locals = insert.loginrateover;
     res.render('RedirectError');
+    mongoose.disconnect();
 }
 
 

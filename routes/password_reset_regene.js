@@ -14,7 +14,9 @@ var User = models.Users;
 var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 router.get('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
     var u = url.parse(req.url, false);
     var dt = new Date();
     var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
@@ -38,6 +40,7 @@ router.get('/', function(req, res, next) {
                     return hadUrlError(req, res);
                 }
                 req.session.one_shot_id = result[0].uid;
+                req.session.error_status = 0;
                 res.render('password_reset_regene',{reqCsrf:req.csrfToken()});
                 mongoose.disconnect();
             }

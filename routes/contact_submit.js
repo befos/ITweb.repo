@@ -1,56 +1,80 @@
 var express = require('express');
 var router = express.Router();
 var mailer = require('nodemailer');
-var generator = require('xoauth2').createXOAuth2Generator({//googleの認証用
+var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
     user: 'stichies01@gmail.com',
     clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
-var template = require('../config/template.json');
+var RateLimiter = require('limiter').RateLimiter;
+
+var insert = require('../config/template.json'); //テンプレートの読み込み
+var conf = require('../config/commonconf.json'); //共通設定の読み込みｆ
+
+/*------------rateover-------------*/
+/*総当たり攻撃対策*/
+var request = conf.rateoverconf1.request;
+var duration = conf.rateoverconf1.duration;
+var use = conf.rateoverconf1.use;
+var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
+/*---------------------------------*/
 
 router.post('/', function(req, res, next) {
-    req.session.error_status = 0;
-    //formから飛ばされた情報を受け取って変数に格納
-    var name = req.body.name;
-    var email = req.body.address;
-    var tel = req.body.tel;
-    var contents = req.body.contents;
-    var mailOptions = { //メールの送信内容
-        from: 'Stichies運営<stichies01@gmail.com>',
-        to: 'stichies01@gmail.com',
-        subject: 'ユーザーからの意見',
-        html:'お名前:' + name + '<br>'
-            + 'メールアドレス:' + email + '<br>'
-            + '電話番号:' + tel + '<br>'
-            + '本文:' + contents
-    };
+    limiter.removeTokens(1, function(err, remainingRequests) {
+        if (remainingRequests > 0) {
+            req.session.error_status = 0;
+            //formから飛ばされた情報を受け取って変数に格納
+            var name = req.body.name;
+            var email = req.body.address;
+            var tel = req.body.tel;
+            var contents = req.body.contents;
+            var mailOptions = { //メールの送信内容
+                from: 'Stichies運営<stichies01@gmail.com>',
+                to: 'stichies01@gmail.com',
+                subject: 'ユーザーからの意見',
+                html: 'お名前:' + name + '<br>' +
+                    'メールアドレス:' + email + '<br>' +
+                    '電話番号:' + tel + '<br>' +
+                    '本文:' + contents
+            };
 
-    //この下からメールを送信する処理
-    var transporter = mailer.createTransport(({ //SMTPの接続
-        service: 'gmail',
-        auth: {
-            xoauth2: generator
+            //この下からメールを送信する処理
+            var transporter = mailer.createTransport(({ //SMTPの接続
+                service: 'gmail',
+                auth: {
+                    xoauth2: generator
+                }
+            }));
+            transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
+                if (err) { //送信に失敗したとき
+                    return hadSendmailError(err, req, res, resp);
+                }
+                if (!err) { //送信に成功したとき
+                    console.log('Message sent');
+                }
+                transporter.close(); //SMTPの切断
+            });
+            req.session.error_status = 12;
+            res.redirect('/');
+        } else {
+            return hadRateoverError(err, req, res);
         }
-    }));
-    transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
-        if (err) { //送信に失敗したとき
-            return hadSendmailError(err, req, res, resp);
-        }
-        if (!err) { //送信に成功したとき
-            console.log('Message sent');
-        }
-        transporter.close(); //SMTPの切断
     });
-    req.session.error_status = 12;
-    res.redirect('/');
 });
 
 //エラーハンドル
-function hadSendmailError(err, req, res, resp){
+function hadSendmailError(err, req, res, resp) {
     console.log(err);
     req.session.error_status = 4;
     res.redirect('/contact');
+}
+
+function hadRateoverError(err, req, res) {
+    //req.session.error_status = 13;
+    req.session.destroy();
+    res.locals = insert.contactrateover;
+    res.render('RedirectError');
 }
 
 module.exports = router;

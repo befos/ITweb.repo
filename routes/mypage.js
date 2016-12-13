@@ -7,7 +7,9 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 router.get('/', function(req, res, next){
-    mongoose.connect('mongodb://localhost:27017/userdata');
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+});
     if(req.session.user_id){//セッションにidが存在するか確認
         var obj_id = req.session.obj_id;
         User.find({_id:obj_id}, function(err, result) {
@@ -38,6 +40,7 @@ router.get('/', function(req, res, next){
                         user_work:user_work,
                         user_sex:user_sex
                     };
+                    req.session.error_status = 0;
                     res.locals = insert;//テンプレートに読み込む
                     res.render('mypage');
                     mongoose.disconnect();
