@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
                 } else { //uidが見つかった
                     console.log("such uid");
                     var openmypage = result[0].mypage_st;
-                    if(openmypage === false){
+                    if(openmypage === false){//マイページの公開設定が非公開の場合
                         return hadUrlError(req, res);
                     }
                     var user_name = result[0].name;
