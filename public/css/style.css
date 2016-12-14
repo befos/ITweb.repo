@@ -118,7 +118,7 @@ img {
 /*------------質問広場CSS---------------*/
 .qna_header_img {
     width: 100%;
-    margin: 0 0 50px 0;
+    margin: 0 0 10px 0;
     padding: 0;
 }
 .blockStyle{
@@ -130,6 +130,7 @@ img {
 .category_btn ul{
     list-style: none;
     padding: 0;
+    display: block;
 }
 .category_btn li a{
   display: block;
@@ -145,25 +146,21 @@ img {
 .category_btn a:visited{
     color: #fff;
 }
-.category_btn li:first-child{
-  font-size: 2rem;
-  background-color: #f7f7f7;
-}
-.category_btn li:nth-of-type(2){
+.category_btn li:nth-of-type(1){
   background-color: #e7ed72;}
-.category_btn li:nth-of-type(3){
+.category_btn li:nth-of-type(2){
   background-color: #701516;}
-.category_btn li:nth-of-type(4){
+.category_btn li:nth-of-type(3){
   background-color: #3572A5;}
-.category_btn li:nth-of-type(5){
+.category_btn li:nth-of-type(4){
   background-color: #4F5D95;}
-.category_btn li:nth-of-type(6){
+.category_btn li:nth-of-type(5){
   background-color: #b07219;}
-.category_btn li:nth-of-type(7){
+.category_btn li:nth-of-type(6){
   background-color: #ffac45;}
-.category_btn li:nth-of-type(8){
+.category_btn li:nth-of-type(7){
   background-color: #2ACCA8;}
-.category_btn li:nth-of-type(9){
+.category_btn li:nth-of-type(8){
   background-color: #737373;}
 .searchbox {
     margin-top: 1em;
@@ -244,11 +241,6 @@ img {
 	white-space:nowrap;
 	}
 @media (max-width: 960px) {
-.category_btn li:first-child{
-  width: 110%;
-  height: auto;
-  margin: -2%;
-}
 .qna_user{
     display: none!important;
   }
@@ -259,6 +251,7 @@ img {
 br { display : none ; }
 }
 @media (max-width: 767px) {
+
 .category_btn{
   display: block;
 }
@@ -270,7 +263,7 @@ br { display : none ; }
   font-size: 3.5vw;
   margin: 40%;
 }
-.category_btn li:first-child{
+.category_btn img{
   display: none;
 }
 a:link { color: #ffffff; }
@@ -363,6 +356,10 @@ a:visited { color: #ffffff; }
         display:block;
 		margin-bottom:0.5rem;
 		}
+.searchbox div:last-child{
+  padding-right:2px!important;
+  padding-left:2px!important;
+}
 	}
 /*------------問い合わせCSS-------------*/
 .contact_header_img {

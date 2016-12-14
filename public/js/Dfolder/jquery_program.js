@@ -35,12 +35,13 @@ $(function() {
         var w = $(window).width();
         var x = 960;
         var tx = $('li.long_tx')
-        if (w <= x) {
+        var res = 767;
+        if (w <= x && w >= res) {
             tx.html("<a href='#'>JS</a>");
-            tx.css({'color' : "white"})
+            tx.css({'color' : "white"});
         } else {
             tx.html("<a href='#'>JavaScript</a>");
-            tx.css({'color' : 'white'})
+            tx.css({'color' : 'white'});
         }
     }
     $('.category_btn').on('click',function(){
