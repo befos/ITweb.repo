@@ -72,7 +72,6 @@ function hadSendmailError(err, req, res, resp) {
 
 function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
-    req.session.destroy();
     res.locals = insert.contactrateover;
     res.render('RedirectError');
 }

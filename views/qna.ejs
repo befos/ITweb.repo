@@ -16,6 +16,7 @@
     <![endif]-->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/animation.css">
+    <script async defer src="/js/Kfolder/common.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -53,12 +54,12 @@
     <!-- nav分のスペース確保ボックス -->
     <div class="top_space_nav"></div>
     <!--ここからコンテンツ-->
-    <img class="qna_header_img shadow" width="1280px" height="250px" src="../../img/qna_header.jpg" alt="質問広場" />
+    <img class="qna_header_img shadow" width="1280px" height="250px" src="/img/qna_header.jpg" alt="質問広場" />
     <div class="col-sm-2">
         <section class="mypage_sub">
             <article class="category stitchbox">
                 <div class="category_btn">
-                    <img src="../../img/category_btn.png" alt="カテゴリ" width="140px" height="40px">
+                    <img src="/img/category_btn.png" alt="カテゴリ" width="140px" height="40px">
                     <ul>
                         <li class="long_tx"><a href="#">JavaScript</a></li>
                         <li><a href="#">Ruby</a></li>
@@ -75,7 +76,7 @@
     </div>
     <section class="col-sm-10">
         <article class="row searchbox">
-            <form action="/question_board_view" method="post">
+            <form action="/question_board_top" method="post">
                 <div class="col-sm-10 col-xs-10">
                     <input placeholder="検索" type="text" rows="1" class="form-control" name="search" id="InputTextarea"></input>
                 </div>
@@ -101,7 +102,7 @@
                 <tbody>
                 <% for(var i=0 ;i < data.datatitle.length; i++){ %>
                     <tr>
-                        <td class="qna_title"><a href="<%= dataurl[i]%>"><span><%= data.datatitle[i] %></span></a></td>
+                        <td class="qna_title"><a href="<%= data.dataurl[i]%>"><span><%= data.datatitle[i] %></span></a></td>
                         <td class="qna_user"><span><%= data.datauser[i] %></span></td>
                         <td class="qna_time"><span><%= data.dataupday[i] %></span></td>
                         <td class="qna_answer"><span><%= data.dataans[i] %></span></td>
@@ -113,18 +114,18 @@
             <div class="col-sm-offset-4 col-sm-8 col-xs-offset-2 col-xs-10">
                 <nav>
                     <ul class="pagination">
-                        <li class="disabled">
-                            <a href="<%= backurl %>" aria-label="前のページへ">
-                                <span aria-hidden="false">«</span>
+                        <li class="<%= data2.backbutton %>">
+                            <a href="<%= data2.backurl %>" aria-label="前のページへ">
+                                <span aria-hidden="true">«</span>
                             </a>
                         </li>
-                        <li class="<%= insclass1 %>"><a href="/question_board_top">1</a></li>
-                        <li class="<%= insclass2 %>"><a href="/question_board_top?2">2</a></li>
-                        <li class="<%= insclass3 %>"><a href="/question_board_top?3">3</a></li>
-                        <li class="<%= insclass4 %>"><a href="/question_board_top?4">4</a></li>
-                        <li class="<%= insclass5 %>"><a href="/question_board_top?5">5</a></li>
-                        <li class="disabled">
-                            <a href="<%= nexturl %>" aria-label="次のページへ">
+                        <li class="<%= data3.insclass1 %>"><a href="/question_board_top">1</a></li>
+                        <li class="<%= data3.insclass2 %>"><a href="/question_board_top?2">2</a></li>
+                        <li class="<%= data3.insclass3 %>"><a href="/question_board_top?3">3</a></li>
+                        <li class="<%= data3.insclass4 %>"><a href="/question_board_top?4">4</a></li>
+                        <li class="<%= data3.insclass5 %>"><a href="/question_board_top?5">5</a></li>
+                        <li class="<%= data2.nextbutton %>">
+                            <a href="<%= data2.nexturl %>" aria-label="次のページへ">
                                 <span aria-hidden="true">»</span>
                             </a>
                         </li>

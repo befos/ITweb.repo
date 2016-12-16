@@ -125,7 +125,6 @@ function hadDbError(err, res, req) {
 
 function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
-    req.session.destroy();
     res.locals = insert.passwdresetrateover;
     res.render('RedirectError');
     mongoose.disconnect();
