@@ -4,7 +4,7 @@
             "login":"マイページ"
         },
         "false":{
-            "userName":"ゲスト",
+            "userName":"ゲスト", 
             "login":"ログイン"
         }
     },

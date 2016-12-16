@@ -409,7 +409,7 @@ br { display : none ; }
     font-weight: bold;
 }
 
-.Profile p {
+.Profile p {/*プロフィールのpタグでけんたが追加した*/
     position: absolute;
     left: 10px;
     top: 40px;
@@ -521,27 +521,6 @@ br { display : none ; }
     line-height: 1.5;
     padding: 10px 0;
     font-size: 20px;
-}
-/*時計のcss情報がhtmlに組み込まれていたので引っ張り出してきて貼り付けました*/
-.digital-clock {
-    font-weight: bold;
-    font-size: 50px;
-    text-align: center;
-    width: 1210px;
-    height: 200px;
-    border: 5px #ffffff solid;
-    margin: 20px;
-    padding: 10px;
-    position: absolute;
-    top: 900px;
-    left: 50px;
-    right: 50px;
-    background: gray url("../../img/back.jpg") no-repeat center top;
-    background-color: #f1ebe1;
-    border: 2px;
-    border-radius: 8px;
-    box-shadow: 0 0 0 4px #f1ebe1;
-    color: #000;
 }
 /*---トップへ戻るボタン（全体）----------*/
 .toTop {
