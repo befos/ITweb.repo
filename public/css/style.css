@@ -17,6 +17,9 @@ img {
     padding-right:2px!important;
     padding-left:2px!important;
 }
+.top_space_nav{
+  margin-top: 60px;
+}
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
 .navbar-right {
@@ -408,6 +411,19 @@ br { display : none ; }
 	border-style: solid;
 	border-width: 10px 0 10px 10px;
 	border-color: transparent transparent transparent #19283C;
+}
+/*----質問回答表示----*/
+.scr {
+  overflow: auto;   /* スクロール表示 */
+}
+
+p.dashedline {border-bottom: dashed 2px #009900;}
+p.solidline {border-bottom: solid 2px #009900;}
+.margine {margin-top: -1pt;}
+.va {vertical-align: 20pt;}
+.qna_disp{
+  margin-top: 20px;
+  text-align: left;
 }
 /*------------問い合わせCSS-------------*/
 .contact_header_img {
