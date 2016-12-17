@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 /*
 *proxyから送信される内容をhttpsとして信用する.
 */
-app.set('trust proxy', 'loopback');// trust first proxy
+app.set('trust proxy', 1);// trust first proxy
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

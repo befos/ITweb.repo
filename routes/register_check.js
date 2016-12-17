@@ -86,7 +86,7 @@ router.post('/', function(req, res, next) {
 //エラーハンドル
 function hadInputdataError(req, res) {
     req.session.error_status = 1;
-    res.redirect('/register');
+    res.redirect(400,'/register');
     mongoose.disconnect();
 }
 
@@ -105,7 +105,6 @@ function hadDbError(err, req, res) {
 
 function hadRateoverError(err, req, res) {
     //req.session.error_status = 13;
-    req.session.destroy();
     res.locals = insert.registerrateover;
     res.render('RedirectError');
     mongoose.disconnect();

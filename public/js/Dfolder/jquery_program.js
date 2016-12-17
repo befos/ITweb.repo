@@ -46,7 +46,7 @@ $(function() {
     }
     $('.category_btn').on('click',function(){
 			$('.category_btn ul').slideToggle(600);
-		});
+	});
 });
 
 /*バリデーション validation engine*/

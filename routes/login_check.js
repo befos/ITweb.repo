@@ -139,7 +139,7 @@ router.post('/', function(req, res, next) {
 //エラーハンドル
 function hadInputdataError(req, res) {
     req.session.error_status = 1;
-    res.redirect('/login');
+    res.redirect(400,'/login');
     mongoose.disconnect();
 }
 
