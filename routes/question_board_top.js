@@ -6,7 +6,6 @@ var template = require('../config/template.json');
 router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var error = req.session.error_status;
-
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": ["/question_board_view?hoge", "/question_board_view?hoge"],
         "datatitle": ["ほげ", "ほげほげ"],
@@ -15,7 +14,7 @@ router.get('/', function(req, res, next) {
         "dataans": ["未解決", "解決済み"],
         "datadiff": ["簡単", "難しい"]
     };
-    /*--ページネーションを使えるようにするための設定--*/
+    /*--ページネーションを使えるようにするための設定--*/　
     var nextback ={
         "backurl":"/question_board_top",
         "nexturl":"/question_board_top",
@@ -86,15 +85,18 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.post('/', function(req, res, next) {//ここで検索欄に入力された内容を解析して表示
+    posttest = req.body.search;
+    console.log(posttest);
+});
+
+
+//エラーハンドラ
 function hadUrlError(req ,res){
     req.session.error_status = 5;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }
 
-router.post('/', function(req, res, next) {
-    posttest = req.body.search;
-    console.log(posttest);
-});
 
 module.exports = router;

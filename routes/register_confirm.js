@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 require('date-utils');
-var RateLimiter = require('limiter').RateLimiter;
 
 //データベース接続および設定
 var mongoose = require('mongoose');
@@ -13,8 +12,6 @@ var User = models.Users;
 var insert = require('../config/template.json');
 
 router.get('/', function(req, res, next) {
-    limiter.removeTokens(1, function(err, remainingRequests) {
-        if (remainingRequests > 0) {
             mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
 });
@@ -62,10 +59,6 @@ router.get('/', function(req, res, next) {
                     }
                 }
             });
-        } else {
-            return hadRateoverError(err, req, res);
-        }
-    });
 });
 
 //エラーハンドラー

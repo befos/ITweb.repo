@@ -42,7 +42,7 @@ var Forum = new Schema({
 
 var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
-    _conid: {type: Schema.Types.ObjectId},//コンテンツID
+    _conid: {type:Schema.Types.ObjectId, index:true, unique:true},//コンテンツID
     uid: String,
     name: String,//ユーザーが決めた自由な名前
     prop: String,//プロフィールの画像？

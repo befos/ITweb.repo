@@ -7,9 +7,10 @@ var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var Forum = models.Forum;
 var ForumCont = models.ForumCont;
+var conid = mongoose.Types.ObjectId();
 
 router.post('/', function(req, res, next) {
-    //test用
+    //test用　
     var foname = "C言語難しすぎンゴ・・・";
     var host = req.session.obj_id;
     var question ='<p>むずすぎぃぃ！！</p>'
@@ -35,6 +36,7 @@ router.post('/', function(req, res, next) {
       if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)
       var makefocont = new ForumCont({
           uid: req.session.obj_id,
+          _conid : conid,
           name: req.session.user_name,//ユーザーが決めた自由な名前
           prop: null,//プロフィールの画像？
           cuday: uday,//コンテンツを上げた日
@@ -52,7 +54,7 @@ router.post('/', function(req, res, next) {
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/register');
+    res.redirect('/question_board_top');
     mongoose.disconnect();
 }
 
