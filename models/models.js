@@ -30,7 +30,7 @@ var Users = new Schema({
 
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
-    host: String,//obj_idから主催者のデータを拾う
+    host: Schema.Types.ObjectId,//obj_idから主催者のデータを拾う
     count: Number,//アクセスされた回数
     uday: Date,//アップロードした日
     ques: String,//質問者が入力(質問内容)
@@ -43,7 +43,7 @@ var Forum = new Schema({
 var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
     _conid: {type:Schema.Types.ObjectId, index:true, unique:true},//コンテンツID
-    uid: String,
+    answer: Schema.Types.ObjectId,
     name: String,//ユーザーが決めた自由な名前
     prop: String,//プロフィールの画像？
     cuday: {type:Date, default: Date.now},//コンテンツを上げた日
