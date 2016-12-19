@@ -22,12 +22,13 @@ p{
     padding-left:2px!important;
 }
 .top_space_nav{
-  margin-top: 60px;
+  margin-top: 50px;
 }
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
 .navbar-right {
     padding-right: 30px;
+    padding-top:15px;
 }
 .topimg {
     position: absolute;
