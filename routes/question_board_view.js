@@ -4,9 +4,10 @@ var url = require('url');
 
 //検索結果画面
 var mongoose = require('mongoose');
-var ObjectId = mongoose.Types.ObjectId;
 var models = require('../models/models.js');
 var Forum = models.Forum;
+
+var template = require('../config/template.json');
 
 router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
@@ -16,7 +17,6 @@ router.get('/', function(req, res, next) {
     var obj_id = u.query;
     console.log(obj_id);
     Forum.find({_id:obj_id}, function(err, result) {
-        console.log("throw");
         if(err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
@@ -27,11 +27,27 @@ router.get('/', function(req, res, next) {
                 var forum1 ={
                     host:result[0].host,
                     foname:result[0].foname,
-                    uday:result[0].uday,
+                    uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques
                 };
-                console.log(forum1);
-                mongoose.disconnect();
+
+                req.session.error_status = 0;
+                if (req.session.user_id) {
+                    res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
+                    res.render('qna_disp', {
+                        userName: req.session.user_id,
+                        reqCsrf: req.csrfToken(),
+                        fo:forum1
+                    });
+                    mongoose.disconnect();
+                } else {
+                    res.locals = template.common.false;
+                    res.render('qna_disp', {
+                        reqCsrf: req.csrfToken(),
+                        fo:forum1
+                    });
+                    mongoose.disconnect();
+                }
             }
         }
     });

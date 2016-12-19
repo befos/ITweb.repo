@@ -12,10 +12,10 @@ var conid = mongoose.Types.ObjectId();
 router.post('/', function(req, res, next) {
     //test用　
     var foname =　req.body.title;
-    var host = req.session.obj_id;
+    var host = req.body.host;
+    var hostid = req.body.hostid;
     var question = req.body.cont;
     var tag = req.session.tag;
-    //↑ダミー
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
@@ -23,7 +23,8 @@ router.post('/', function(req, res, next) {
 });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
-        host: host,//obj_id
+        host: host,
+        hostid: hostid,//obj_id
         count: null,//アクセスされた回数
         uday: uday,
         ques: question,
@@ -34,12 +35,11 @@ router.post('/', function(req, res, next) {
       if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)
       var makefocont = new ForumCont({
           _id: makeforum._id,
-          _conid : conid//回答を保存する
+          _conid : conid//回答を保存する回答ページでつける
       });
       makefocont.save(function(err){
          if(err) return hadDbError(err, req, res);
-        console.log('finish');
-        mongoose.disconnect();
+         if(!err) return hadUpload(req, res);
       });
     });
 });
@@ -47,6 +47,12 @@ router.post('/', function(req, res, next) {
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
+function hadUpload(req, res){
+    req.session.error_status = 14;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }

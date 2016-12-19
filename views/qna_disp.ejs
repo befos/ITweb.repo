@@ -50,18 +50,18 @@
         <!--ここからコンテンツ-->
         <div class="container">
           <div class="stitchbox">
-              <h1><%= title %></h1>
+              <h1><%= fo.title %></h1>
               <div class="row">
                 <div class="col-sm-3 ">
-                  <p class="solidline">質問者：<%= host %></p>
+                  <p class="solidline">質問者：<%= fo.host %></p>
                 </div>
                 <div class="col-sm-3">
-                  <p class="solidline">質問日時：<%= upday %></p>
+                  <p class="solidline">質問日時：<%= fo.uday %></p>
                 </div>
               </div>
             <div class="qna_disp" align="center">
               <h3>質問内容</h3>
-              <p><%- cont %></p>
+              <p><%- fo.ques %></p>
             </div>
           </div>
           <input type="submit" value="回答する" class="btn btn-primary btn-block">

@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
+var qstring =require("querystring");
 var template = require('../config/template.json');
 
 /*データベースの接続設定*/
 var mongoose = require('mongoose');
 var models = require('../models/models.js');　
 var Forum = models.Forum;
-var User = models.User;
+var User = models.Users;
 
 
 router.get('/', function(req, res, next) {
@@ -46,13 +47,12 @@ router.get('/', function(req, res, next) {
                 return hadDbError(err, req, res);
             }else{
                     console.log(result);
-                for(i = selectb ; result.length > i && selectf > i ; i++){
+                for(i = selectb ; result.length > i && selectf > i ; i++){　
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
                     data.dataurl.push(fourl);//作成したものをプッシュ
-
                     data.datatitle.push(result[i].foname);
                     data.datauser.push(result[i].host);
-                    data.dataupday.push(result[i].uday);
+                    data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                     if(result[i].f_st === true){
                         data.dataans.push("未解決");
                     }else{
@@ -66,6 +66,7 @@ router.get('/', function(req, res, next) {
                         data.datadiff.push("難しい");
                     }
                 }
+
                 /*データベースの処理終了*/
                 /*--ページネーションを使えるようにするための設定--*/　
                 var nextback ={
@@ -115,7 +116,6 @@ router.get('/', function(req, res, next) {
                 }
                 /*--ページネーション設定はここまで--*/
                 /*この下からページのレンダー処理*/
-                console.log(req.session.error_status);
                 req.session.error_status = 0;
                 if (req.session.user_id) {
                     res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
@@ -142,9 +142,8 @@ router.get('/', function(req, res, next) {
             }
         }
     });
-
-
 });
+
 
 router.post('/', function(req, res, next) {//ここで検索欄に入力された内容を解析して表示
     posttest = req.body.search;

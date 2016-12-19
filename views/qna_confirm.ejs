@@ -68,6 +68,7 @@
           <form action="/question_board_submit" method="post">
               <input type="hidden" name="title" value="<%= title %>">
               <input type="hidden" name="host" value="<%= host %>">
+              <input type="hidden" name="hostid" value="<%= hostid %>">
               <input type="hidden" name="cont" value="<%= cont %>">
               <input type="submit" value="この内容で投稿する" class="btn btn-primary btn-block">
               <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->

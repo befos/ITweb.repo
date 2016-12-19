@@ -37,10 +37,10 @@ $(function() {
         var tx = $('li.long_tx')
         var res = 767;
         if (w <= x && w >= res) {
-            tx.html("<a href='#'>JS</a>");
+            tx.html("<a href='/question_board_top/cate?a=JavaScript&b=1'>JS</a>");
             tx.css({'color' : "white"});
         } else {
-            tx.html("<a href='#'>JavaScript</a>");
+            tx.html("<a href='/question_board_top/cate?a=JavaScript&b=1'>JavaScript</a>");
             tx.css({'color' : 'white'});
         }
     }

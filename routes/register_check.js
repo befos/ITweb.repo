@@ -42,11 +42,7 @@ router.post('/', function(req, res, next) {
                     if (result) {
                         if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
                             console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
-                            User.find({
-                                uid: id
-                            }, {
-                                safe: true
-                            }, function(err, result) {
+                            User.find({uid: id}, {safe: true}, function(err, result) {
                                 if (err) return hadDbError(err, req, res);
                                 if (result) {
                                     if (result.length === 0) { //同じuidが無い場合はDB上にデータが見つからないので0

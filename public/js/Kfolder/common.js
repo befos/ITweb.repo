@@ -69,43 +69,45 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
         case '0':
             break;
         case '1':
-            alert("code:1 入力された情報が間違っています。");
+            alert("入力された情報が間違っています。");
             break;
         case '2':
-            alert("code:2 入力されたIDまたはアドレスは登録済みです。");
+            alert("入力されたIDまたはアドレスは登録済みです。");
             break;
         case '3':
-            alert("code:3 このアカウントは承認済みです。");
+            alert("このアカウントは承認済みです。");
             break;
         case '4':
-            alert("code:4 メールの送信に失敗しました。");
+            alert("メールの送信に失敗しました。");
             break;
         case '5':
-            alert("code:5 不正なアクセスです。");
+            alert("不正なアクセスです。");
             break;
         case '6':
-            alert("code:6 DBのエラーです。");
+            alert("DBのエラーです。");
             break;
         case '7':
-            alert("code:7 パスワードリセットが要求済みです。");
+            alert("パスワードリセットが要求済みです。");
             break;
         case '8':
-            alert("code:8 セッションエラーです。");
+            alert("セッションエラーです。");
             break;
         case '9':
-            alert("code:9 アカウントが仮登録の状態です。");
+            alert("アカウントが仮登録の状態です。");
             break;
         case '10':
-            alert("code:10 ログインされていません。");
+            alert("ログインされていません。");
             break;
         case '11':
-            alert("code:11 既にログアウトされています。");
+            alert("既にログアウトされています。");
             break;
         case '12':
             alert("お問い合わせ頂きありがとうございます。");
             break;
         case '13':
-            alert("code:13 異常なアクセスが検知されたので一時的にアクセスを制限します。");
+            alert("異常なアクセスが検知されたので一時的にアクセスを制限します。");
+        case '14':
+            alert("投稿処理が完了いたしました。");
     }
 }
 window.onload = setError;

@@ -30,7 +30,8 @@ var Users = new Schema({
 
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
-    host: Schema.Types.ObjectId,//obj_idから主催者のデータを拾う
+    hostid: Schema.Types.ObjectId,//obj_idから主催者のデータを拾う
+    host: String,//ユーザーのIDを格納
     count: Number,//アクセスされた回数
     uday: Date,//アップロードした日
     ques: String,//質問者が入力(質問内容)

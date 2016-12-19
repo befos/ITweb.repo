@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var template = require('../config/template.json'); 
-
+var template = require('../config/template.json');
+　
 
 router.post('/', function(req, res, next){
     //ここでは入力されたタグのエスケープ処理などを行うこと
@@ -25,6 +25,7 @@ router.post('/', function(req, res, next){
     console.log(tag);
     var cont = req.body.input;
     var error = req.session.error_status;
+    var hostid = req.session.obj_id;
     var host = req.session.user_id;
     req.session.tag = tag;
     req.session.error_status = 0;
@@ -36,6 +37,7 @@ router.post('/', function(req, res, next){
             reqCsrf: req.csrfToken(),
             title:title,
             cont:cont,
+            hostid:hostid,
             host:host
         });
     } else {
