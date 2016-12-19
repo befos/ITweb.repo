@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var template = require('../config/template.json');
+var template = require('../config/template.json'); 
 
 
 router.post('/', function(req, res, next){

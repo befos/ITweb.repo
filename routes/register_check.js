@@ -22,9 +22,7 @@ router.post('/', function(req, res, next) {
     if (req.body.id !== null && req.body.password !== null && req.body.Email !== null) {
         limiter.removeTokens(1, function(err, remainingRequests) {
             if (remainingRequests > 0) {
-                mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
-});
+                mongoose.connect('mongodb://localhost:27017/userdata', function(next){});
                 var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ
                 var confirm_password = req.body.confirm_password;

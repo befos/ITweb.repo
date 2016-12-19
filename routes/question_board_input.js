@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
-var template = require('../config/template.json');
+var template = require('../config/template.json'); 
 
 router.get('/', function(req, res, next) {
     /*この下からページのレンダー処理*/
