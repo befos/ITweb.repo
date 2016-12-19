@@ -54,6 +54,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
 
+
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/contents', routes.home);
@@ -75,6 +76,7 @@ app.use('/email_change_mail', routes.email_change_mail);
 app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
 app.use('/question_board_top', routes.question_board_top);
+app.use('/question_board_input', routes.question_board_input);
 app.use('/question_board_contents', routes.question_board_contents);
 app.use('/question_board_confirm', routes.question_board_confirem);
 app.use('/question_board_submit', routes.question_board_submit);

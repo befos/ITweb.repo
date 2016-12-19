@@ -11,12 +11,10 @@ var conid = mongoose.Types.ObjectId();
 
 router.post('/', function(req, res, next) {
     //test用　
-    var foname = "C言語難しすぎンゴ・・・";
+    var foname =　req.body.title;
     var host = req.session.obj_id;
-    var question ='<p>むずすぎぃぃ！！</p>'
-    var dummytext = '<p>ほげげ</p>';
-    var name = "testユーザー";
-    var tag = ["C言語", "難しい","Javascript"];
+    var question = req.body.cont;
+    var tag = req.session.tag;
     //↑ダミー
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
@@ -29,19 +27,14 @@ router.post('/', function(req, res, next) {
         count: null,//アクセスされた回数
         uday: uday,
         ques: question,
-        tag: tag,//多分500要素まで？この中に言語も記述してもらう(ニコ動のタグみたいなもの)
+        tag: tag,//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
         f_st: true//forumの内容が解決済み...false　初期値はtrue
     });
-    makeforum.save(function(err) {//refを使用しているの二重にセーブ
+    makeforum.save(function(err) {//refを使用しているので二重にセーブ
       if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)
       var makefocont = new ForumCont({
-          uid: req.session.obj_id,
-          _conid : conid,
-          name: req.session.user_name,//ユーザーが決めた自由な名前
-          prop: null,//プロフィールの画像？
-          cuday: uday,//コンテンツを上げた日
-          chday: null,//内容を編集した日
-          text: dummytext//本文
+          _id: makeforum._id,
+          _conid : conid//回答を保存する
       });
       makefocont.save(function(err){
          if(err) return hadDbError(err, req, res);
