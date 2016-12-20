@@ -10,7 +10,6 @@ var models = require('../models/models.js');　
 var Forum = models.Forum;
 var User = models.Users;
 
-
 router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
@@ -145,14 +144,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-
-router.post('/', function(req, res, next) {//ここで検索欄に入力された内容を解析して表示
-    posttest = req.body.search;
-    console.log(posttest);
-});
-
-
-//エラーハンドラ
 function hadUrlError(req ,res){
     req.session.error_status = 5;
     res.redirect('/question_board_top');

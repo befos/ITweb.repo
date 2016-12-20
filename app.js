@@ -76,6 +76,7 @@ app.use('/email_change_mail', routes.email_change_mail);
 app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
 app.use('/question_board_top', routes.question_board_top);
+app.use('/question_board_top_cate', routes.question_board_top_cate);
 app.use('/question_board_input', routes.question_board_input);
 app.use('/question_board_contents', routes.question_board_contents);
 app.use('/question_board_confirm', routes.question_board_confirem);

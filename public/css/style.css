@@ -503,8 +503,8 @@ p.solidline {border-bottom: solid 2px #009900;}
 /*------------マイページCSS------------*/
 .Profile {
     margin: 20px;
-    width: 350px;
-    height: 800px;
+    width: 31%;
+    height: 840px;
     position: absolute;
     top: 50px;
     left: 50px;
@@ -514,75 +514,68 @@ p.solidline {border-bottom: solid 2px #009900;}
     box-shadow: 0 0 0 4px #f1ebe1;
     background-color: #f1ebe1;
 }
-
 .Profile h3 {
     text-align: center;
     font-weight: bold;
 }
-
-.Profile p {/*プロフィールのpタグでけんたが追加した*/
+.Profile h5 {
+  text-align: center;
+}
+.Profile p {
     position: absolute;
     left: 10px;
     top: 40px;
     font-size: 20px;
 }
-
-.Profile img {
-    position: absolute;
-    left: 65px;
-    top: 50px;
+.p_img {
+    display: block;
+    text-align: center;
 }
-
 .user_id {
     position: absolute;
     width: 350px;
     top: 320px;
     left: 20px;
 }
-
 .user_name {
     position: absolute;
     width: 350px;
     top: 390px;
     left: 20px;
 }
-
 .user_sex {
     position: absolute;
     width: 350px;
     top: 460px;
     left: 20px;
 }
-
 .user_age {
     position: absolute;
     width: 350px;
     top: 530px;
     left: 20px;
 }
-
 .user_job {
     position: absolute;
     width: 350px;
     top: 600px;
     left: 20px;
 }
-
 .user_skill {
     position: absolute;
     width: 350px;
     top: 670px;
     left: 20px;
 }
-
 .Q_his {
     margin: 20px;
     padding: 10px;
-    width: 800px;
-    height: 370px;
-    position: absolute;
-    top: 50px;
-    right: 50px;
+    top: 20px;
+    width: 55%;
+    height: 390px;
+    display: block;
+    position: relative;
+    left: 40%;
     border: 2px dashed #259543;
     border-radius: 8px;
     color: #000;
@@ -590,29 +583,26 @@ p.solidline {border-bottom: solid 2px #009900;}
     background-color: #f1ebe1;
     overflow-y: auto;
 }
-
 .Q_his h3 {
     padding: 1em;
     border: 3px solid #ccc;
     border-radius: 3em 0.7em 2em 0.7em/.7em 2em 0.7em 3em;
     font-weight: bold;
 }
-
 .Q_con {
     line-height: 1.5;
     padding: 10px 0;
     font-size: 20px;
 }
-
 .S_his {
-    background-color: #e7efff;
     margin: 20px;
     padding: 10px;
-    width: 800px;
-    height: 370px;
-    position: absolute;
-    top: 480px;
-    right: 50px;
+    width: 55%;
+    height: 390px;
+    display: block;
+    position: relative;
+    top: 60px;
+    left: 40%;
     border: 2px dashed #259543;
     border-radius: 8px;
     color: #000;
@@ -620,19 +610,112 @@ p.solidline {border-bottom: solid 2px #009900;}
     background-color: #f1ebe1;
     overflow-y: auto;
 }
-
 .S_his h3 {
     padding: 1em;
     border: 3px solid #ccc;
     border-radius: 3em 0.7em 2em 0.7em/.7em 2em 0.7em 3em;
     font-weight: bold;
 }
-
 .S_con {
     line-height: 1.5;
     padding: 10px 0;
     font-size: 20px;
 }
+@media (max-width: 767px) {
+    .Profile {
+        width: 80%;
+        min-width: 280px;
+        height: 840px;
+        top: 50px;
+        left: auto;
+        border: 2px dashed #259543;
+        border-radius: 8px;
+        color: #000;
+        box-shadow: 0 0 0 4px #f1ebe1;
+        background-color: #f1ebe1;
+    }
+
+    .Profile h3 {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .Profil p {
+        /*けんたつかってる*/
+        position: absolute;
+        left: 10px;
+        top: 40px;
+        font-size: 20px;
+    }
+
+    .p_img {
+        display: block;
+        text-align: center;
+    }
+
+    .user_id {
+        position: absolute;
+        width: 350px;
+        top: 320px;
+        left: 20px;
+    }
+
+    .user_name {
+        position: absolute;
+        width: 350px;
+        top: 390px;
+        left: 20px;
+    }
+
+    .user_sex {
+        position: absolute;
+        width: 350px;
+        top: 460px;
+        left: 20px;
+    }
+
+    .user_age {
+        position: absolute;
+        width: 350px;
+        top: 530px;
+        left: 20px;
+    }
+
+    .user_job {
+        position: absolute;
+        width: 350px;
+        top: 600px;
+        left: 20px;
+    }
+
+    .user_skill {
+        position: absolute;
+        width: 350px;
+        top: 670px;
+        left: 20px;
+    }
+
+    .Q_his {
+        display: block;
+        right: auto;
+        position: absolute;
+        top: 920px;
+        left: auto;
+        width: 80%;
+        min-width: 280px;
+    }
+
+    .S_his {
+        display: block;
+        right: auto;
+        position: absolute;
+        top: 1340px;
+        left: auto;
+        width: 80%;
+        min-width: 280px;
+    }
+}
+
 /*---トップへ戻るボタン（全体）----------*/
 .toTop {
     position: fixed;
