@@ -88,12 +88,9 @@
         <div class="Q_con">
             <!--質問履歴表示-->
             <ul>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
+                <% for(var i=0 ;i < dataurl.length; i++){ %>
+                    <li><a href="<%= dataurl[i] %>"><%= datafoname[i] %></a></li>
+                <% } %>
             </ul>
         </div>
     </div>

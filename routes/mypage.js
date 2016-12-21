@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
+var Forum = models.Forum;
 
 router.get('/', function(req, res, next){
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
@@ -32,18 +33,32 @@ router.get('/', function(req, res, next){
                     }else{
                         user_sex ='';
                     }
-                    var insert = {
-                        userName:req.session.user_id,
-                        user_name:user_name,
-                        user_id:user_id,
-                        user_age:user_age,
-                        user_work:user_work,
-                        user_sex:user_sex
-                    };
+                    Forum.find({hostid:obj_id},{}, {sort:{uday: -1},limit:30},function(err, result2){
+                            if(err) return hadDbError(err, req, res);
+                            if(result2){
+                                var dataurl = [];
+                                var datafoname = [];
+                                for(var i = 0; result2.length > i; i++){
+                                    dataurl.push("/question_board_view?"+ result2[i]._id);
+                                    datafoname.push(result2[i].foname);
+                                }
+                                var insert = {
+                                    userName:req.session.user_id,
+                                    user_name:user_name,
+                                    user_id:user_id,
+                                    user_age:user_age,
+                                    user_work:user_work,
+                                    user_sex:user_sex,
+                                    dataurl:dataurl,
+                                    datafoname:datafoname
+                                };
+
                     req.session.error_status = 0;
                     res.locals = insert;//テンプレートに読み込む
                     res.render('mypage');
                     mongoose.disconnect();
+                    }
+                    });
                 }
             }
         });
