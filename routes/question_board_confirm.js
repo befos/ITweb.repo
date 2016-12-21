@@ -20,9 +20,10 @@ router.post('/', function(req, res, next){
     for(var i = 0; chkbox.length > i; i++){//チェックボックス判定
         if(chkbox[i] !== undefined){
             tag.push(chkbox[i]);
+        }else if(i == 7 && tag.length === 0){
+            tag.push('Etc');
         }
     }
-    console.log(tag);
     var cont = req.body.input;
     var error = req.session.error_status;
     var hostid = req.session.obj_id;
@@ -30,7 +31,7 @@ router.post('/', function(req, res, next){
     req.session.tag = tag;
     req.session.error_status = 0;
     if (req.session.user_id) {
-        res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
+        res.locals = template.common.true;
         res.render('qna_confirm', {
             userName: req.session.user_id,
             error: error,

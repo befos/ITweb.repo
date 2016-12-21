@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
                 console.log("such id");
                 var forum1 ={
                     host:result[0].host,
-                    foname:result[0].foname,
+                    title:result[0].foname,
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques
                 };
