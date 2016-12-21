@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var randword = require('../public/js/Kfolder/randword.js').randword;
 var createhash = require('../public/js/Kfolder/createhash.js').createhash;
-var RateLimiter = require('limiter').RateLimiter;
+
 
 //データベース接続および設定
 var mongoose = require('mongoose');
@@ -12,18 +12,9 @@ var User = models.Users;
 var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 var insert = require('../config/template.json');//テンプレートの読み込み
-var ratelimit = require('../config/commonconf.json');//レートリミットの設定
-
-/*------------rateover-------------*///総当たり攻撃対策
-var request = ratelimit.rateoverconf3.request;
-var duration = ratelimit.rateoverconf3.duration;
-var use = ratelimit.rateoverconf3.use;
-var limiter = new RateLimiter(request, duration, use);//総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
-/*---------------------------------*/
+var conf = require('../config/commonconf.json');
 
 router.post('/', function(req, res, next) {
-    limiter.removeTokens(1, function(err, remainingRequests) {
-        if (remainingRequests > 0) {
             if (req.body.id !== null && req.body.password !== null) {
                 mongoose.connect('mongodb://localhost:27017/userdata', function(){
                     console.log('connected');
@@ -128,10 +119,6 @@ router.post('/', function(req, res, next) {
             } else {
                 return hadInputdataError(req, res);
             }
-        } else {
-            return hadRateoverError(err, req, res);
-        }
-    });
 });
 
 //エラーハンドル

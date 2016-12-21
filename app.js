@@ -54,11 +54,12 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
 
-//RateLimitの設定（全体）
+//RateLimitの設定（Dos対策及び総当たり攻撃対策）
 var limiter = new RateLimit({
   windowMs: 15*60*1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  delayMs: 0 // disable delaying - full speed until the max limit is reached
+  max: 1500, // limit each IP to 100 requests per windowMs1170
+  delayMs: 0, // disable delaying - full speed until the max limit is reached
+  message: "異常な量のアクセスが検知されました。しばらくの間このIPからのアクセスは制限されます。"
 });
 app.use(limiter);
 

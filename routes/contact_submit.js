@@ -7,22 +7,11 @@ var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
-var RateLimiter = require('limiter').RateLimiter;
 
 var insert = require('../config/template.json'); //テンプレートの読み込み
-var conf = require('../config/commonconf.json'); //共通設定の読み込みｆ
-
-/*------------rateover-------------*/
-/*総当たり攻撃対策*/
-var request = conf.rateoverconf1.request;
-var duration = conf.rateoverconf1.duration;
-var use = conf.rateoverconf1.use;
-var limiter = new RateLimiter(request, duration, use); //総当たり攻撃を防ぐための設定（ここでは1時間当たり150リクエストまで）
-/*---------------------------------*/
+var conf = require('../config/commonconf.json');
 
 router.post('/', function(req, res, next) {
-    limiter.removeTokens(1, function(err, remainingRequests) {
-        if (remainingRequests > 0) {
             req.session.error_status = 0;
             //formから飛ばされた情報を受け取って変数に格納
             var name = req.body.name;
@@ -57,10 +46,6 @@ router.post('/', function(req, res, next) {
             });
             req.session.error_status = 12;
             res.redirect('/');
-        } else {
-            return hadRateoverError(err, req, res);
-        }
-    });
 });
 
 //エラーハンドル
