@@ -13,7 +13,7 @@ var store = new ConnectMongoDB({ //セッション管理用DB接続設定
 });
 var csurf = require('csurf');
 var helmet = require('helmet');
-var mongoose = require('mongoose');
+var RateLimit = require('express-rate-limit');
 
 var routes = require('./routes/index.js');
 
@@ -54,6 +54,13 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
 app.use(csurf());//セッションとクッキーパーサーの設定後に記述
 app.use(helmet());
 
+//RateLimitの設定（全体）
+var limiter = new RateLimit({
+  windowMs: 15*60*1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  delayMs: 0 // disable delaying - full speed until the max limit is reached
+});
+app.use(limiter);
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
