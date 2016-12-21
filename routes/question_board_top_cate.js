@@ -14,6 +14,8 @@ router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
     var error = req.session.error_status;
+    console.log(query.cate);
+    console.log(query.page);
 
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": [],
@@ -27,11 +29,11 @@ router.get('/', function(req, res, next) {
     var selectf;//データベースからデータを取り出すための変数
     var selectb;//データベースからデータを取り出すための変数
 
-    if(u.query === null){
+    if(query.page == 1){
         selectb = 0;
         selectf = 1 * 20 - 1;
     }else{
-        selectf = u.query * 20 - 1;
+        selectf = query.page * 20 - 1;
         selectb = selectf - 20;
     }
 
@@ -39,12 +41,12 @@ router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         console.log("connected");
     });
-    Forum.find({},{}, {sort:{uday: -1}}, function(err, result) {
+    Forum.find({tag:{$elemMatch:{$eq:query.cate}}},{}, {sort:{uday: -1}}, function(err, result) {
         if (err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
                 console.log("nosuch");
-                return hadDbError(err, req, res);
+                return hadNotcontentsError(req, res);
             }else{
                     console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
@@ -82,9 +84,8 @@ router.get('/', function(req, res, next) {
                     "insclass4":"dummy",
                     "insclass5":"dummy"
                 };
-                console.log(u.query);
-                switch (u.query) {
-                    case null:
+                switch (query.page) {
+                    case '1':
                         insclass.insclass1 = "active";
                         nextback.backurl = "/question_board_top";
                         nextback.nexturl = "/question_board_top?2";
@@ -143,6 +144,12 @@ router.get('/', function(req, res, next) {
         }
     });
 });
+
+function hadNotcontentsError(req, res){
+    req.session.error_status = 15;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
 
 function hadUrlError(req ,res){
     req.session.error_status = 5;

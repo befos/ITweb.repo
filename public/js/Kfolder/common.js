@@ -106,8 +106,13 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             break;
         case '13':
             alert("異常なアクセスが検知されたので一時的にアクセスを制限します。");
+            break;
         case '14':
             alert("投稿処理が完了いたしました。");
+            break;
+        case '15':
+            alert("投稿された質問が存在しません。");
+            break;
     }
 }
 window.onload = setError;

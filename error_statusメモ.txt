@@ -12,4 +12,5 @@ error_status 10 //ログインされていません
 error_status 11 //既にログアウトされています
 error_status 12 //問い合わせ画面からのリダイレクト
 error_status 13 //異常な回数のアクセスが検知されたので速度を制限します
-error_status 14 //投稿いただきありがとうございました.
+error_status 14 //投稿いただきありがとうございました
+error_status 15 //投稿された質問は存在しません
