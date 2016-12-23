@@ -22,6 +22,7 @@ var routes = {
     email_change_submit: require('./email_change_submit'),
     question_board_top: require('./question_board_top'),
     question_board_top_cate: require('./question_board_top_cate'),
+    question_board_top_search: require('./question_board_top_search'),
     question_board_input: require('./question_board_input'),
     question_board_contents: require('./question_board_contents'),
     question_board_confirem: require('./question_board_confirm'),
