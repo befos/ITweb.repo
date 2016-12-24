@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var replaceall = require("replaceall");
 var url = require('url');
 var qstring =require("querystring");
 var template = require('../config/template.json');
@@ -14,11 +15,9 @@ router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
     var error = req.session.error_status;
+    var searchbox = [];
     console.log(query.search);
     console.log(query.page);
-    var searchbox = [];
-    searchbox = query.search.replace("　", " ").split(" ");
-    console.log(searchbox);
 
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": [],
@@ -32,6 +31,7 @@ router.get('/', function(req, res, next) {
     var selectf;//データベースからデータを取り出すための変数
     var selectb;//データベースからデータを取り出すための変数
 
+
     if(query.page === undefined){
         selectb = 0;
         selectf = 1 * 20 - 1;
@@ -44,14 +44,29 @@ router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         console.log("connected");
     });
-    Forum.find({$or:[{ques:{$in:searchbox}},{foname:{$in:searchbox}}]},{}, {sort:{uday: -1}}, function(err, result) {
+
+    searchbox = replaceall("　"," ",query.search).split(" ");
+    console.log(searchbox);
+
+var queries = [];
+var queryor = { $or : [
+    { 'foname': { '$regex': '/hoge/' } },
+    { 'cont': { '$regex': '/hoge/' } }
+]};
+    for(var g = 0; searchbox.length > g ; g++){
+        searchbox[g] = new RegExp(searchbox[g]);//正規表現オブジェクト/hoge/の作成（キモ）
+    }
+
+    console.log(searchbox);
+
+    Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
         if (err) return hadDbError(err, req, res);
+        console.log(result);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
                 console.log("nosuch");
                 return hadNotcontentsError(req, res);
             }else{
-                    console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
                     data.dataurl.push(fourl);//作成したものをプッシュ
@@ -71,7 +86,6 @@ router.get('/', function(req, res, next) {
                         data.datadiff.push("難しい");
                     }
                 }
-
                 /*データベースの処理終了*/
                 /*--ページネーションを使えるようにするための設定--*/　
                 var nextback ={

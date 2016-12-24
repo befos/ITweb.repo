@@ -40,6 +40,8 @@ var Forum = new Schema({
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
     cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'},{_id:false}]
 },{collection: 'forum'});
+Forum.index({ques: 'text', 'profile.something': 'text'});
+Forum.index({foname: 'text', 'profile.something': 'text'});
 
 var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
