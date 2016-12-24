@@ -48,11 +48,6 @@ router.get('/', function(req, res, next) {
     searchbox = replaceall("　"," ",query.search).split(" ");
     console.log(searchbox);
 
-var queries = [];
-var queryor = { $or : [
-    { 'foname': { '$regex': '/hoge/' } },
-    { 'cont': { '$regex': '/hoge/' } }
-]};
     for(var g = 0; searchbox.length > g ; g++){
         searchbox[g] = new RegExp(searchbox[g]);//正規表現オブジェクト/hoge/の作成（キモ）
     }
