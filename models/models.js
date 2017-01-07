@@ -38,14 +38,15 @@ var Forum = new Schema({
     diff: {type:Number, min:0, max:2},//難易度（0簡単、1普通、2難しい）
     tag: [String],//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
-    cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'},{_id:false}]
+    cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'}]
 },{collection: 'forum'});
-Forum.index({ques: 'text', 'profile.something': 'text'});
-Forum.index({foname: 'text', 'profile.something': 'text'});
+Forum.index({ques: 'text', 'profile.text': 'text'});
+Forum.index({foname: 'text2', 'profile.text2': 'text2'});
 
 var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
-    _conid: {type:Schema.Types.ObjectId, index:true, unique:true},//コンテンツID
+    _id: {type: Schema.Types.ObjectId, ref:'Forum'},
+    _conid: {type:Schema.Types.ObjectId, index:true},//コンテンツID
     answer: Schema.Types.ObjectId,
     name: String,//ユーザーが決めた自由な名前
     prop: String,//プロフィールの画像？
