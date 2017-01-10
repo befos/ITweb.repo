@@ -6,6 +6,7 @@ var url = require('url');
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var Forum = models.Forum;
+var ForumCont = models.ForumCont;
 
 var template = require('../config/template.json');
 
@@ -30,24 +31,44 @@ router.get('/', function(req, res, next) {
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques
                 };
+                ForumCont.find({mfo:obj_id},{},{sort:{cuday: -1}},function(err, result2){
+                    if(err) return hadDbError(err, req, res);
 
-                req.session.error_status = 0;
-                if (req.session.user_id) {
-                    res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
-                    res.render('qna_disp', {
-                        userName: req.session.user_id,
-                        reqCsrf: req.csrfToken(),
-                        fo:forum1
-                    });
-                    mongoose.disconnect();
-                } else {
-                    res.locals = template.common.false;
-                    res.render('qna_disp', {
-                        reqCsrf: req.csrfToken(),
-                        fo:forum1
-                    });
-                    mongoose.disconnect();
-                }
+                    var data = {
+                        "Answer":[],
+                        "Cuday":[],
+                        "Cont":[]
+                    };
+
+                    for(var i = 0 ; i < result2.length ; i++){
+                        data.Answer.push(result2[i].name);
+                        data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
+                        data.Cont.push(result2[i].text);
+                    }
+                    console.log(data);
+
+                    req.session.error_status = 0;
+                    if (req.session.user_id) {
+                        res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
+                        res.render('qna_disp', {
+                            userName: req.session.user_id,
+                            reqCsrf: req.csrfToken(),
+                            fo:forum1,
+                            foid:obj_id,
+                            data:data
+                        });
+                        mongoose.disconnect();
+                    } else {
+                        res.locals = template.common.false;
+                        res.render('qna_disp', {
+                            reqCsrf: req.csrfToken(),
+                            fo:forum1,
+                            foid:obj_id,
+                            data:data
+                        });
+                        mongoose.disconnect();
+                    }
+                });
             }
         }
     });

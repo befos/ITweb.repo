@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
     var error = req.session.error_status;
+    req.session.error_status = 0;
 
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": [],

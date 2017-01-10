@@ -45,7 +45,7 @@ Forum.index({foname: 'text2', 'profile.text2': 'text2'});
 
 var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
-    _id: {type: Schema.Types.ObjectId, ref:'Forum'},
+    mfo: {type:Schema.Types.ObjectId, ref: 'Forum'},
     _conid: {type:Schema.Types.ObjectId, index:true},//コンテンツID
     answer: Schema.Types.ObjectId,
     name: String,//ユーザーが決めた自由な名前
