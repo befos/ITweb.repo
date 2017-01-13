@@ -31,10 +31,14 @@ router.post('/', function(req, res, next) {
           cuday: uday,
           text:question
       });
-      makefocont.save(function(err){
-         if(err) return hadDbError(err, req, res);
-         if(!err) return hadUpload(req, res);
-      });
+      if(req.session.user_id){
+          makefocont.save(function(err){
+              if(err) return hadDbError(err, req, res);
+              if(!err) return hadUpload(req, res);
+          });
+      }else{
+          req.redirect('/login');
+      }
 });
 
 function hadDbError(err, req, res){

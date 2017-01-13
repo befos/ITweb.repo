@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
-});
+    });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
         host: host,

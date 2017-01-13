@@ -23,7 +23,9 @@ router.get('/', function(req, res, next) {
         "datauser": [],
         "dataupday": [],
         "dataans": [],
-        "datadiff": []
+        "datadiff": [],
+        "status":"",
+        "pbutton":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -84,32 +86,47 @@ router.get('/', function(req, res, next) {
                     "insclass4":"dummy",
                     "insclass5":"dummy"
                 };
+                data.pbutton =[
+                    "/question_board_top_cate?",
+                    "/question_board_top_cate?",
+                    "/question_board_top_cate?",
+                    "/question_board_top_cate?",
+                    "/question_board_top_cate?"
+                ];
+                for(i = 0 ; i < 5 ; i++){
+                    var itizi;
+                    itizi = i+1;
+                    data.pbutton[i] = data.pbutton[i] + "cate=" + query.cate + "&page=" + itizi;
+                    console.log(data.pbutton[i]);
+                }
+                data.status = "cate";
+                console.log(data.status);
                 switch (query.page) {
                     case '1':
                         insclass.insclass1 = "active";
-                        nextback.backurl = "/question_board_top";
-                        nextback.nexturl = "/question_board_top?2";
+                        nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=1";
+                        nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=2";
                         nextback.backbutton = "disabled";
                         break;
                     case '2':
                         insclass.insclass2 = "active";
-                        nextback.backurl = "/question_board_top";
-                        nextback.nexturl = "/question_board_top?3";
+                        nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=1";
+                        nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=3";
                         break;
                     case '3':
                         insclass.insclass3 = "active";
-                        nextback.backurl = "/question_board_top?2";
-                        nextback.nexturl = "/question_board_top?4";
+                        nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=2";
+                        nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=4";
                         break;
                     case '4':
                         insclass.insclass4 = "active";
-                        nextback.backurl = "/question_board_top?3";
-                        nextback.nexturl = "/question_board_top?5";
+                        nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=3";
+                        nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=5";
                         break;
                     case '5':
                         insclass.insclass5 = "active";
-                        nextback.backurl = "/question_board_top?4";
-                        nextback.nexturl = "/question_board_top?5";
+                        nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=4";
+                        nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=5";
                         nextback.nextbutton = "disabled";
                         break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
                 default:
