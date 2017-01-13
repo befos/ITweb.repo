@@ -45,7 +45,7 @@ router.get('/', function(req, res, next) {
         console.log("connected");
     });
 
-    searchbox = replaceall("　"," ",query.search).split(" ");
+    searchbox = replaceall("　"," ",query.search).split(" ");//スペースで文字列を判別して,分けて配列に入れる
     console.log(searchbox);
 
     for(var g = 0; searchbox.length > g ; g++){
@@ -54,7 +54,7 @@ router.get('/', function(req, res, next) {
 
     console.log(searchbox);
 
-    Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
+    Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}},{host:{$in:searchbox}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
         if (err) return hadDbError(err, req, res);
         console.log(result);
         if (result) {
@@ -97,7 +97,7 @@ router.get('/', function(req, res, next) {
                     "insclass5":"dummy"
                 };
                 switch (query.page) {
-                    case '1':
+                    case undefined:
                         insclass.insclass1 = "active";
                         nextback.backurl = "/question_board_top";
                         nextback.nexturl = "/question_board_top?2";
@@ -125,7 +125,8 @@ router.get('/', function(req, res, next) {
                         nextback.nextbutton = "disabled";
                         break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
                 default:
-                    //return hadUrlError(req ,res);
+                    console.log("throw switch");
+                    return hadUrlError(req ,res);
                 }
                 /*--ページネーション設定はここまで--*/
                 /*この下からページのレンダー処理*/
