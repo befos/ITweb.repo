@@ -1,7 +1,6 @@
-var routes = {
+var routes = {//routesディレクト内のjsファイルを参照
     contact: require('./contact'),
     contact_submit: require('./contact_submit'),
-    home: require('./home'), //routesディレクト内のjsファイルを参照
     toppage: require('./toppage'),
     mypage: require('./mypage'),
     outlook_mypage:require('./outlook_mypage'),
@@ -30,6 +29,7 @@ var routes = {
     question_board_ansconfirem: require('./question_board_ansconfirm'),
     question_board_submit: require('./question_board_submit'),
     question_board_anssubmit: require('./question_board_anssubmit'),
+    question_board_ba: require('.//question_board_ba'),
     question_board_view: require('./question_board_view')
 };
 
