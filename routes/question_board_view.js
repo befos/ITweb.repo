@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var obj_id = u.query;
     console.log(obj_id);
-    Forum.find({_id:obj_id}, function(err, result) {
+    Forum.find({_id:obj_id}, function(err, result){
         if(err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0

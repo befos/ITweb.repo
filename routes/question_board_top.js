@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
                 console.log("nosuch");
-                return hadDbError(err, req, res);
+                return hadNotcontents(err, req, res, u, error, data, selectf, selectb, result);
             }else{
                     console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
@@ -156,15 +156,108 @@ router.post('/', function(req, res, next) {//ここで検索欄に入力され�
 //エラーハンドラ
 function hadUrlError(req ,res){
     req.session.error_status = 5;
-    res.redirect('/question_board_top');
+    res.redirect('/');
     mongoose.disconnect();
 }
 
 function hadDbError(err, req, res) {
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/question_board_top');
+    res.redirect('/');
     mongoose.disconnect();
+}
+
+function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result){
+    for(i = selectb ; result.length > i && selectf > i ; i++){　
+        var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
+        data.dataurl.push(fourl);//作成したものをプッシュ
+        data.datatitle.push(result[i].foname);
+        data.datauser.push(result[i].host);
+        data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
+        if(result[i].f_st === true){
+            data.dataans.push("未解決");
+        }else{
+            data.dataans.push("解決済み");
+        }
+        if(result[i].diff === 0){
+            data.datadiff.push("簡単");
+        }else if(result[i].diff === 1){
+            data.datadiff.push("普通");
+        }else{
+            data.datadiff.push("難しい");
+        }
+    }
+
+    var nextback ={
+        "backurl":"/question_board_top",
+        "nexturl":"/question_board_top",
+        "nextbutton":"",
+        "badkbutton":""
+    };
+    var insclass ={
+        "insclass1":"dummy",
+        "insclass2":"dummy",
+        "insclass3":"dummy",
+        "insclass4":"dummy",
+        "insclass5":"dummy"
+    };
+    console.log(u.query);
+    switch (u.query) {
+        case null:
+            insclass.insclass1 = "active";
+            nextback.backurl = "/question_board_top";
+            nextback.nexturl = "/question_board_top?2";
+            nextback.backbutton = "disabled";
+            break;
+        case '2':
+            insclass.insclass2 = "active";
+            nextback.backurl = "/question_board_top";
+            nextback.nexturl = "/question_board_top?3";
+            break;
+        case '3':
+            insclass.insclass3 = "active";
+            nextback.backurl = "/question_board_top?2";
+            nextback.nexturl = "/question_board_top?4";
+            break;
+        case '4':
+            insclass.insclass4 = "active";
+            nextback.backurl = "/question_board_top?3";
+            nextback.nexturl = "/question_board_top?5";
+            break;
+        case '5':
+            insclass.insclass5 = "active";
+            nextback.backurl = "/question_board_top?4";
+            nextback.nexturl = "/question_board_top?5";
+            nextback.nextbutton = "disabled";
+            break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
+    default:
+        return hadUrlError(req ,res);
+    }
+    /*--ページネーション設定はここまで--*/
+    /*この下からページのレンダー処理*/
+    req.session.error_status = 0;
+    if (req.session.user_id) {
+        res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
+        res.render('qna', {
+            userName: req.session.user_id,
+            error: error,
+            reqCsrf: req.csrfToken(),
+            data:data,
+            data2:nextback,
+            data3:insclass
+        });
+        mongoose.disconnect();
+    } else {
+        res.locals = template.common.false;
+        res.render('qna', {
+            error: error,
+            reqCsrf: req.csrfToken(),
+            data:data,
+            data2:nextback,
+            data3:insclass
+        });
+        mongoose.disconnect();
+    }
 }
 
 module.exports = router;
