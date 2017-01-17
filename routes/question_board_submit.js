@@ -25,6 +25,7 @@ router.post('/', function(req, res, next) {
         host: host,
         hostid: hostid,//obj_id
         count: null,//アクセスされた回数
+        baid: null,//BAのIDを保存
         uday: uday,
         ques: question,
         tag: tag,//この中に言語も記述してもらう(ニコ動のタグみたいなもの)

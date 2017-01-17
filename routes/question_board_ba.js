@@ -37,20 +37,24 @@ router.get('/', function(req, res, next) {
                     var data = {
                         "Answer":[],
                         "Cuday":[],
-                        "Cont":[]
+                        "Cont":[],
+                        "_conid":[], //回答のID
+                        "mfo":[]//質問のID
                     };
 
                     for(var i = 0 ; i < result2.length ; i++){
                         data.Answer.push(result2[i].name);
                         data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                         data.Cont.push(result2[i].text);
+                        data._conid.push(result2[i]._conid);
+                        data.mfo.push(result2[i].mfo);
                     }
                     console.log(data);
 
                     req.session.error_status = 0;
                     if (req.session.user_id) {
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
-                        res.render('qna_disp', {
+                        res.render('qna_disp_ba', {
                             userName: req.session.user_id,
                             reqCsrf: req.csrfToken(),
                             fo:forum1,
@@ -60,7 +64,7 @@ router.get('/', function(req, res, next) {
                         mongoose.disconnect();
                     } else {
                         res.locals = template.common.false;
-                        res.render('qna_disp', {
+                        res.render('qna_disp_ba', {
                             reqCsrf: req.csrfToken(),
                             fo:forum1,
                             foid:obj_id,
@@ -72,6 +76,24 @@ router.get('/', function(req, res, next) {
             }
         }
     });
+});
+
+router.post('/', function(req, res, next) {
+    mongoose.connect('mongodb://localhost:27017/userdata', function(){
+    console.log('connected');
+    });
+    var baid = req.body.ba;//BAに選んだ回答のID
+    var mfo = req.body.mfo;//質問のID
+
+    console.log(baid);
+    console.log(mfo);
+
+    Forum.update({_id:mfo},{$set:{baid:baid}},function(err){
+        if(err) return hadDbError(err, req, res);
+        req.session.error_status = 0;
+        res.redirect('/question_board_view?' + mfo);
+        mongoose.disconnect();
+    });//DBを更新
 });
 
 function hadDbError(err, req, res){

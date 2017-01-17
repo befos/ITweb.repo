@@ -31,22 +31,20 @@ router.get('/', function(req, res, next) {
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques
                 };
+                req.session.onetimefoid = result[0].id;
                 ForumCont.find({mfo:obj_id},{},{sort:{cuday: -1}},function(err, result2){
                     if(err) return hadDbError(err, req, res);
-
                     var data = {
                         "Answer":[],
                         "Cuday":[],
                         "Cont":[]
                     };
-
                     for(var i = 0 ; i < result2.length ; i++){
                         data.Answer.push(result2[i].name);
                         data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                         data.Cont.push(result2[i].text);
                     }
                     console.log(data);
-
                     req.session.error_status = 0;
                     if (req.session.user_id) {
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
