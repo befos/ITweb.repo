@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
+var async = require('async');
 
 //検索結果画面
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var Forum = models.Forum;
 var ForumCont = models.ForumCont;
+var User = models.Users;
 
 var template = require('../config/template.json');
 
@@ -35,6 +37,7 @@ router.get('/', function(req, res, next) {
                     if(err) return hadDbError(err, req, res);
 
                     var data = {
+                        "AnswerID":[],
                         "Answer":[],
                         "Cuday":[],
                         "Cont":[],
@@ -43,14 +46,29 @@ router.get('/', function(req, res, next) {
                     };
 
                     for(var i = 0 ; i < result2.length ; i++){
-                        data.Answer.push(result2[i].name);
+                        data.AnswerID.push(result2[i].answer);
                         data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                         data.Cont.push(result2[i].text);
                         data._conid.push(result2[i]._conid);
                         data.mfo.push(result2[i].mfo);
                     }
                     console.log(data);
+                    var list = [//ユーザーIDの保存領域
+                    ];
 
+                    for(i = 0 ; i < data.AnswerID.length ; i++){
+                        list.push({id:data.AnswerID[i]});
+                    }
+                    console.log(list);
+                    async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
+                        setTimeout(function() {
+                            User.find({_id:data2.id},{},function(err, result3){
+                                if(err) return hadDbError(err, req, res);
+                                data.Answer.push(result3[0].name);
+                                next();
+                            });
+                        }, 0);
+                    }, function(err) {
                     req.session.error_status = 0;
                     if (req.session.user_id) {
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
@@ -72,6 +90,7 @@ router.get('/', function(req, res, next) {
                         });
                         mongoose.disconnect();
                     }
+                });
                 });
             }
         }

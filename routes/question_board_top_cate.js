@@ -60,16 +60,16 @@ router.get('/', function(req, res, next) {
                     data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                     data.datahostid.push(result[i].hostid);
                     if(result[i].f_st === true){
-                        data.dataans.push("未解決");
+                        data.dataans.push("/img/profile/未解決.png");
                     }else{
-                        data.dataans.push("解決済み");
+                        data.dataans.push("/img/profile/解決済み.png");
                     }
                     if(result[i].diff === 0){
-                        data.datadiff.push("簡単");
+                        data.datadiff.push("/img/profile/簡単.png");
                     }else if(result[i].diff === 1){
-                        data.datadiff.push("普通");
+                        data.datadiff.push("/img/profile/普通.png");
                     }else{
-                        data.datadiff.push("難しい");
+                        data.datadiff.push("/img/profile/難しい.png");
                     }
                 }
                 var list = [//ユーザーIDの保存領域
