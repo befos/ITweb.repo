@@ -61,11 +61,11 @@ router.get('/', function(req, res, next) {
                         data.dataans.push("解決済み");
                     }
                     if(result[i].diff === 0){
-                        data.datadiff.push("簡単");
+                        data.datadiff.push("/img/profile/簡単.png");
                     }else if(result[i].diff === 1){
-                        data.datadiff.push("普通");
+                        data.datadiff.push("/img/profile/普通.png");
                     }else{
-                        data.datadiff.push("難しい");
+                        data.datadiff.push("/img/profile/難しい.png");
                     }
                 }
 
