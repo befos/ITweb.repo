@@ -18,6 +18,7 @@ router.post('/', function(req, res, next) {
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
+<<<<<<< HEAD
 });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
@@ -27,19 +28,29 @@ router.post('/', function(req, res, next) {
         uday: uday,
         ques: question,
         f_st: true//forumの内容が解決済み...false　初期値はtrue
+=======
+>>>>>>> 51ca9e9033a860c8fb4fb4a3e9b02eb70bd67951
     });
-    makeforum.save(function(err) {//refを使用しているので二重にセーブ
-      if(err) return hadDbError(err , req, res);//バリデーションエラーが出る可能性(もし被りが出た場合)
+
+    //ログインしていなかったらリダイレクトするようにしておく
+
       var conid = mongoose.Types.ObjectId();
       var makefocont = new ForumCont({
-          _id: makeforum._id,
-          _conid : conid//回答を保存する回答ページでつける
+          mfo: req.session.foid,//親のフォーラムidを保存
+          _conid : conid,//回答を保存する回答ページでつける
+          answer: hostid,
+          name: host,
+          cuday: uday,
+          text:question
       });
-      makefocont.save(function(err){
-         if(err) return hadDbError(err, req, res);
-         if(!err) return hadUpload(req, res);
-      });
-    });
+      if(req.session.user_id){
+          makefocont.save(function(err){
+              if(err) return hadDbError(err, req, res);
+              if(!err) return hadUpload(req, res);
+          });
+      }else{
+          req.redirect('/login');
+      }
 });
 
 function hadDbError(err, req, res){

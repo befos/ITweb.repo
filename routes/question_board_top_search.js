@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
         "datauser": [],
         "dataupday": [],
         "dataans": [],
-        "datadiff": []
+        "datadiff": [],
+        "dataouturl":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -45,7 +46,7 @@ router.get('/', function(req, res, next) {
         console.log("connected");
     });
 
-    searchbox = replaceall("　"," ",query.search).split(" ");
+    searchbox = replaceall("　"," ",query.search).split(" ");//スペースで文字列を判別して,分けて配列に入れる
     console.log(searchbox);
 
     for(var g = 0; searchbox.length > g ; g++){
@@ -54,7 +55,7 @@ router.get('/', function(req, res, next) {
 
     console.log(searchbox);
 
-    Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
+    Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}},{host:{$in:searchbox}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
         if (err) return hadDbError(err, req, res);
         console.log(result);
         if (result) {
@@ -64,21 +65,23 @@ router.get('/', function(req, res, next) {
             }else{
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
+                    var outurl = "/outlook_mypage?" + result[i].hostid;
                     data.dataurl.push(fourl);//作成したものをプッシュ
+                    data.dataouturl.push(outurl);
                     data.datatitle.push(result[i].foname);
                     data.datauser.push(result[i].host);
                     data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                     if(result[i].f_st === true){
-                        data.dataans.push("未解決");
+                        data.dataans.push("/img/profile/未解決.png");
                     }else{
-                        data.dataans.push("解決済み");
+                        data.dataans.push("/img/profile/解決済み.png");
                     }
                     if(result[i].diff === 0){
-                        data.datadiff.push("簡単");
+                        data.datadiff.push("/img/profile/簡単.png");
                     }else if(result[i].diff === 1){
-                        data.datadiff.push("普通");
+                        data.datadiff.push("/img/profile/普通.png");
                     }else{
-                        data.datadiff.push("難しい");
+                        data.datadiff.push("/img/profile/難しい.png");
                     }
                 }
                 /*データベースの処理終了*/
@@ -97,7 +100,7 @@ router.get('/', function(req, res, next) {
                     "insclass5":"dummy"
                 };
                 switch (query.page) {
-                    case '1':
+                    case undefined:
                         insclass.insclass1 = "active";
                         nextback.backurl = "/question_board_top";
                         nextback.nexturl = "/question_board_top?2";
@@ -125,7 +128,8 @@ router.get('/', function(req, res, next) {
                         nextback.nextbutton = "disabled";
                         break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
                 default:
-                    //return hadUrlError(req ,res);
+                    console.log("throw switch");
+                    return hadUrlError(req ,res);
                 }
                 /*--ページネーション設定はここまで--*/
                 /*この下からページのレンダー処理*/

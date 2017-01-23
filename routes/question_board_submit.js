@@ -19,12 +19,13 @@ router.post('/', function(req, res, next) {
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
-});
+    });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
         host: host,
         hostid: hostid,//obj_id
         count: null,//アクセスされた回数
+        baid: null,//BAのIDを保存
         uday: uday,
         ques: question,
         tag: tag,//この中に言語も記述してもらう(ニコ動のタグみたいなもの)

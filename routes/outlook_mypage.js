@@ -6,6 +6,7 @@ var url = require('url');
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
 var User = models.Users;
+var Forum = models.Forum;
 
 router.get('/', function(req, res, next) {
     console.log(req.url);
@@ -17,11 +18,11 @@ router.get('/', function(req, res, next) {
             var userName = req.session.user_id;
         }
         var u = url.parse(req.url, false);
-        User.find({uid: u.query}, function(err, result) {
+        User.find({_id: u.query}, function(err, result) {
             if (err) return hadDbError(err, req, res);
             if (result) {
                 if (result.length === 0) { //同じuidが無い場合はDB上にデータが見つからないので0
-                    return hadDbError(err, req, res);
+                    return hadNotcontentsError(req, res);
                 } else { //uidが見つかった
                     console.log("such uid");
                     var openmypage = result[0].mypage_st;
@@ -40,18 +41,32 @@ router.get('/', function(req, res, next) {
                     } else {
                         user_sex = '';
                     }
-                    var insert = {
-                        userName: userName,
-                        user_name: user_name,
-                        user_id: user_id,
-                        user_age: user_age,
-                        user_work: user_work,
-                        user_sex: user_sex
-                    };
-                    req.session.error_status = 0;
-                    res.locals = insert; //テンプレートに読み込む
-                    res.render('outlook_mypage');
-                    mongoose.disconnect();
+                    Forum.find({hostid:u.query},{}, {sort:{uday: -1},limit:30},function(err, result2){
+                            if(err) return hadDbError(err, req, res);
+                            if(result2){
+                                var dataurl = [];
+                                var datafoname = [];
+                                for(var i = 0; result2.length > i; i++){
+                                    dataurl.push("/question_board_view?"+ result2[i]._id);
+                                    datafoname.push(result2[i].foname);
+                                }
+                                var insert = {
+                                    userName:userName,
+                                    user_name:user_name,
+                                    user_id:user_id,
+                                    user_age:user_age,
+                                    user_work:user_work,
+                                    user_sex:user_sex,
+                                    dataurl:dataurl,
+                                    datafoname:datafoname
+                                };
+
+                                req.session.error_status = 0;
+                                res.locals = insert;//テンプレートに読み込む
+                                res.render('outlook_mypage');
+                                mongoose.disconnect();
+                            }
+                    });
                 }
             }
         });
@@ -74,9 +89,9 @@ function hadDbError(err, req, res) {
     mongoose.disconnect();
 }
 
-function hadNologinError(req, res) {
-    //req.session.error_status = 10;
-    res.redirect('/login');
+function hadNotcontentsError(req, res){
+    req.session.error_status = 15;
+    res.redirect('/');
     mongoose.disconnect();
 }
 

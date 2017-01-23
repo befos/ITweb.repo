@@ -65,7 +65,6 @@ app.use(limiter);
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
-app.use('/contents', routes.home);
 app.use('/mypage', routes.mypage);
 app.use('/outlook_mypage', routes.outlook_mypage);
 app.use('/login', routes.login);
@@ -94,6 +93,7 @@ app.use('/question_board_ansconfirm', routes.question_board_ansconfirem);
 app.use('/question_board_submit', routes.question_board_submit);
 app.use('/question_board_anssubmit', routes.question_board_anssubmit);
 app.use('/question_board_view', routes.question_board_view);
+app.use('/question_board_ba', routes.question_board_ba);
 app.use('/contact', routes.contact);
 app.use('/contact_submit', routes.contact_submit);
 

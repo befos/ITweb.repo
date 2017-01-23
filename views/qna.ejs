@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <link href="/css/normalize.css">
@@ -53,6 +52,7 @@
     <!-- nav分のスペース確保ボックス -->
     <div class="top_space_nav"></div>
     <!--ここからコンテンツ-->
+    <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
     <img class="qna_header_img shadow" width="1280px" height="250px" src="/img/qna_header.jpg" alt="質問広場" />
     <div class="col-sm-2">
         <section class="mypage_sub">
@@ -84,10 +84,7 @@
                 <div class="col-sm-2 col-xs-2">
                     <input type="submit" value="検索" class="btn btn-primary btn-block">
                 </div>
-            </form>
                 </div>
-                <!-- csrfToken -->
-                <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
         </article>
         <article>
             <table class="resultList">
@@ -104,10 +101,10 @@
                 <% for(var i=0 ;i < data.datatitle.length; i++){ %>
                     <tr>
                         <td class="qna_title"><a href="<%= data.dataurl[i]%>"><span><%= data.datatitle[i] %></span></a></td>
-                        <td class="qna_user"><span><%= data.datauser[i] %></span></td>
+                        <td class="qna_user"><a href="<%= data.dataouturl[i]%>"><span><%= data.datauser[i] %></span></td>
                         <td class="qna_time"><span><%= data.dataupday[i] %></span></td>
-                        <td class="qna_answer"><span><%= data.dataans[i] %></span></td>
-                        <td class="qna_diff"><span><%= data.datadiff[i] %></span></td>
+                        <td class="qna_answer"><span><img src="<%= data.dataans[i] %>" ></span></td>
+                        <td class="qna_diff"><span><img src="<%= data.datadiff[i] %>" ></span></td>
                     </tr>
                 <% } %>
                 </tbody>
@@ -120,12 +117,20 @@
                                 <span aria-hidden="true">«</span>
                             </a>
                         </li>
-                        <li class="<%= data3.insclass1 %>"><a href="/question_board_top">1</a></li>
-                        <li class="<%= data3.insclass2 %>"><a href="/question_board_top?2">2</a></li>
-                        <li class="<%= data3.insclass3 %>"><a href="/question_board_top?3">3</a></li>
-                        <li class="<%= data3.insclass4 %>"><a href="/question_board_top?4">4</a></li>
-                        <li class="<%= data3.insclass5 %>"><a href="/question_board_top?5">5</a></li>
-                        <li class="<%= data2.nextbutton %>">
+                        <% if(data.status == 'cate'){ %>
+                            <li class="<%= data3.insclass1 %>"><a href="<%= data.pbutton[0]%>">1</a></li>
+                            <li class="<%= data3.insclass2 %>"><a href="<%= data.pbutton[1]%>">2</a></li>
+                            <li class="<%= data3.insclass3 %>"><a href="<%= data.pbutton[2]%>">3</a></li>
+                            <li class="<%= data3.insclass4 %>"><a href="<%= data.pbutton[3]%>">4</a></li>
+                            <li class="<%= data3.insclass5 %>"><a href="<%= data.pbutton[4]%>">5</a></li>
+                        <% }else{ %>
+                            <li class="<%= data3.insclass1 %>"><a href="/question_board_top">1</a></li>
+                            <li class="<%= data3.insclass2 %>"><a href="/question_board_top?2">2</a></li>
+                            <li class="<%= data3.insclass3 %>"><a href="/question_board_top?3">3</a></li>
+                            <li class="<%= data3.insclass4 %>"><a href="/question_board_top?4">4</a></li>
+                            <li class="<%= data3.insclass5 %>"><a href="/question_board_top?5">5</a></li>
+                        <% } %>
+                            <li class="<%= data2.nextbutton %>">
                             <a href="<%= data2.nexturl %>" aria-label="次のページへ">
                                 <span aria-hidden="true">»</span>
                             </a>
