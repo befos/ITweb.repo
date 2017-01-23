@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     } else {
         var error = req.session.error_status;
         req.session.error_status = 0;
-        res.render('login', {error:error, reqCsrf: req.csrfToken()});
+        res.render('login', {error:error, reqCsrf: req.csrfToken(), login:'ログイン', userName:'ゲスト'});
     }
 });
 

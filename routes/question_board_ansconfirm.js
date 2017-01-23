@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var template = require('../config/template.json');
-　
 
 router.post('/', function(req, res, next){
     //ここでは入力されたタグのエスケープ処理などを行うこと
@@ -12,6 +11,7 @@ router.post('/', function(req, res, next){
     var hostid = req.session.obj_id;
     var host = req.session.user_id;
     req.session.error_status = 0;
+    req.session.tag = tag;
     if (req.session.user_id) {
         res.locals = template.common.true;
         res.render('qna_ansconfirm', {

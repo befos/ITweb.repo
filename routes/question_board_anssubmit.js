@@ -14,7 +14,6 @@ router.post('/', function(req, res, next) {
     var host = req.body.host;
     var hostid = req.body.hostid;
     var question = req.body.cont;
-    var tag = req.session.tag;
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
@@ -27,7 +26,6 @@ router.post('/', function(req, res, next) {
         count: null,//アクセスされた回数
         uday: uday,
         ques: question,
-        tag: tag,//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
         f_st: true//forumの内容が解決済み...false　初期値はtrue
     });
     makeforum.save(function(err) {//refを使用しているので二重にセーブ
