@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
         "dataupday": [],
         "dataans": [],
         "datadiff": [],
-        "datahostid":[]
+        "datahostid":[],
+        "dataouturl":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -53,7 +54,9 @@ router.get('/', function(req, res, next) {
                     console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
+                    var outurl = "/outlook_mypage?" + result[i].hostid;
                     data.dataurl.push(fourl);//作成したものをプッシュ
+                    data.dataouturl.push(outurl);
                     data.datatitle.push(result[i].foname);
                     data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                     data.datahostid.push(result[i].hostid);
