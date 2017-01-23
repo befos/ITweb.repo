@@ -100,7 +100,7 @@ router.get('/', function(req, res, next) {
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/question_board_top');
+    res.redirect(400, '/question_board_top');
     mongoose.disconnect();
 }
 

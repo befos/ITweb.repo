@@ -25,7 +25,9 @@ router.get('/', function(req, res, next) {
             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                 return hadDbError(err, req, res);
             } else {
-                //uidが見つかった
+                if(result[0].f_st === false){
+                        return hadEndError(req, res);
+                }
                 console.log("such id");
                 var forum1 ={
                     host:result[0].host,
@@ -99,15 +101,18 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
+        console.log('connected');
     });
+
     var baid = req.body.ba;//BAに選んだ回答のID
     var mfo = req.body.mfo;//質問のID
+    var abaid = req.body.abaid;//回答者のID
 
+    console.log(abaid);
     console.log(baid);
     console.log(mfo);
 
-    Forum.update({_id:mfo},{$set:{baid:baid}},function(err){
+    Forum.update({_id:mfo},{$set:{baid:baid,abaid:abaid,f_st:false}},function(err){
         if(err) return hadDbError(err, req, res);
         req.session.error_status = 0;
         res.redirect('/question_board_view?' + mfo);
@@ -118,6 +123,12 @@ router.post('/', function(req, res, next) {
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
+function hadEndError(req, res){
+    req.session.error_status = 16;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }

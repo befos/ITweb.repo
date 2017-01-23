@@ -18,8 +18,7 @@ router.post('/', function(req, res, next) {
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
-<<<<<<< HEAD
-});
+    });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
         host: host,
@@ -28,8 +27,6 @@ router.post('/', function(req, res, next) {
         uday: uday,
         ques: question,
         f_st: true//forumの内容が解決済み...false　初期値はtrue
-=======
->>>>>>> 51ca9e9033a860c8fb4fb4a3e9b02eb70bd67951
     });
 
     //ログインしていなかったらリダイレクトするようにしておく
@@ -56,7 +53,7 @@ router.post('/', function(req, res, next) {
 function hadDbError(err, req, res){
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/question_board_top');
+    res.redirect(400, '/question_board_top');
     mongoose.disconnect();
 }
 

@@ -10,9 +10,10 @@ var Forum = models.Forum;
 router.get('/', function(req, res, next){
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     console.log('connected');
-});
+    });
     if(req.session.user_id){//セッションにidが存在するか確認
         var obj_id = req.session.obj_id;
+        console.log(obj_id);
         User.find({_id:obj_id}, function(err, result) {
             if(err) return hadDbError(err, req, res);
             if (result) {
@@ -26,9 +27,10 @@ router.get('/', function(req, res, next){
                     var user_age = result[0].age;
                     var user_work = result[0].work;
                     var user_sex;
+                    var user_bac; //baのカウント
                     if(result[0].sex === 0){
                         user_sex = '男';
-                    }else if(result[0].sex == 1){
+                    }else if(result[0].sex === 1){
                         user_sex = '女';
                     }else{
                         user_sex ='';
@@ -36,28 +38,43 @@ router.get('/', function(req, res, next){
                     Forum.find({hostid:obj_id},{}, {sort:{uday: -1},limit:30},function(err, result2){
                             if(err) return hadDbError(err, req, res);
                             if(result2){
-                                var dataurl = [];
+                                var dataurl = [];//質問履歴アクセス用
                                 var datafoname = [];
                                 for(var i = 0; result2.length > i; i++){
                                     dataurl.push("/question_board_view?"+ result2[i]._id);
                                     datafoname.push(result2[i].foname);
                                 }
-                                var insert = {
-                                    userName:req.session.user_id,
-                                    user_name:user_name,
-                                    user_id:user_id,
-                                    user_age:user_age,
-                                    user_work:user_work,
-                                    user_sex:user_sex,
-                                    dataurl:dataurl,
-                                    datafoname:datafoname
-                                };
-
-                    req.session.error_status = 0;
-                    res.locals = insert;//テンプレートに読み込む
-                    res.render('mypage');
-                    mongoose.disconnect();
-                    }
+                                Forum.find({abaid:obj_id},{},{sort:{uday: -1},limit:30},function(err, result3){
+                                    if(err) return hadDbError(err, req, res);
+                                    if(result3){
+                                        user_bac = result3.length;
+                                        console.log(user_bac);
+                                        var dataurl2 =[];//BA通知アクセス用
+                                        var datafoname2 =[];
+                                        for(i = 0; result3.length > i; i++){
+                                            dataurl2.push("/question_board_view?"+ result3[i]._id);
+                                            datafoname2.push(result3[i].foname);
+                                        }
+                                        var insert = {
+                                            userName:req.session.user_id,
+                                            user_name:user_name,
+                                            user_id:user_id,
+                                            user_age:user_age,
+                                            user_work:user_work,
+                                            user_sex:user_sex,
+                                            dataurl:dataurl,
+                                            datafoname:datafoname,
+                                            dataurl2:dataurl2,
+                                            datafoname2:datafoname2,
+                                            databac:user_bac
+                                        };
+                                        req.session.error_status = 0;
+                                        res.locals = insert;//テンプレートに読み込む
+                                        res.render('mypage');
+                                        mongoose.disconnect();
+                                    }
+                                });
+                            }
                     });
                 }
             }

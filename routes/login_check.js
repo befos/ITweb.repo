@@ -131,14 +131,14 @@ function hadInputdataError(req, res) {
 function hadDbError(err, req, res) {
     console.log(err);
     req.session.error_status = 6;
-    res.redirect('/login');
+    res.redirect(400,'/login');
     mongoose.disconnect();
 }
 
 function hadSessionError(err, req, res) {
     console.log(err);
     req.session.error_status = 8;
-    res.redirect('/login');
+    res.redirect(400,'/login');
     mongoose.disconnect();
 }
 

@@ -113,6 +113,9 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
         case '15':
             alert("投稿された質問が存在しません。");
             break;
+        case '16':
+            alert("質問は解決済みです。");
+            break;
     }
 }
 window.onload = setError;

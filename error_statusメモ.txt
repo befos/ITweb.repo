@@ -14,3 +14,4 @@ error_status 12 //問い合わせ画面からのリダイレクト
 error_status 13 //異常な回数のアクセスが検知されたので速度を制限します
 error_status 14 //投稿いただきありがとうございました
 error_status 15 //投稿された質問は存在しません
+error_status 16 //質問は解決済みです

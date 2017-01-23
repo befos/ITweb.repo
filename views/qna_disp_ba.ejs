@@ -60,8 +60,9 @@
                       </div>
                       <div align="right">
                           <form action="/question_board_ba" method="post">
-                              <input class="radio" type="hidden" name="ba" value="<%= data._conid[i] %>">
+                              <input type="hidden" name="ba" value="<%= data._conid[i] %>">
                               <input type="hidden" name="mfo" value="<%= data.mfo[i] %>">
+                              <input type="hidden" name="abaid" value="<%= data.AnswerID[i] %>">
                               <button type='submit' name='action' value='send'>BAを決定！</button>
                               <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>">
                               <!-- csrfToken -->

@@ -34,6 +34,7 @@ router.get('/', function(req, res, next) {
                     var user_age = result[0].age;
                     var user_work = result[0].work;
                     var user_sex;
+                    var user_bac;
                     if (result[0].sex === 0) {
                         user_sex = '男';
                     } else if (result[0].sex == 1) {
@@ -50,21 +51,29 @@ router.get('/', function(req, res, next) {
                                     dataurl.push("/question_board_view?"+ result2[i]._id);
                                     datafoname.push(result2[i].foname);
                                 }
-                                var insert = {
-                                    userName:userName,
-                                    user_name:user_name,
-                                    user_id:user_id,
-                                    user_age:user_age,
-                                    user_work:user_work,
-                                    user_sex:user_sex,
-                                    dataurl:dataurl,
-                                    datafoname:datafoname
-                                };
+                                Forum.find({abaid:u.query},{},{},function(err, result3){
+                                    if(err) return hadDbError(err, req, res);
+                                    if(result3){
+                                        user_bac = result3.length;
+                                        console.log(user_bac);
+                                        var insert = {
+                                            userName:userName,
+                                            user_name:user_name,
+                                            user_id:user_id,
+                                            user_age:user_age,
+                                            user_work:user_work,
+                                            user_sex:user_sex,
+                                            dataurl:dataurl,
+                                            datafoname:datafoname,
+                                            databac:user_bac
+                                        };
 
-                                req.session.error_status = 0;
-                                res.locals = insert;//テンプレートに読み込む
-                                res.render('outlook_mypage');
-                                mongoose.disconnect();
+                                        req.session.error_status = 0;
+                                        res.locals = insert;//テンプレートに読み込む
+                                        res.render('outlook_mypage');
+                                        mongoose.disconnect();
+                                    }
+                                });
                             }
                     });
                 }

@@ -48,7 +48,8 @@
 
     <div class="Profile">
         <!--プロフィール-->
-        <h3>プロフィール</h3>
+        <h3>プロフィール(BA:<%= databac %>)</h3>
+
         <div class="p_img"><img src="/img/profile_ex.jpg"></div>
 
         <div class="user_id">
@@ -97,20 +98,13 @@
 
     <div class="S_his">
         <!--勉強会履歴-->
-        <h3 align="center">通知ボックス</h3>
+        <h3 align="center">BA通知ボックス</h3>
         <div class="S_con">
             <!--勉強会履歴表示-->
             <ul>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
-                <li>テスト</li>
+                <% for(var i=0 ;i < dataurl2.length; i++){ %>
+                    <li><a href="<%= dataurl2[i] %>">"<%= datafoname2[i] %>"であなたの回答がBAに選ばれました!</a></li>
+                <% } %>
             </ul>
         </div>
     </div>
