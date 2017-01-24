@@ -30,13 +30,13 @@ var Users = new Schema({
 
 var Forum = new Schema({
     foname: String,//フォーラムの名前（被りあり）
-    hostid: Schema.Types.ObjectId,//obj_idから主催者のデータを拾う
+    hostid: {type:Schema.Types.ObjectId, index:true},//obj_idから主催者のデータを拾う
     host: String,//ユーザーのIDを格納
     count: Number,//アクセスされた回数
     uday: Date,//アップロードした日
     ques: String,//質問者が入力(質問内容)
-    baid: Schema.Types.ObjectId,//ベストアンサーに選ばれた回答のIDを記録
-    abaid: Schema.Types.ObjectId,//ベストアンサーに選ばれた回答者のIDを記録
+    baid: {type:Schema.Types.ObjectId, index:true},//ベストアンサーに選ばれた回答のIDを記録
+    abaid: {type:Schema.Types.ObjectId, index:true},//ベストアンサーに選ばれた回答者のIDを記録
     diff: {type:Number, min:0, max:2},//難易度（0簡単、1普通、2難しい）
     tag: [String],//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     f_st: {type:Boolean, default:true},//forumの内容が解決済みか
@@ -49,7 +49,7 @@ var ForumCont = new Schema({
     //forumcontの_idはforumのIDと同じになる
     mfo: {type:Schema.Types.ObjectId, ref: 'Forum'},
     _conid: {type:Schema.Types.ObjectId, index:true},//コンテンツID
-    answer: Schema.Types.ObjectId,
+    answer: {type:Schema.Types.ObjectId, index:true},
     name: String,//ユーザーが決めた自由な名前
     prop: String,//プロフィールの画像？
     cuday: {type:Date, default: Date.now},//コンテンツを上げた日
