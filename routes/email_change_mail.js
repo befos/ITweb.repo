@@ -24,13 +24,12 @@ var MINUTES = conf.sendmailconf.minute; //数字でURLが有効な分数を指�
 
 
 router.post('/', function(req, res, next) {
-
     mongoose.connect('mongodb://localhost:27017/userdata', function() {
         console.log('connected');
     });
     var email = req.body.id;
     var obj_id = req.session.obj_id;
-    var url_pass = sha256(randword.method(16));
+    var url_pass3 = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
@@ -38,7 +37,7 @@ router.post('/', function(req, res, next) {
         html: '以下のURLからメールアドレスの変更を行ってください。<br>' +
             'URLの有効時間は' + MINUTES + '分間です。<br>' +
             '有効時間後は再度メールアドレスの変更を行ってください。<br>' +
-            URL + url_pass + '<br><br>'
+            URL + url_pass3 + '<br><br>'
     };
     User.find({
         _id: obj_id
@@ -60,7 +59,7 @@ router.post('/', function(req, res, next) {
                 }, {
                     $set: {
                         ac_ec: true,
-                        url_pass: url_pass,
+                        url_pass3: url_pass3,
                         ect: ect,
                         cemail: email
                     }

@@ -50,7 +50,6 @@
         </div>
         <div class="top_space"></div>
         <div class="col-sm-6"></div>
-        <% if(loginst != 'ok'){ %>
         <form class="form-horizontal Loginform" action="/login_check" method="post">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="email"><p class="label_form"><span class="glyphicon glyphicon-envelope icon"></span></p></label>
@@ -75,7 +74,6 @@
             <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken --><!-- hidden属性なので表示さてない -->
             <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
         </form>
-        <% } %>
         </div>
     </section>
     <section class="description">

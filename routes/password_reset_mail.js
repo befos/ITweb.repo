@@ -10,6 +10,7 @@ var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
+var moment = require('moment');
 
 var insert = require('../config/template.json'); //テンプレートの読み込み
 var conf = require('../config/commonconf.json');
@@ -28,7 +29,7 @@ router.post('/', function(req, res, next) {
     });
     //formから飛ばされた情報を受け取って変数に格納
     var email = req.body.id;
-    var url_pass = sha256(randword.method(16));
+    var url_pass2 = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
@@ -36,7 +37,7 @@ router.post('/', function(req, res, next) {
         html: '以下のURLからパスワードのリセットを行ってください。<br>' +
             'URLの有効時間は' + MINUTES + '分間です。<br>' +
             '有効時間後は再度パスワードのリセットを行ってください。<br>' +
-            URL + url_pass + '<br><br>'
+            URL + url_pass2 + '<br><br>'
     };
     User.find({
         email: email
@@ -49,14 +50,16 @@ router.post('/', function(req, res, next) {
                 var dbemail = result[0].email;
                 var dt = new Date();
                 dt.setMinutes(dt.getMinutes() + MINUTES);
-                var regentime = dt.toFormat("YYYY/MM/DD HH24:MI:SS"); //時間を取得
+                var today = moment();
+                today.add('minutes', MINUTES);
+                var regentime = today;
                 console.log(regentime);
                 User.update({
                     email: dbemail
                 }, {
                     $set: {
                         ac_reset: true,
-                        url_pass: url_pass,
+                        url_pass2: url_pass2,
                         regent: regentime
                     }
                 }, function(err) {

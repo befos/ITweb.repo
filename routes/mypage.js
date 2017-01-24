@@ -8,9 +8,13 @@ var User = models.Users;
 var Forum = models.Forum;
 
 router.get('/', function(req, res, next){
-    mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
+    //データベース接続設定
+    var db = mongoose.connection;
+    db.on('open', function() {
     });
+    db.on('close', function() {
+    });
+    db.open("mongodb://localhost:27017/userdata");
     if(req.session.user_id){//セッションにidが存在するか確認
         var obj_id = req.session.obj_id;
         console.log(obj_id);

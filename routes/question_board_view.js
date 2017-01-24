@@ -13,9 +13,15 @@ var User = models.Users;
 var template = require('../config/template.json');
 
 router.get('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
+
+    //データベース接続設定
+    var db = mongoose.connection;
+    db.on('open', function() {
     });
+    db.on('close', function() {
+    });
+    db.open("mongodb://localhost:27017/userdata");
+
     var u = url.parse(req.url, false);
     var obj_id = u.query;
     console.log(obj_id);

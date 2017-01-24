@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
         var error = req.session.error_status;
         res.locals = template.common.true;//共通なテンプレートに読み込む
         req.session.error_status = 0;
-        res.render('toppage', {userName: req.session.user_id, error:error, reqCsrf:req.csrfToken(), loginst:'ok'});
+        res.render('toppage', {userName: req.session.user_name, error:error, reqCsrf:req.csrfToken(), loginst:'ok'});
     } else {
         var error = req.session.error_status;
         res.locals = template.common.false;//共通なテンプレートに読み込む

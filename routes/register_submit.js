@@ -68,6 +68,8 @@ router.post('/', function(req, res, next) {
                                   hashpass: passhash,
                                   salt: salt,
                                   url_pass: url_pass,
+                                  url_pass2: null,
+                                  url_pass3: null,
                                   regest: regetime,
                                   regentime: null,
                                   chpst: null,
