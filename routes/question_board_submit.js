@@ -17,6 +17,14 @@ router.post('/', function(req, res, next) {
     var tag = req.session.tag;
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+    if(!req.session.checksubmit){
+        req.session.checksubmit = "no";
+    }
+    var checksub = req.session.checksubmit;
+    if(checksub == "ok"){
+        req.session.checksubmit = "no";
+        return hadUpload(req, res);
+    }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         console.log('connected');
     });
@@ -41,7 +49,10 @@ router.post('/', function(req, res, next) {
       });
       makefocont.save(function(err){
          if(err) return hadDbError(err, req, res);
-         if(!err) return hadUpload(req, res);
+         if(!err){
+             req.session.checksubmit = "ok";
+             return hadUpload(req, res);
+         }
       });
     });
 });
