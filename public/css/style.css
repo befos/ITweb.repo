@@ -219,18 +219,18 @@ p{
 	padding: 0;
 	color: #333333;
 }
-.qna_diff a:visited{
-	color: #294c7e!important;
+.qna_diff{
+	width: 11%;
+
 }
-.qna_diff a{
-	color: #294c7e!important;
+.qna_answer{
+  width: 11%;
 }
 .resultList{
 	width:100%;
 	margin:30px auto;
 	padding:0;
 	}
-
 .resultList th,
 .resultList td{
 	display:table-cell;
@@ -372,12 +372,10 @@ br { display : none ; }
 	border-right:none;
 	}
 
-.resultList td.qna_answer{
+.qna_answer{
 	text-align: left!important;
 	border-left:none;
-  width: 5px!important;
-	}
-
+}
 .resultList td.qna_time{
 	text-align: left!important;
 	border-left: none;
@@ -784,7 +782,4 @@ body > div.login_form > form > table > tbody > tr:nth-child(4) > td:nth-child(1)
     width: 90%;
     margin: 50px 5%;
   }
-}
-.ba-prof{
-
 }

@@ -93,32 +93,13 @@
     <form action="/question_board_ansconfirm" method="post">
         <img class="qna_header_img shadow" width="1280px" height="250px" src="/img/qna_header.jpg" alt="質問投稿" />
         <div class="top_space_nav"></div>
-
-        <div class="col-sm-2">
-            <div class="balloon-2-right">
-                <div Align="center">
-                    <h4>タイトルには要件を書こう</h4><br></div>
-                「PHPについて」や「比較演算子」などのように、短すぎて質問内容が読み取れないタイトルは無視されて あなたの質問ページを見てもらえる可能性が低くなってしまいます。
-                <br> 例えば、「○○で△△というエラー」「○○が実行できない」「△△と○○の違い」などのように要件を書くことにより目に留まる確率は上がります。
-            </div>
-        </div>
-
         <!--CLEditorテキストエリア-->
-        <div class="col-sm-offset-1 col-sm-4">
+        <div class="col-sm-offset-3 col-sm-6 ">
             <br><label for="input">回答内容</label>
             <textarea id="input" name="input"></textarea>
         </div>
-        <div class="col-sm-offset-1 col-sm-2"><br><br>
-            <div class="balloon-2-left">
-                <div Align="center">
-                    <h4>見やすい詳細にしよう</h4><br></div>
-                質問詳細の最初に実現したいことを書きましょう。<br>まずあなたが何をしたいのかを把握すれば、以降の項目をスムーズに読み進めることができます。<br> 発生している問題・エラーメッセージを書きましょう。
-                <br>「○○というエラーが表示された」、「レイアウトがこのように崩れてしまった」 など実際に起きた結果を示しましょう。
-                <br> 読みやすい詳細にすることでスムーズに解決しやすくなります。
-            </div>
-        </div>
         <div class="form-group submit">
-            <div class="col-sm-offset-3 col-sm-5">
+            <div class="col-sm-offset-4 col-sm-3 col-xs-3">
                 <br><input type="submit" value="送信" class="btn btn-primary btn-block">
             </div>
         </div>
