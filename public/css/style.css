@@ -22,7 +22,7 @@ p{
     padding-left:2px!important;
 }
 .top_space_nav{
-  margin-top: 50px;
+  height: 50px;
 }
 /*------------トップページCSS------------*/
 /*トップ画像のスタイル*/
@@ -345,7 +345,7 @@ br { display : none ; }
       .resultList tbody td:nth-of-type(4):before {
         content: "回答状況 :"; }
       .resultList tbody td:nth-of-type(5):before {
-        content: "難易度 :"; }
+        content: "難度 :"; }
     .resultList tbody .title {
       margin: 0 -15px;
       padding-right: 15px;
@@ -375,6 +375,7 @@ br { display : none ; }
 .resultList td.qna_answer{
 	text-align: left!important;
 	border-left:none;
+  width: 5px!important;
 	}
 
 .resultList td.qna_time{
@@ -479,19 +480,25 @@ p.solidline {border-bottom: solid 2px #009900;}
     position: absolute;
     display: block;
     width: 100%;
-    height: 30%;
+    height: auto;
     opacity: 0.5;
 }
 
 .description_contact {
     position: relative;
-    margin: 60px 10% 0;
+    margin: 60px 0;
     text-align: center;
 }
 
 .description_contact article {
-    margin: 30px 5% 0;
+    margin: 30px auto;
 }
+@media (max-width:767px) {
+  .description_contact article label{
+    display: none;
+  }
+}
+
 
 .description_contact > p {
     margin-top: 20px;
