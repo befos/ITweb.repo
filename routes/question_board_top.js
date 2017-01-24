@@ -40,17 +40,20 @@ router.get('/', function(req, res, next) {
     }
 
     /*データベース接続*/
-    mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log("connected");
+    var db = mongoose.connection;
+    db.on('open', function() {
     });
+    db.on('close', function() {
+    });
+    db.open("mongodb://localhost:27017/userdata");
+
     Forum.find({},{}, {sort:{uday: -1}}, function(err, result) {
         if (err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
-                console.log("nosuch");
                 return hadNotcontents(err, req, res, u, error, data, selectf, selectb, result);
             }else{
-                    console.log(result);
+
                 for(i = selectb ; result.length > i && selectf > i ; i++){
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
                     var outurl = "/outlook_mypage?" + result[i].hostid;
@@ -79,7 +82,6 @@ router.get('/', function(req, res, next) {
                 for(i = 0 ; i < data.datahostid.length ; i++){
                     list.push({id:data.datahostid[i]});
                 }
-                console.log(list);
                 async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
                     setTimeout(function() {
                         User.find({_id:data2.id},{},function(err, result3){
@@ -104,7 +106,6 @@ router.get('/', function(req, res, next) {
                         "insclass4":"dummy",
                         "insclass5":"dummy"
                     };
-                    console.log(u.query);
                     switch (u.query) {
                         case null:
                             insclass.insclass1 = "active";
@@ -139,7 +140,7 @@ router.get('/', function(req, res, next) {
                     /*--ページネーション設定はここまで--*/
                     /*この下からページのレンダー処理*/
                     req.session.error_status = 0;
-                    if (req.session.user_id) {
+                    if (req.session.user_id){
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
                         res.render('qna', {
                             userName: req.session.user_id,
@@ -170,14 +171,13 @@ router.get('/', function(req, res, next) {
 //エラーハンドラ
 function hadUrlError(req ,res){
     req.session.error_status = 5;
-    res.redirect(400, '/');
+    res.redirect('/');
     mongoose.disconnect();
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
     req.session.error_status = 6;
-    res.redirect(400, '/');
+    res.redirect('/');
     mongoose.disconnect();
 }
 
@@ -215,7 +215,6 @@ function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result)
         "insclass4":"dummy",
         "insclass5":"dummy"
     };
-    console.log(u.query);
     switch (u.query) {
         case null:
             insclass.insclass1 = "active";

@@ -5,6 +5,7 @@ var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
 var url = require('url');
 require('date-utils');
+var moment = require('moment');
 
 //データベース接続および設定
 var mongoose = require('mongoose');
@@ -19,23 +20,23 @@ router.get('/', function(req, res, next) {
 });
     var u = url.parse(req.url, false);
     var dt = new Date();
-    var confirmtime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+    var today = moment();
+    var confirmtime = today;
     console.log(u.query);
-    User.find({url_pass:u.query}, function(err, result) {
+    User.find({url_pass2:u.query}, function(err, result) {
         if(err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
                 console.log("nosuch"); //見つからなかった場合の処理(時間外)
                 return hadUrlError(req, res);
-            } else {
-                //見つかった
-                var expiretime = result[0].regest;
+            } else {//見つかった
+                var expiretime = result[0].regest.toFormat("YYYY/MM/DD HH24:MI:SS");
                 var reset = result[0].ac_reset;
                 if(reset === false){
                   console.log('WTF!');
                   return hadUrlError(req, res);
                 }
-                if(expiretime <= dt){
+                if(expiretime <= confirmtime){
                     console.log('URL error');
                     return hadUrlError(req, res);
                 }
@@ -61,6 +62,5 @@ function hadDbError(err, req, res){
     res.redirect('/password_reset');
     mongoose.disconnect();
 }
-
 
 module.exports = router;

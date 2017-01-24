@@ -14,7 +14,9 @@ var Users = new Schema({
   hashpass: String,//ハッシュ化されたパスワード
   salt: String,//お塩
   prop: String,//プロフィール用画像のURL予定
-  url_pass: {type:String, required:true, index:true, unique:true},//認証用の一時url
+  url_pass: {type:String, index:true},//認証用の一時url(regiser)
+  url_pass2: {type:String, index:true},//認証用の一時url(passreset)
+  url_pass3: {type:String, index:true},//認証用の一時url(email_change)
   groupe: String,//所属しているグループ名
   regest: {type: Date, default: Date.now},//新規登録した時間の十分後
   regent: {type: Date, default: Date.now},//パスワードリセットを申請した時間の十分後
