@@ -498,8 +498,6 @@ p.solidline {border-bottom: solid 2px #009900;}
     display: none;
   }
 }
-
-
 .description_contact > p {
     margin-top: 20px;
 }
@@ -574,10 +572,16 @@ p.solidline {border-bottom: solid 2px #009900;}
     top: 670px;
     left: 20px;
 }
+.ba-prof{
+  position: absolute;
+  width: 350px;
+  top: 740px;
+  left: 20px;
+}
 .Q_his {
     margin: 20px;
     padding: 10px;
-    top: 20px;
+    top: -20px;
     width: 55%;
     height: 390px;
     display: block;
@@ -608,7 +612,7 @@ p.solidline {border-bottom: solid 2px #009900;}
     height: 390px;
     display: block;
     position: relative;
-    top: 60px;
+    top: 0px;
     left: 40%;
     border: 2px dashed #259543;
     border-radius: 8px;
@@ -749,7 +753,7 @@ p.solidline {border-bottom: solid 2px #009900;}
     margin: 200px auto;
 }
 /*-----------------------------------*/
-/*　ログイン　*/
+/*  ログイン  */
 .login_form{
     text-align: center;
     height: auto;
@@ -767,4 +771,20 @@ p.solidline {border-bottom: solid 2px #009900;}
 }
 .login_form td{
     padding: 20px 20px;
+}
+.glaytop{
+  margin-top: 100px;
+}
+.pd0{
+  padding: 0!important;
+}
+body > div.login_form > form > table > tbody > tr:nth-child(4) > td:nth-child(1)
+@media (max-width:767px) {
+  .glaybox{
+    width: 90%;
+    margin: 50px 5%;
+  }
+}
+.ba-prof{
+
 }

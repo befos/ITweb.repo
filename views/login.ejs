@@ -51,20 +51,34 @@
             <table>
                 <tr>
                 <td><input type="text" name="id" id="id" placeholder="ユーザIDまたはメールアドレス"></td>
-                <td><input type="submit" value="ログイン"></td>
+                <td></td>
                 </tr>
                 <tr>
-                    <td><input type="password" name="password" placeholder="パスワードを入力してください"></td>
-                <td><input type="reset" value="リセット"></td>
+                <td><input type="password" name="password" placeholder="パスワードを入力してください"></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><input type="submit" value="ログイン"></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td class="pd0"><p><a href="/register">新規登録</a></p></td>
+                </tr>
+                <tr>
+                <td  class="pd0"><p><a href="/password_reset">パスワードリセット</a></p></td>
+                </tr>
+                <tr>
+                <td  class="pd0"><p><a href="/email_change">メールアドレス変更</a></p></td>
                 </tr>
             </table>
+
         <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>">
         <!-- csrfToken -->
         <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
         </form>
-        <p><a href="/register">新規登録</a></p>
-        <p><a href="/password_reset">パスワードリセット</a></p>
-        <p><a href="/email_change">メールアドレス変更</a></p>
+
+
+
     </div>
 </body>
 
