@@ -15,7 +15,7 @@ router.post('/', function(req, res, next){
     if (req.session.user_id) {
         res.locals = template.common.true;
         res.render('qna_ansconfirm', {
-            userName: req.session.user_id,
+            userName: req.session.user_name,
             error: error,
             reqCsrf: req.csrfToken(),
             title:title,

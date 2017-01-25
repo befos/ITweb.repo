@@ -124,21 +124,21 @@ router.post('/', function(req, res, next) {
 //エラーハンドル
 function hadInputdataError(req, res) {
     req.session.error_status = 1;
-    res.redirect(400,'/login');
+    res.redirect('/login');
     mongoose.disconnect();
 }
 
 function hadDbError(err, req, res) {
     console.log(err);
     req.session.error_status = 6;
-    res.redirect(400,'/login');
+    res.redirect('/login');
     mongoose.disconnect();
 }
 
 function hadSessionError(err, req, res) {
     console.log(err);
     req.session.error_status = 8;
-    res.redirect(400,'/login');
+    res.redirect('/login');
     mongoose.disconnect();
 }
 
