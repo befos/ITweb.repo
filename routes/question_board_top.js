@@ -39,7 +39,7 @@ router.get('/', function(req, res, next) {
         selectb = selectf - 20;
     }
 
-    /*データベース接続*/
+    //データベース接続設定
     var db = mongoose.connection;
     db.on('open', function() {
     });
@@ -86,6 +86,10 @@ router.get('/', function(req, res, next) {
                     setTimeout(function() {
                         User.find({_id:data2.id},{},{},function(err, result3){
                             if(err) return hadDbError(err, req, res);
+                            if(result3.length === 0){
+                                data.datauser.push("このユーザは存在しません。");
+                                return next();
+                            }
                             data.datauser.push(result3[0].name);
                             next();
                         });
@@ -150,7 +154,7 @@ router.get('/', function(req, res, next) {
                             data2:nextback,
                             data3:insclass
                         });
-                        mongoose.disconnect();
+                        mongoose.connection.close();
                     } else {
                         res.locals = template.common.false;
                         res.render('qna', {
@@ -160,7 +164,7 @@ router.get('/', function(req, res, next) {
                             data2:nextback,
                             data3:insclass
                         });
-                        mongoose.disconnect();
+                        mongoose.connection.close();
                     }
                 });
             }
@@ -172,13 +176,13 @@ router.get('/', function(req, res, next) {
 function hadUrlError(req ,res){
     req.session.error_status = 5;
     res.redirect('/');
-    mongoose.disconnect();
+    mongoose.connection.close();
 }
 
 function hadDbError(err, req, res) {
     req.session.error_status = 6;
     res.redirect('/');
-    mongoose.disconnect();
+    mongoose.connection.close();
 }
 
 function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result){
@@ -259,7 +263,7 @@ function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result)
             data2:nextback,
             data3:insclass
         });
-        mongoose.disconnect();
+        mongoose.connection.close();
     } else {
         res.locals = template.common.false;
         res.render('qna', {
@@ -269,7 +273,7 @@ function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result)
             data2:nextback,
             data3:insclass
         });
-        mongoose.disconnect();
+        mongoose.connection.close();
     }
 }
 

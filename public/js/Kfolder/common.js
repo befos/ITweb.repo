@@ -70,51 +70,67 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             break;
         case '1':
             alert("入力された情報が間違っています。");
+            location.reload(true);
             break;
         case '2':
             alert("入力されたIDまたはアドレスは登録済みです。");
+            location.reload(true);
             break;
         case '3':
             alert("このアカウントは承認済みです。");
+            location.reload(true);
             break;
         case '4':
             alert("メールの送信に失敗しました。");
+            location.reload(true);
             break;
         case '5':
             alert("不正なアクセスです。");
+            location.reload(true);
             break;
         case '6':
             alert("DBのエラーです。");
+            location.reload(true);
             break;
         case '7':
             alert("パスワードリセットが要求済みです。");
+            location.reload(true);
             break;
         case '8':
             alert("セッションエラーです。");
+            location.reload(true);
             break;
         case '9':
             alert("アカウントが仮登録の状態です。");
+            location.reload(true);
             break;
         case '10':
             alert("ログインされていません。");
+            location.reload(true);
             break;
         case '11':
             alert("既にログアウトされています。");
+            location.reload(true);
             break;
         case '12':
             alert("お問い合わせ頂きありがとうございます。");
+            location.reload(true);
             break;
         case '13':
             alert("異常なアクセスが検知されたので一時的にアクセスを制限します。");
+            location.reload(true);
             break;
         case '14':
             alert("投稿処理が完了いたしました。");
+            location.reload(true);
             break;
         case '15':
-            alert("投稿された質問が存在しません。");
+            alert("このユーザは存在しません。");
+            location.reload(true);
             break;
         case '16':
             alert("質問は解決済みです。");
+            location.reload(true);
             break;
     }
 }

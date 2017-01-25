@@ -40,10 +40,14 @@ router.get('/', function(req, res, next) {
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques
                 };
+                req.session.onetimefoid = result[0].id;
                 User.find({_id:forum1.hostid},{},function(err, result3){
                     if(err) return hadDbError(err, req, res);
+                    if(result3.length === 0){
+                        forum1.host ="このユーザは存在しません。";
+                    }else{
                     forum1.host = result3[0].name;
-                    req.session.onetimefoid = result[0].id;
+                    }
                     ForumCont.find({mfo:obj_id},{},{sort:{cuday: -1}},function(err, result2){
                         if(err) return hadDbError(err, req, res);
                         var data = {
@@ -69,6 +73,10 @@ router.get('/', function(req, res, next) {
                             setTimeout(function() {
                                 User.find({_id:data2.id},{},function(err, result3){
                                     if(err) return hadDbError(err, req, res);
+                                    if(result3.length === 0){
+                                        data.Answer.push("このユーザは存在しません。");
+                                        return next();
+                                    }
                                     data.Answer.push(result3[0].name);
                                     next();
                                 });
