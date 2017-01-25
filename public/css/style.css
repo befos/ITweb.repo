@@ -806,3 +806,46 @@ p.solidline {border-bottom: solid 2px #009900;}
     width: auto;
   }
 }
+.register_table{
+  width: 360px;
+  margin: 100px auto 0 auto;
+  position: relative;
+}
+.register_table p{
+  padding-right: 10px;
+}
+.register_table p{
+  margin: 20px 0!important;
+}
+.register_input{
+  width: 125px;
+  margin: 50px auto;
+  text-align: center;
+}
+.center-text{
+  text-align: center;
+}
+.sub_style{
+  width: 500px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+}
+.sub_style h1{
+  margin-top: 80px;
+}
+.sub_style table{
+  width: 300px;
+  margin: 0 auto;
+}
+.sub_style input{
+  margin: 30px;
+}
+.sub_style p{
+  line-height: 200%;
+}
+@media (max-width:500px){
+  .sub_style{
+    width: 300px;
+  }
+}
