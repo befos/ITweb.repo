@@ -84,7 +84,7 @@ router.get('/', function(req, res, next) {
                 }
                 async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
                     setTimeout(function() {
-                        User.find({_id:data2.id},{},function(err, result3){
+                        User.find({_id:data2.id},{},{},function(err, result3){
                             if(err) return hadDbError(err, req, res);
                             data.datauser.push(result3[0].name);
                             next();
@@ -143,7 +143,7 @@ router.get('/', function(req, res, next) {
                     if (req.session.user_id){
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
                         res.render('qna', {
-                            userName: req.session.user_id,
+                            userName: req.session.user_name,
                             error: error,
                             reqCsrf: req.csrfToken(),
                             data:data,
@@ -252,7 +252,7 @@ function hadNotcontents(err, req, res, u, error, data, selectf, selectb, result)
     if (req.session.user_id) {
         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
         res.render('qna', {
-            userName: req.session.user_id,
+            userName: req.session.user_name,
             error: error,
             reqCsrf: req.csrfToken(),
             data:data,

@@ -75,7 +75,7 @@ router.get('/', function(req, res, next) {
                     if (req.session.user_id) {
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
                         res.render('qna_disp_ba', {
-                            userName: req.session.user_id,
+                            userName: req.session.user_name,
                             reqCsrf: req.csrfToken(),
                             fo:forum1,
                             foid:obj_id,

@@ -158,7 +158,7 @@ router.get('/', function(req, res, next) {
                     if (req.session.user_id) {
                         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
                         res.render('qna', {
-                            userName: req.session.user_id,
+                            userName: req.session.user_name,
                             error: error,
                             reqCsrf: req.csrfToken(),
                             data:data,

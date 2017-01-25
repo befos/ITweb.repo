@@ -60,7 +60,7 @@ router.get('/', function(req, res, next){
                                             datafoname2.push(result3[i].foname);
                                         }
                                         var insert = {
-                                            userName:req.session.user_id,
+                                            userName:req.session.user_name,
                                             user_name:user_name,
                                             user_id:user_id,
                                             user_age:user_age,
