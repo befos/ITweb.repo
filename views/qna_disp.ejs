@@ -39,7 +39,9 @@
                         <li><a href="/mypage"><%= login %></a></li>
                         <li class="active"><a href="/question_board_top">質問広場</a></li>
                         <li><a href="/contact">問い合わせ</a></li>
+                        <% if(login == "マイページ"){ %>
                         <li><a href="/logout">ログアウト</a></li>
+                        <% } %>
                     </ul>
                     <p class="navbar-text navbar-right nav-padding">ようこそ <a href="/mypage" class="navbar-link"><%= userName %></a> さん</p>
                 </div>
@@ -51,7 +53,7 @@
         <div class="container">
           <div class="stitchbox">
               <h1><%= fo.title %></h1>
-              <div class="row">
+              <div class="row"><a href="<%= fo.balink %>">BAを決定！</a>
                 <div class="col-sm-3 ">
                   <p class="solidline">質問者：<%= fo.host %></p>
                 </div>

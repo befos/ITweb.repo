@@ -15,6 +15,7 @@ router.post('/', function(req, res, next) {
     var hostid = req.body.hostid;
     var question = req.body.cont;
     var tag = req.session.tag;
+    var difselect = req.body.difselect;
     var dt = new Date();
     var uday = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
     if(!req.session.checksubmit){
@@ -31,6 +32,7 @@ router.post('/', function(req, res, next) {
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
         host: host,
+        diff: difselect,//難易度
         hostid: hostid,//obj_id
         count: null,//アクセスされた回数
         baid: null,//BAのIDを保存

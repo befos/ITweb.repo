@@ -39,7 +39,9 @@
                         <li><a href="/mypage"><%= login %></a></li>
                         <li class="active"><a href="/question_board_top">質問広場</a></li>
                         <li><a href="/contact">問い合わせ</a></li>
+                        <% if(login == "マイページ"){ %>
                         <li><a href="/logout">ログアウト</a></li>
+                        <% } %>
                     </ul>
                     <p class="navbar-text navbar-right nav-padding">ようこそ <a href="/mypage" class="navbar-link"><%= userName %></a> さん</p>
                 </div>
@@ -70,6 +72,7 @@
               <input type="hidden" name="host" value="<%= host %>">
               <input type="hidden" name="hostid" value="<%= hostid %>">
               <input type="hidden" name="cont" value="<%= cont %>">
+              <input type="hidden" name="difselect" value="<%= difselect %>">
               <input type="submit" value="この内容で投稿する" class="btn btn-primary btn-block">
               <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
               <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">

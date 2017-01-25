@@ -33,7 +33,7 @@ function hadDbError(err, req, res){
 }
 
 function hadLogoutError(req, res){
-    //req.session.error_status = 11;
+    req.session.error_status = 11;
     mongoose.disconnect();
     res.redirect('/');
 }

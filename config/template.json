@@ -1,10 +1,11 @@
 {
     "common":{
         "true":{
-            "login":"マイページ"
+            "login":"マイページ",
+            "loginst":"0"
         },
         "false":{
-            "userName":"ゲスト", 
+            "userName":"ゲスト",
             "login":"ログイン"
         }
     },

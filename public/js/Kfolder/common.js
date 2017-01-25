@@ -125,11 +125,15 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             location.reload(true);
             break;
         case '15':
-            alert("このユーザは存在しません。");
+            alert("現在質問は投稿されていません。");
             location.reload(true);
             break;
         case '16':
             alert("質問は解決済みです。");
+            location.reload(true);
+            break;
+        case '17':
+            alert("マイページは公開されていません。");
             location.reload(true);
             break;
     }

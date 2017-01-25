@@ -3,6 +3,7 @@ var routes = {//routesディレクト内のjsファイルを参照
     contact_submit: require('./contact_submit'),
     toppage: require('./toppage'),
     mypage: require('./mypage'),
+    prof_change: require('./prof_change'),
     outlook_mypage:require('./outlook_mypage'),
     login: require('./login'),
     login_check: require('./login_check'),

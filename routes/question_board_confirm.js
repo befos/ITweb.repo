@@ -17,6 +17,7 @@ router.post('/', function(req, res, next){
             req.body.q7,
             req.body.q8
     ];
+    var difselect = req.body.difselect;
     for(var i = 0; chkbox.length > i; i++){//チェックボックス判定
         if(chkbox[i] !== undefined){
             tag.push(chkbox[i]);
@@ -39,7 +40,8 @@ router.post('/', function(req, res, next){
             title:title,
             cont:cont,
             hostid:hostid,
-            host:host
+            host:host,
+            difselect:difselect
         });
     } else {
         res.redirect('/login');

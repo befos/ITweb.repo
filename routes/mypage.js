@@ -32,6 +32,8 @@ router.get('/', function(req, res, next){
                     var user_work = result[0].work;
                     var user_sex;
                     var user_bac; //baのカウント
+                    var user_profile = result[0].prop;
+                    var user_language = result[0].uf_pl;
                     if(result[0].sex === 0){
                         user_sex = '男';
                     }else if(result[0].sex === 1){
@@ -66,6 +68,8 @@ router.get('/', function(req, res, next){
                                             user_age:user_age,
                                             user_work:user_work,
                                             user_sex:user_sex,
+                                            user_language:user_language,
+                                            user_profile:user_profile,
                                             dataurl:dataurl,
                                             datafoname:datafoname,
                                             dataurl2:dataurl2,

@@ -41,7 +41,9 @@
                     <li><a href="/">トップ</a></li>
                     <li class="active"><a href="/question_board_top">質問広場</a></li>
                     <li><a href="/contact">問い合わせ</a></li>
+                    <% if(login == "マイページ"){ %>
                     <li><a href="/logout">ログアウト</a></li>
+                    <% } %>
                 </ul>
             </div>
         </nav>
@@ -67,6 +69,11 @@
     <input type="hidden" name="id" value="<%= id %>">
     <input type="hidden" name="email" value="<%= email %>">
     <input type="hidden" name="password" value="<%= password %>">
+    <input type="hidden" name="user_name" value="<%= user_name %>">
+    <input type="hidden" name="user_job" value="<%= user_job %>">
+    <input type="hidden" name="user_language" value="<%= user_language %>">
+    <input type="hidden" name="user_sex" value="<%= user_sex %>">
+    <input type="hidden" name="year" value="<%= year %>">
     <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
 
   </form>

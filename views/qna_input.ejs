@@ -83,7 +83,9 @@
                     <li><a href="/mypage"><%= login %></a></li>
                     <li class="active"><a href="/question_board_top">質問広場</a></li>
                     <li><a href="/contact">問い合わせ</a></li>
+                    <% if(login == "マイページ"){ %>
                     <li><a href="/logout">ログアウト</a></li>
+                    <% } %>
                 </ul>
                 <p class="navbar-text navbar-right nav-padding">ようこそ <a href="/mypage" class="navbar-link"><%= userName %></a> さん</p>
             </div>
@@ -106,19 +108,27 @@
 
         <div class="col-sm-offset-1 col-sm-5">
             <br><label for="title">タイトル</label><br>
-            <input id="question_title" class="form-control" name="input_title" placeholder="解決したいことを書いてください"></div>
+            <input id="question_title" class="form-control" name="input_title" placeholder="解決したいことを書いてください" required></div>
 
-
+        <div class="col-sm-offset-1 col-sm-5">
+            <br><label for="input"> 難易度</label>
+            <table class="table_width">
+                <tr>
+                    <td><input type="radio" name="difselect" value="0" required> 簡単</td>
+                    <td><input type="radio" name="difselect" value="1" required> 普通</td>
+                    <td><input type="radio" name="difselect" value="2" required> 難しい</td>
+                </tr>
+            </table>
+        </div>
 
         <div class="col-sm-offset-1 col-sm-8">
-            <br><label for="input"> カテゴリ</label><br>
+            <br><label for="input"> カテゴリ</label>
             <table class="table_width">
                 <tr>
                     <td><input type="checkbox" name="q1" value="JavaScript"> JavaScript</td>
                     <td><input type="checkbox" name="q2" value="Ruby"> Ruby</td>
                     <td><input type="checkbox" name="q3" value="Python"> Python</td>
-                    <td><input type="checkbox" name="q4" value="PHP"> PHP
-                <td>
+                    <td><input type="checkbox" name="q4" value="PHP"> PHP</td>
                 </tr>
                 <br>
                 <tr>

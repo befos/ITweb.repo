@@ -16,6 +16,11 @@ router.post('/', function(req, res, next) {
         var password = req.body.password; //上と同じ
         var confirm_password = req.body.confirm_password;
         var Email = req.body.Email;
+        var year = req.body.year;
+        var user_name = req.body.user_name;
+        var user_job = req.body.user_job;
+        var user_language = req.body.user_language;
+        var user_sex = req.body.user_sex;
         if (!password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}/)) { //もし入力内容がおかしかった場合
             return hadInputdataError(req, res);
         }
@@ -44,6 +49,11 @@ router.post('/', function(req, res, next) {
                                     id: id,
                                     password: password,
                                     email: Email,
+                                    user_name:user_name,
+                                    user_job:user_job,
+                                    user_language:user_language,
+                                    user_sex:user_sex,
+                                    year:year,
                                     reqCsrf: req.csrfToken()
                                 });
                                 mongoose.disconnect();

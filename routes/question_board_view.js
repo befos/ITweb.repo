@@ -38,7 +38,8 @@ router.get('/', function(req, res, next) {
                     host:"",
                     title:result[0].foname,
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
-                    ques:result[0].ques
+                    ques:result[0].ques,
+                    balink:"question_board_ba?" + obj_id
                 };
                 req.session.onetimefoid = result[0].id;
                 User.find({_id:forum1.hostid},{},function(err, result3){

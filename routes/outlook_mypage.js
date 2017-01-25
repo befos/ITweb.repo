@@ -33,6 +33,7 @@ router.get('/', function(req, res, next) {
                     var user_id = result[0].uid;
                     var user_age = result[0].age;
                     var user_work = result[0].work;
+                    var user_profile = result[0].prop;
                     var user_sex;
                     var user_bac;
                     if (result[0].sex === 0) {
@@ -62,6 +63,7 @@ router.get('/', function(req, res, next) {
                                             user_id:user_id,
                                             user_age:user_age,
                                             user_work:user_work,
+                                            user_profile:user_profile,
                                             user_sex:user_sex,
                                             dataurl:dataurl,
                                             datafoname:datafoname,
@@ -99,7 +101,7 @@ function hadDbError(err, req, res) {
 }
 
 function hadNotcontentsError(req, res){
-    req.session.error_status = 15;
+    req.session.error_status = 17;
     res.redirect('/');
     mongoose.disconnect();
 }

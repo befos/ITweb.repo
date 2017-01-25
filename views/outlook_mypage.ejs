@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+e<!DOCTYPE html>
 <html>
 
 <head>
@@ -34,7 +34,6 @@
             <div class="collapse navbar-collapse target">
                 <ul class="nav navbar-nav">
                     <li><a href="/">トップ</a></li>
-                    <li class="active"><a href="/mypage">マイページ</a></li>
                     <li><a href="/question_board_top">質問広場</a></li>
                     <li><a href="/contact">問い合わせ</a></li>
                     <li><a href="/logout">ログアウト</a></li>
@@ -49,8 +48,9 @@
 
     <div class="Profile">
         <!--プロフィール-->
-        <h3>プロフィール(BA:<%= databac %>)</h3>
-        <div class="p_img"><img src="/img/profile_ex.jpg"></div>
+        <h3>プロフィール</h3>
+        <div class="p_img"><img src="<%= user_profile %>"></div>
+
 
         <div class="user_id">
           <h4>●ユーザID</h4>
@@ -81,6 +81,10 @@
           <h4>●得意な言語</h4>
         </div>
 
+        <div class="ba-prof">
+          <h4>●ベストアンサーにされた数</h4>
+          <p><%= databac %></p>
+        </div>
     </div>
 
     <div class="Q_his">

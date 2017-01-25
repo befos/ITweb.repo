@@ -30,6 +30,11 @@ router.post('/', function(req, res, next) {
     var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
     var password = req.body.password; //上と同じ
     var email = req.body.email;
+    var user_name = req.body.user_name;
+    var user_job = req.body.user_job;
+    var user_language = req.body.user_language;
+    var user_sex = req.body.user_sex;
+    var year = req.body.year;
     var salt = randword.method(10);
     var url_pass = sha256(randword.method(16));
     var passhash = createhash.method(password, salt, STRETCH);
@@ -58,12 +63,12 @@ router.post('/', function(req, res, next) {
                                 var onetimeuser = new User({
                                   email: email,
                                   uid: id,
-                                  name: null,
-                                  age: null,
-                                  sex: null,
-                                  work: null,
-                                  prop: null,
-                                  uf_pl: null,
+                                  name: user_name,
+                                  age: year,
+                                  sex: user_sex,
+                                  work: user_job,
+                                  prop: "/img/profile/hituzi19.png",
+                                  uf_pl: user_language,
                                   place: null,
                                   hashpass: passhash,
                                   salt: salt,

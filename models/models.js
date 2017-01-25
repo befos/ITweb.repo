@@ -6,7 +6,7 @@ var Users = new Schema({
   email: {type:String, required:true, index:true, unique:true},//Email(被りなし変更化)
   uid: {type:String, required:true, index:true, unique:true},//uid(被りなし)
   name: String,//ユーザーネーム（被りok!）(あとで変更可能)
-  age: Number,//年齢
+  age: String,//年齢
   sex: {type: Number, min:0, max:1},//0男性 1女性
   work: String,//職業
   uf_pl: String,//得意な言語//useful programing language
