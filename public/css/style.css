@@ -384,7 +384,11 @@ br { display : none ; }
 .resultList td.qna_diff{
   text-align: left;
 		border-left: none;
+    width: 20%;
 	}
+  .resultList td.qna_answer{
+    width: 20%;
+  }
 .resultList td span{
 	display:inline-block;
 	vertical-align:middle;
@@ -776,10 +780,29 @@ p.solidline {border-bottom: solid 2px #009900;}
 .pd0{
   padding: 0!important;
 }
-body > div.login_form > form > table > tbody > tr:nth-child(4) > td:nth-child(1)
 @media (max-width:767px) {
   .glaybox{
     width: 90%;
     margin: 50px 5%;
+  }
+}
+/*  プロフィール変更  */
+.prof_tabel{
+  width: 800px;
+  margin:  0 auto;
+}
+.fix_btn{
+  top: 50%;
+  right: 5%;
+  position: fixed;
+}
+@media (max-width:860px) {
+  .fix_btn{
+    bottom: 0px!important;
+    left: 0%;
+    position:  relative;
+  }
+  .prof_tabel{
+    width: auto;
   }
 }
