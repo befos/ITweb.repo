@@ -5,7 +5,7 @@ var createhash = require('../public/js/Kfolder/createhash.js').createhash;
 var sha256 = require('js-sha256');
 var mailer = require('nodemailer');
 var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
-    user: 'stichies01@gmail.com',
+    user: 'stitches01@gmail.com',
     clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
     clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
     var email = req.body.id;
     var url_pass2 = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
-        from: 'Stichies運営<stichies01@gmail.com>',
+        from: 'stitches運営<stitches01@gmail.com>',
         to: email,
         subject: 'パスワードのリセットについて',
         html: '以下のURLからパスワードのリセットを行ってください。<br>' +
