@@ -15,7 +15,9 @@ router.get('/', function(req, res, next) {
             console.log('connected');
         });
         if (req.session.user_id) {
-            var userName = req.session.user_id;
+            var userName = req.session.user_name;
+        }else{
+            var userName = "ゲスト"
         }
         var u = url.parse(req.url, false);
         User.find({_id: u.query}, function(err, result) {
@@ -69,7 +71,6 @@ router.get('/', function(req, res, next) {
                                             datafoname:datafoname,
                                             databac:user_bac
                                         };
-
                                         req.session.error_status = 0;
                                         res.locals = insert;//テンプレートに読み込む
                                         res.render('outlook_mypage');
