@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-    console.log(req.session.error_status);
+    //console.log(req.session.error_status);
     if (req.session.user_id) {
         var error = req.session.error_status;
         req.session.error_status = 0;

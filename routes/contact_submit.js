@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
                     return hadSendmailError(err, req, res, resp);
                 }
                 if (!err) { //送信に成功したとき
-                    console.log('Message sent');
+                    //console.log('Message sent');
                 }
                 transporter.close(); //SMTPの切断
             });
@@ -50,7 +50,7 @@ router.post('/', function(req, res, next) {
 
 //エラーハンドル
 function hadSendmailError(err, req, res, resp) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 4;
     res.redirect('/contact');
 }

@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
     var error = req.session.error_status;
-    console.log(query.cate);
-    console.log(query.page);
+    //console.log(query.cate);
+    //console.log(query.page);
 
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": [],
@@ -44,16 +44,16 @@ router.get('/', function(req, res, next) {
 
     /*データベース接続*/
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log("connected");
+        //console.log("connected");
     });
     Forum.find({tag:{$elemMatch:{$eq:query.cate}}},{}, {sort:{uday: -1}}, function(err, result) {
         if (err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
-                console.log("nosuch");
+                //console.log("nosuch");
                 return hadNotcontentsError(req, res);
             }else{
-                    console.log(result);
+                    //console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
                     var outurl = "/outlook_mypage?" + result[i].hostid;
@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
                 for(i = 0 ; i < data.datahostid.length ; i++){
                     list.push({id:data.datahostid[i]});
                 }
-                console.log(list);
+                //console.log(list);
                 async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
                     setTimeout(function() {
                         User.find({_id:data2.id},{},function(err, result3){
@@ -117,10 +117,10 @@ router.get('/', function(req, res, next) {
                         var itizi;
                         itizi = i+1;
                         data.pbutton[i] = data.pbutton[i] + "cate=" + query.cate + "&page=" + itizi;
-                        console.log(data.pbutton[i]);
+                        //console.log(data.pbutton[i]);
                     }
                     data.status = "cate";
-                    console.log(data.status);
+                    //console.log(data.status);
                     switch (query.page) {
                         case '1':
                             insclass.insclass1 = "active";
@@ -196,7 +196,7 @@ function hadUrlError(req ,res){
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/question_board_top');
     mongoose.disconnect();

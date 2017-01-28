@@ -17,7 +17,7 @@ router.get('/', function(req, res, next){
     db.open("mongodb://localhost:27017/userdata");
     if(req.session.user_id){//セッションにidが存在するか確認
         var obj_id = req.session.obj_id;
-        console.log(obj_id);
+        //console.log(obj_id);
         User.find({_id:obj_id}, function(err, result) {
             if(err) return hadDbError(err, req, res);
             if (result) {
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next){
                     return hadDbError(err, req, res);
                 } else {
                     //uidが見つかった
-                    console.log("such uid");
+                    //console.log("such uid");
                     var user_name = result[0].name;
                     var user_id = result[0].uid;
                     var user_age = result[0].age;
@@ -54,7 +54,7 @@ router.get('/', function(req, res, next){
                                     if(err) return hadDbError(err, req, res);
                                     if(result3){
                                         user_bac = result3.length;
-                                        console.log(user_bac);
+                                        //console.log(user_bac);
                                         var dataurl2 =[];//BA通知アクセス用
                                         var datafoname2 =[];
                                         for(i = 0; result3.length > i; i++){
@@ -94,7 +94,7 @@ router.get('/', function(req, res, next){
 
 //エラーハンドラ
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/');
     mongoose.disconnect();

@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
         return hadUpload(req, res);
     }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log('connected');
+        //console.log('connected');
     });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
@@ -60,7 +60,7 @@ router.post('/', function(req, res, next) {
 });
 
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/question_board_top');
     mongoose.disconnect();

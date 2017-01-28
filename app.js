@@ -20,7 +20,7 @@ var routes = require('./routes/index.js');
 var app = express();
 
 // サーバーの起動を告知
-console.log('stitches app listening at http://localhost:8080');
+//console.log('stitches app listening at http://localhost:8080');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));//joinは結合（__dirnameはソースが入っているディレクトリを表す）

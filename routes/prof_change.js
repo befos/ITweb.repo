@@ -7,7 +7,7 @@ var models = require('../models/models.js');
 var User = models.Users;
 
 router.get('/', function(req, res, next) {
-    console.log(req.session.error_status);
+    //console.log(req.session.error_status);
     //res.sendFile(process.cwd() + "/public/login.html"); //静的コンテンツの参照(絶対パス)
     if (req.session.user_id) {
         req.session.error_status = 0;
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log('connected');
+        //console.log('connected');
     });
     var hituzi = req.body.profselect;
     if(hituzi === undefined){//何も画像が選択されていないのでリダイレクト
@@ -42,7 +42,7 @@ router.post('/', function(req, res, next) {
 });
 //エラーハンドル
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/question_board_top');
     mongoose.disconnect();

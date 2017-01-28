@@ -13,7 +13,7 @@ var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
+    //console.log('connected');
 });
     req.session.error_status = 0;
     //formから飛ばされた情報を受け取って変数に格納
@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
         if(err) return hadDbError(err, req, res);
         if(result){
             if (result.length === 0) {
-                console.log("nosuch"); //見つからなかった場合の処理(時間外)
+                //console.log("nosuch"); //見つからなかった場合の処理(時間外)
                 return hadUrlError(req, res);
             }else{
                 if(result[0].ac_reset !== true){
@@ -59,7 +59,7 @@ function hadUrlError(req ,res){
 }
 
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/password_reset');
     mongoose.disconnect();

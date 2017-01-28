@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
             if (err) return hadDbError(err, req, res);
             if (result) {
                 if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
-                    console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
+                    //console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
                     User.find({
                         uid: id
                     }, {
@@ -59,13 +59,13 @@ router.post('/', function(req, res, next) {
                                 mongoose.disconnect();
                             } else {
                                 //uidがかぶっているのでリダイレクト
-                                console.log("such uid");
+                                //console.log("such uid");
                                 return hadOverlapError(req, res);
                             }
                         }
                     });
                 } else {
-                    console.log("suchdoc Removepage");
+                    //console.log("suchdoc Removepage");
                     return hadOverlapError(req, res);
                 }
             }
@@ -90,7 +90,7 @@ function hadOverlapError(req, res) {
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/register');
     mongoose.disconnect();

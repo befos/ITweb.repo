@@ -24,7 +24,7 @@ var MINUTES = conf.sendmailconf.minute;//数字でURLが有効な分数を指定
 
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-    console.log('connected');
+    //console.log('connected');
 });
     req.session.error_status = 0;
     var id = req.body.id; //formから飛ばされた情報を受け取って変数に格納
@@ -51,7 +51,7 @@ router.post('/', function(req, res, next) {
         if(err) return hadDbError(err, req, res);
             if (result) {
                 if (result.length === 0) {//同じ_idが無い場合はDB上にデータが見つからないので0
-                    console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
+                    //console.log("nosuch"); //見つからなかった場合の処理（新規作衛）
                     User.find({uid: id}, function(err, result) {
                         if (err) return hadDbError(err, req, res);
                         if (result) {
@@ -59,7 +59,7 @@ router.post('/', function(req, res, next) {
                                 var dt = new Date();
                                 dt.setMinutes(dt.getMinutes() + MINUTES);
                                 var regetime = dt.toFormat("YYYY/MM/DD HH24:MI:SS");//時間を取得
-                                console.log(regetime);
+                                //console.log(regetime);
                                 var onetimeuser = new User({
                                   email: email,
                                   uid: id,
@@ -100,7 +100,7 @@ router.post('/', function(req, res, next) {
                                             return hadSendmailError(err, req, res, resp);
                                         }
                                         if (!err) { //送信に成功したとき
-                                            console.log('Message sent');
+                                            //console.log('Message sent');
                                         }
                                         transporter.close(); //SMTPの切断
                                     });
@@ -111,13 +111,13 @@ router.post('/', function(req, res, next) {
                                 });
                             } else {
                                 //uidがかぶっているのでリダイレクト
-                                console.log("such uid");
+                                //console.log("such uid");
                                 hadOverlapError(req, res);
                             }
                         }
                     });
                 } else {
-                    console.log("such email");
+                    //console.log("such email");
                     hadOverlapError(req, res);
                 }
             }
@@ -132,14 +132,14 @@ function hadOverlapError(req ,res){
 }
 
 function hadSendmailError(err, req, res, resp){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 4;
     res.redirect('/register');
     mongoose.disconnect();
 }
 
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/register');
     mongoose.disconnect();

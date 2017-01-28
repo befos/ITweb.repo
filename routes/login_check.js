@@ -17,7 +17,7 @@ var conf = require('../config/commonconf.json');
 router.post('/', function(req, res, next) {
             if (req.body.id !== null && req.body.password !== null) {
                 mongoose.connect('mongodb://localhost:27017/userdata', function(){
-                    console.log('connected');
+                    //console.log('connected');
                 });//コネクションが確立されていれば新規に立てない
                 var id = req.body.id; // login.ejsのformから飛ばされた情報を受け取って変数に格納
                 var password = req.body.password; //上と同じ
@@ -25,7 +25,7 @@ router.post('/', function(req, res, next) {
                     if (err) return hadDbError(err, req, res);
                     if (result) {
                         if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
-                            console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）
+                            //console.log("nosuch"); //見つからなかった場合の処理（認証フェーズへ）
                             User.find({
                                 uid: id
                             }, function(err, result) {
@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
                                         res.redirect('/login');
                                         mongoose.disconnect();
                                     } else {//uidが見つかった
-                                        console.log("such uid");
+                                        //console.log("such uid");
                                         var dbpass = result[0].hashpass;
                                         var salt = result[0].salt;
                                         var account_status = result[0].ac_st;
@@ -75,7 +75,7 @@ router.post('/', function(req, res, next) {
                                 }
                             });
                         } else { //Emailaddressが見つかった
-                            console.log("such Emailaddress");
+                            //console.log("such Emailaddress");
                             var dbpass = result[0].hashpass;
                             var salt = result[0].salt;
                             var account_status = result[0].ac_st;
@@ -129,14 +129,14 @@ function hadInputdataError(req, res) {
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/login');
     mongoose.disconnect();
 }
 
 function hadSessionError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 8;
     res.redirect('/login');
     mongoose.disconnect();

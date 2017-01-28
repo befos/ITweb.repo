@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 
     var u = url.parse(req.url, false);
     var obj_id = u.query;
-    console.log(obj_id);
+    //console.log(obj_id);
     Forum.find({_id:obj_id}, function(err, result){
         if(err) return hadDbError(err, req, res);
         if (result) {
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
                 return hadDbError(err, req, res);
             } else {
                 //uidが見つかった
-                console.log("such id");
+                //console.log("such id");
                 var forum1 ={
                     hostid:result[0].hostid,
                     host:"",
@@ -62,14 +62,14 @@ router.get('/', function(req, res, next) {
                             data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                             data.Cont.push(result2[i].text);
                         }
-                        console.log(data);
+                        //console.log(data);
                         var list = [//ユーザーIDの保存領域
                         ];
 
                         for(i = 0 ; i < data.AnswerID.length ; i++){
                             list.push({id:data.AnswerID[i]});
                         }
-                        console.log(list);
+                        //console.log(list);
                         async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
                             setTimeout(function() {
                                 User.find({_id:data2.id},{},function(err, result3){
@@ -113,7 +113,7 @@ router.get('/', function(req, res, next) {
 });
 
 function hadDbError(err, req, res){
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect(400, '/question_board_top');
     mongoose.disconnect();

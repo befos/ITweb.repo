@@ -25,7 +25,7 @@ var MINUTES = conf.sendmailconf.minute; //数字でURLが有効な分数を指�
 
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function() {
-        console.log('connected');
+        //console.log('connected');
     });
     var email = req.body.id;
     var obj_id = req.session.obj_id;
@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
                 var dt = new Date();
                 dt.setMinutes(dt.getMinutes() + MINUTES);
                 var ect = dt.toFormat("YYYY/MM/DD HH24:MI:SS"); //時間を取得
-                console.log(ect);
+                //console.log(ect);
                 User.update({
                     _id: obj_id
                 }, {
@@ -79,7 +79,7 @@ router.post('/', function(req, res, next) {
                                 return hadSendmailError(err, req, res, resp);
                             }
                             if (!err) { //送信に成功したとき
-                                console.log('Message sent');
+                                //console.log('Message sent');
                             }
                             transporter.close(); //SMTPの切断
                         });
@@ -107,14 +107,14 @@ function hadOverlapError(req, res) {
 }
 
 function hadSendmailError(err, req, res, resp) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 4;
     res.redirect('/email_change');
     mongoose.disconnect();
 }
 
 function hadDbError(err, res, req) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/email_change');
     mongoose.disconnect();

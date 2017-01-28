@@ -9,10 +9,10 @@ var User = models.Users;
 var Forum = models.Forum;
 
 router.get('/', function(req, res, next) {
-    console.log(req.url);
+    //console.log(req.url);
     if (req.url.match(/.*\?.*/)) {//もしクエリが設定されていなかったら
         mongoose.connect('mongodb://localhost:27017/userdata', function() {
-            console.log('connected');
+            //console.log('connected');
         });
         if (req.session.user_id) {
             var userName = req.session.user_name;
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
                 if (result.length === 0) { //同じuidが無い場合はDB上にデータが見つからないので0
                     return hadNotcontentsError(req, res);
                 } else { //uidが見つかった
-                    console.log("such uid");
+                    //console.log("such uid");
                     var openmypage = result[0].mypage_st;
                     if(openmypage === false){//マイページの公開設定が非公開の場合
                         return hadUrlError(req, res);
@@ -58,7 +58,7 @@ router.get('/', function(req, res, next) {
                                     if(err) return hadDbError(err, req, res);
                                     if(result3){
                                         user_bac = result3.length;
-                                        console.log(user_bac);
+                                        //console.log(user_bac);
                                         var insert = {
                                             userName:userName,
                                             user_name:user_name,
@@ -95,7 +95,7 @@ function hadUrlError(req ,res){
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/');
     mongoose.disconnect();

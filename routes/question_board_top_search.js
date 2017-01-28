@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
     var query = qstring.parse(u.query);
     var error = req.session.error_status;
     var searchbox = [];
-    console.log(query.search);
-    console.log(query.page);
+    //console.log(query.search);
+    //console.log(query.page);
 
     var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
         "dataurl": [],
@@ -43,24 +43,24 @@ router.get('/', function(req, res, next) {
 
     /*データベース接続*/
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log("connected");
+        //console.log("connected");
     });
 
     searchbox = replaceall("　"," ",query.search).split(" ");//スペースで文字列を判別して,分けて配列に入れる
-    console.log(searchbox);
+    //console.log(searchbox);
 
     for(var g = 0; searchbox.length > g ; g++){
         searchbox[g] = new RegExp(searchbox[g]);//正規表現オブジェクト/hoge/の作成（キモ）
     }
 
-    console.log(searchbox);
+    //console.log(searchbox);
 
     Forum.find({$or : [{foname:{$in:searchbox}},{ques:{$in:searchbox}},{tag:{$elemMatch:{$in:searchbox}}},{host:{$in:searchbox}}]},{hostid:0}, {sort:{uday: -1}}, function(err, result){//正規表現を用いて検索文字が入っているドキュメントを探す
         if (err) return hadDbError(err, req, res);
-        console.log(result);
+        //console.log(result);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
-                console.log("nosuch");
+                //console.log("nosuch");
                 return hadNotcontentsError(req, res);
             }else{
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
@@ -128,7 +128,7 @@ router.get('/', function(req, res, next) {
                         nextback.nextbutton = "disabled";
                         break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
                 default:
-                    console.log("throw switch");
+                    //console.log("throw switch");
                     return hadUrlError(req ,res);
                 }
                 /*--ページネーション設定はここまで--*/
@@ -174,7 +174,7 @@ function hadUrlError(req ,res){
 }
 
 function hadDbError(err, req, res) {
-    console.log(err);
+    //console.log(err);
     req.session.error_status = 6;
     res.redirect('/question_board_top');
     mongoose.disconnect();
