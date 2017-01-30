@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
     var mailOptions = { //メールの送信内容
         from: 'Stichies運営<stichies01@gmail.com>',
         to: email,
-        subject: 'Stichies本登録について',
+        subject: 'Stiches本登録について',
         html: '以下のURLからアカウトを有効にしてください。<br>' +
             'URLの有効時間は'+ MINUTES +'分間です。<br>' +
             '有効時間後はパスワードのリセットを行ってください。<br>' +

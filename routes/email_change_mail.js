@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
     var obj_id = req.session.obj_id;
     var url_pass3 = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
-        from: 'stitches運営<stitches01@gmail.com>',
+        from: 'stitches運営<stichies01@gmail.com>',
         to: email,
         subject: 'メールアドレスの変更について',
         html: '以下のURLからメールアドレスの変更を行ってください。<br>' +

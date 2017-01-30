@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
     var email = req.body.id;
     var url_pass2 = sha256(randword.method(16));
     var mailOptions = { //メールの送信内容
-        from: 'stitches運営<stitches01@gmail.com>',
+        from: 'stitches運営<stichies01@gmail.com>',
         to: email,
         subject: 'パスワードのリセットについて',
         html: '以下のURLからパスワードのリセットを行ってください。<br>' +
