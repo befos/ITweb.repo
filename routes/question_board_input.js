@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
-var template = require('../config/template.json'); 
+var template = require('../config/template.json');
 
 router.get('/', function(req, res, next) {
     /*この下からページのレンダー処理*/
@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     if (req.session.user_id) {
         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
         res.render('qna_input', {
-            userName: req.session.user_id,
+            userName: req.session.user_name,
             error: error,
             reqCsrf: req.csrfToken(),
         });
