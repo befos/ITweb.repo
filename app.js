@@ -88,7 +88,6 @@ app.use('/question_board_top_cate', routes.question_board_top_cate);
 app.use('/question_board_top_search', routes.question_board_top_search);
 app.use('/question_board_input', routes.question_board_input);
 app.use('/question_board_ansinput', routes.question_board_ansinput);
-app.use('/question_board_contents', routes.question_board_contents);
 app.use('/question_board_confirm', routes.question_board_confirem);
 app.use('/question_board_ansconfirm', routes.question_board_ansconfirem);
 app.use('/question_board_submit', routes.question_board_submit);

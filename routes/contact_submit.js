@@ -1,24 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var mailer = require('nodemailer');
-//var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
-//    user: 'stichies01@gmail.com',
-//    clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
-//    clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
-//    refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
-//});
+var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
+    user: 'stichies01@gmail.com',
+    clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
+    clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
+    refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
+});
 
 var insert = require('../config/template.json'); //テンプレートの読み込み
 var conf = require('../config/commonconf.json');
 
-var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
-    user: conf.authconfig.user,
-    clientId: conf.authconfig.clientId,
-    clientSecret: conf.authconfig.clientSecret,
-    refreshToken: conf.authconfig.refreshToken
-});
-
 router.post('/', function(req, res, next) {
+        if(req.session.con === true){//二重送信の防止
+            return hadUrlError(req, res);
+        }
             req.session.error_status = 0;
             //formから飛ばされた情報を受け取って変数に格納
             var name = req.body.name;
@@ -26,8 +22,8 @@ router.post('/', function(req, res, next) {
             var tel = req.body.tel;
             var contents = req.body.contents;
             var mailOptions = { //メールの送信内容
-                from: 'stitches運営' + '<' + conf.authconfig.user + '>',
-                to: conf.authconfig.user,
+                from: 'stitches運営<stichies01@gmail.com>',
+                to: 'stitches961@gmail.com',
                 subject: 'ユーザーからの意見',
                 html: 'お名前:' + name + '<br>' +
                     'メールアドレス:' + email + '<br>' +
@@ -44,14 +40,16 @@ router.post('/', function(req, res, next) {
             }));
             transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
                 if (err) { //送信に失敗したとき
+                    transporter.close();
                     return hadSendmailError(err, req, res, resp, transporter);
                 }
                 if (!err) { //送信に成功したとき
-                    //console.log('Message sent');
+                    console.log('Message sent');
                     transporter.close(); //SMTPの切断
                 }
             });
             req.session.error_status = 12;
+            req.session.con = true;
             res.redirect('/');
 });
 
@@ -59,8 +57,13 @@ router.post('/', function(req, res, next) {
 function hadSendmailError(err, req, res, resp, transporter) {
     console.log(err);
     req.session.error_status = 4;
-    transporter.close();
+    res.redirect('/');
+}
+
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
     res.redirect('/contact');
+    mongoose.disconnect();
 }
 
 function hadRateoverError(err, req, res) {
@@ -68,5 +71,7 @@ function hadRateoverError(err, req, res) {
     res.locals = insert.contactrateover;
     res.render('RedirectError');
 }
+
+
 
 module.exports = router;

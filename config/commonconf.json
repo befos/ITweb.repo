@@ -6,14 +6,6 @@
         "minute":10
     },
 
-    "authconfig":{
-        "user": "stitches961@gmail.com",
-        "clientId":"891461378397-evutq72grif8ll1b9a42f50krec2r2nu.apps.googleusercontent.com",
-        "clientSecret": "ZSt1g5QoWcVjgFEYNfnWAJDo",
-        "refreshToken": "1/XpMFUJaMdkGsgaCrYYc5bXXtW6dFDE8XpTp-TJdJUG4"
-    },
-
-
     "rateoverconf1":{
         "request":2000,
         "duration":600000,

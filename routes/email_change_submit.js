@@ -10,6 +10,9 @@ var User = models.Users;
 
 
 router.post('/', function(req, res, next) {
+    if(req.sessin.em === true){//二重送信の防止
+        return hadUrlError(req, res);
+    }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     //console.log('connected');
 });
@@ -32,6 +35,7 @@ router.post('/', function(req, res, next) {
                     if(err) return hadDbError(err, req, res);
                     if(!err){
                         req.session.destroy();
+                        req.session.em = true;
                         res.render('email_change_submit');
                         mongoose.disconnect();
                     }
@@ -51,6 +55,13 @@ function hadUrlError(req ,res){
 function hadDbError(err, req, res){
     //console.log(err);
     req.session.error_status = 6;
+    res.redirect('/email_change');
+    mongoose.disconnect();
+}
+
+function hadSessionseqError(res, req) {
+    //console.log(err);
+    req.session.error_status = 8;
     res.redirect('/email_change');
     mongoose.disconnect();
 }

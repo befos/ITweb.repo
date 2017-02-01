@@ -25,7 +25,6 @@ var routes = {//routesディレクト内のjsファイルを参照
     question_board_top_search: require('./question_board_top_search'),
     question_board_input: require('./question_board_input'),
     question_board_ansinput: require('./question_board_ansinput'),
-    question_board_contents: require('./question_board_contents'),
     question_board_confirem: require('./question_board_confirm'),
     question_board_ansconfirem: require('./question_board_ansconfirm'),
     question_board_submit: require('./question_board_submit'),

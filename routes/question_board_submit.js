@@ -26,6 +26,9 @@ router.post('/', function(req, res, next) {
         req.session.checksubmit = "no";
         return hadUpload(req, res);
     }
+    if(req.session.qbi === true){//二重送信の防止
+        return hadUrlError(req, res);
+    }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         //console.log('connected');
     });
@@ -59,6 +62,12 @@ router.post('/', function(req, res, next) {
     });
 });
 
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
 function hadDbError(err, req, res){
     //console.log(err);
     req.session.error_status = 6;
@@ -68,6 +77,7 @@ function hadDbError(err, req, res){
 
 function hadUpload(req, res){
     req.session.error_status = 14;
+    req.session.qbi = true;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }

@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
     if (req.session.user_id) {
         var error = req.session.error_status;
         req.session.error_status = 0;
+        req.session.error.em = false;
         res.render('email_change', {error:error, reqCsrf:req.csrfToken()});
     }else{
         req.session.error_status = 0;

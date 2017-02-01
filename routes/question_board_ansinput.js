@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
     req.session.error_status = 0;
     req.session.foid = obj_id;
     if (req.session.user_id) {
+        req.session.qbai = false;
         res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
         res.render('qna_ansinput', {
             userName: req.session.user_name,

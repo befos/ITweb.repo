@@ -10,6 +10,9 @@ var ForumCont = models.ForumCont;
 
 router.post('/', function(req, res, next) {
     //test用　
+    if(req.session.qbai === true){//二重送信の防止
+        return hadUrlError(req, res);
+    }
     var foname =　req.body.title;
     var host = req.body.host;
     var hostid = req.body.hostid;
@@ -50,6 +53,12 @@ router.post('/', function(req, res, next) {
       }
 });
 
+function hadUrlError(req ,res){
+    req.session.error_status = 5;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
 function hadDbError(err, req, res){
     //console.log(err);
     req.session.error_status = 6;
@@ -58,6 +67,7 @@ function hadDbError(err, req, res){
 }
 
 function hadUpload(req, res){
+    req.session.qbai = true;
     req.session.error_status = 14;
     res.redirect('/question_board_top');
     mongoose.disconnect();
