@@ -44,21 +44,22 @@ router.post('/', function(req, res, next) {
             }));
             transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
                 if (err) { //送信に失敗したとき
-                    return hadSendmailError(err, req, res, resp);
+                    return hadSendmailError(err, req, res, resp, transporter);
                 }
                 if (!err) { //送信に成功したとき
                     //console.log('Message sent');
+                    transporter.close(); //SMTPの切断
                 }
-                transporter.close(); //SMTPの切断
             });
             req.session.error_status = 12;
             res.redirect('/');
 });
 
 //エラーハンドル
-function hadSendmailError(err, req, res, resp) {
-    //console.log(err);
+function hadSendmailError(err, req, res, resp, transporter) {
+    console.log(err);
     req.session.error_status = 4;
+    transporter.close();
     res.redirect('/contact');
 }
 
