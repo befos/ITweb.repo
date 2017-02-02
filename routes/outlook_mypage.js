@@ -36,6 +36,7 @@ router.get('/', function(req, res, next) {
                     var user_age = result[0].age;
                     var user_work = result[0].work;
                     var user_profile = result[0].prop;
+                    var user_language = result[0].uf_pl;
                     var user_sex;
                     var user_bac;
                     if (result[0].sex === 0) {
@@ -67,6 +68,8 @@ router.get('/', function(req, res, next) {
                                             user_work:user_work,
                                             user_profile:user_profile,
                                             user_sex:user_sex,
+                                            user_language:user_language,
+                                            outlook_user:user_name,
                                             dataurl:dataurl,
                                             datafoname:datafoname,
                                             databac:user_bac
