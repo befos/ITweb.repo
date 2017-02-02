@@ -15,6 +15,7 @@
     <![endif]-->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/animation.css">
+    <script src="/js/Dfolder/jquery.parallax-1.1.3.js"></script>
     <script async defer src="/js/Kfolder/common.js" type="text/javascript"></script>
 </head>
 <body>
@@ -43,34 +44,33 @@
                 <!--ログイン後にゲストをユーザー名に変更-->
                 <p class="navbar-text navbar-right nav-padding">ようこそ <a href="/mypage" class="navbar-link"><%= userName %></a> さん</p>
             </div>
-        </nav>-->
+        </nav>
     </header>
     <section>
-        <img class="topimg" src="/img/topimg.jpg" alt="Stitches">
+        <div class="topimg">
         <div class="glaybox">
             <h1 class="title">Stitches</h1>
             <p class="title_text">人と人を繋ぐ</p>
         </div>
         <div class="top_space"></div>
-        <div class="col-sm-6 hidden-xs"></div>
+        <div class=""></div>
         <form class="form-horizontal Loginform" action="/login_check" method="post">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="email"><p class="label_form"><span class="glyphicon glyphicon-envelope icon"></span></p></label>
-                <div class="col-sm-3">
+                <label class="control-label" for="email"><p class="label_form"><span class="glyphicon glyphicon-envelope icon"></span></p></label>
+                <div class="">
                     <input type="text" name="id" id="email" class="form-control" placeholder="email or userID">
                 </div>
             </div>
-            <div class="col-sm-6 hidden-xs"></div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="password"><p class="label_form"><span class="glyphicon glyphicon-lock icon"></span></p></label>
-                <div class="col-sm-3">
+            <div class=""></div>
+            <div class="">
+                <label class="control-labe" for="password"><p class="label_form"><span class="glyphicon glyphicon-lock icon"></span></p></label>
+                <div class="">
                     <input type="password" name="password" id="email" class="form-control" placeholder="Password">
                 </div>
             </div>
-            <div class="col-sm-6"></div>
-            <div class="form-group submit">
-                <div class="col-sm-offset-2 col-sm-3">
-                    <!-- <div id="Loginbtn"><img src="/img/btn_login.png" width="290px" height="73px" alt="ログイン"></div> -->
+            <div class=""></div>
+            <div class="">
+                <div class="">
                     <div id="Loginbtn"><input type="image" alt="ログイン" width="290" height="73px" src="/img/btn_login.png"></div>
                 </div>
             </div>
@@ -78,23 +78,24 @@
             <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
         </form>
         </div>
+        </div>
     </section>
-    <section class="description">
-        <div class="description_sg fadein">
-            <img class="shadow" src="/img/sample1.jpg" alt="サイト紹介" />
+    <section class="">
+        <div class="">
+            <img class="" src="/img/sample1.jpg" alt="サイト紹介" />
             <h1>サイトの紹介</h1>
             <p>ようこそStitchesへ！StitchesではITを学ぶ皆様、ユーザとユーザを繋ぎ合わせ、学習面での助け合いやコミュニケーションの場をご提供します。</p>
             <p>ITを学ぶ際、プログラミング言語や国家試験など様々な事に挑戦すると思います。そんな時「どれだけ考えて分からない…」って事ありませんか？
 それを解決する場、助け合いの場として「Stitches」をご用意しました。</p>
         </div>
-        <div class="description_sg fadein clear">
-            <img class="shadow" src="/img/sample2.jpg" alt="サイト紹介" />
+        <div class="">
+            <img class="" src="/img/sample2.jpg" alt="サイト紹介" />
             <h1>登録メリット</h1>
             <p>ユーザ登録1つで全てのサービスをご利用いただく事ができます。</p>
             <p>質問広場やマイページの使用など、全てを無料でご利用する事ができます。</p>
         </div>
-        <div class="description_sg fadein clear">
-            <img class="shadow" src="/img/sample3.jpg" alt="サイト紹介" />
+        <div class="">
+            <img class="" src="/img/sample3.jpg" alt="サイト紹介" />
             <h1>登録への案内</h1>
             <p>Stitchesは無料の登録制サイトとなっております。</p>
             <p>お手数ですがサイト上部のログインタブから新規登録へ行き、ご登録ください。</p>
