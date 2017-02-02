@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 var async = require('async');
+var mailer = require('nodemailer');　
 
 //検索結果画面
 var mongoose = require('mongoose');
@@ -10,7 +11,15 @@ var Forum = models.Forum;
 var ForumCont = models.ForumCont;
 var User = models.Users;
 
+var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
+    user: 'stichies01@gmail.com',
+    clientId: '1096218509599-63cs90qmsvdg5v8to44cn3tgl4ni0c9o.apps.googleusercontent.com',
+    clientSecret: 'XMkfmFGd2Iv1jBWNgvmjUxsf',
+    refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
+});
+
 var template = require('../config/template.json');
+var conf = require('../config/commonconf.json');
 
 router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
@@ -25,9 +34,9 @@ router.get('/', function(req, res, next) {
             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                 return hadDbError(err, req, res);
             } else {
-                if(result[0].f_st === false){
-                        return hadEndError(req, res);
-                }
+                //if(result[0].f_st === false){
+                //        return hadEndError(req, res);
+                //}
                 //console.log("such id");
                 var forum1 ={
                     host:result[0].host,
@@ -99,6 +108,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//BAをDBに格納
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         //console.log('connected');
@@ -114,11 +124,49 @@ router.post('/', function(req, res, next) {
 
     Forum.update({_id:mfo},{$set:{baid:baid,abaid:abaid,f_st:false}},function(err){
         if(err) return hadDbError(err, req, res);
-        req.session.error_status = 0;
-        res.redirect('/question_board_view?' + mfo);
-        mongoose.disconnect();
+        User.find({_id:abaid},{},function(err, result){
+            if(err) return hadDbError(err, req, res);
+            if(result.length === 0){
+                return hadSendmailError(err, req, res, resp);
+            }
+                var email = result[0].email;
+                var mailOptions = { //メールの送信内容
+                    from: 'stitches運営<stichies01@gmail.com>',
+                    to: email,
+                    subject: 'BAのご通知',
+                    html: 'あなたの回答がBAに選ばれました。<br>' +
+                        　'おめでとうございます！<br>' +
+                          conf.sendmailconf.url4 + mfo
+                };
+                var transporter = mailer.createTransport(({ //SMTPの接続
+                    service: 'gmail',
+                    auth: {
+                        xoauth2: generator
+                    }
+                }));
+                transporter.sendMail(mailOptions, function(err, resp) { //メールの送信
+                    if (err) { //送信に失敗したとき
+                        transporter.close();
+                        return hadSendmailError(err, req, res, resp);
+                    }
+                    if (!err) { //送信に成功したとき
+                        //console.log('Message sent');
+                    }
+                    transporter.close(); //SMTPの切断
+                    req.session.error_status = 0;
+                    res.redirect('/question_board_view?' + mfo);
+                    mongoose.disconnect();
+                });
+        });
     });//DBを更新
 });
+
+function hadSendmailError(err, req, res, resp) {
+    //console.log(err);
+    req.session.error_status = 4;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
 
 function hadDbError(err, req, res){
     //console.log(err);
