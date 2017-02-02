@@ -7,7 +7,7 @@ var template = require('../config/template.json');
 
 /*データベースの接続設定*/
 var mongoose = require('mongoose');
-var models = require('../models/models.js');　
+var models = require('../models/models.js');　 
 var Forum = models.Forum;
 var User = models.Users;
 
