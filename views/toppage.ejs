@@ -34,6 +34,9 @@
             <div class="collapse navbar-collapse target">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">トップ</a></li>
+                    <% if(login != "マイページ"){ %>
+                    <li><a href="/register">新規登録</a></li>
+                    <% } %>
                     <li><a href="/login"><%= login %></a></li><!--ログイン後は[マイページ]-->
                     <li><a href="/question_board_top">質問広場</a></li>
                     <li><a href="/contact">問い合わせ</a></li>

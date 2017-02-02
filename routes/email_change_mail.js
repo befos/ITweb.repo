@@ -10,7 +10,6 @@ var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
     refreshToken: '1/gSZzfoVBTjXr1IE-ah-n7mA3aLl3RulrQHItdoznRkw',
 });
 
-
 //データベース接続および設定
 var mongoose = require('mongoose');
 var models = require('../models/models.js');
