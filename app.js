@@ -83,7 +83,6 @@ app.use('/email_change', routes.email_change);
 app.use('/email_change_mail', routes.email_change_mail);
 app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
-app.use('/qna_ranking', routes.qna_ranking);
 app.use('/qna_noans', routes.qna_noans);
 app.use('/qna_bq', routes.qna_bq);
 app.use('/qna_diff', routes.qna_diff);

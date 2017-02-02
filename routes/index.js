@@ -24,7 +24,6 @@ var routes = {//routesディレクト内のjsファイルを参照
     qna_diff: require('./qna_diff'),
     qna_newcont: require('./qna_newcont'),
     qna_noans: require('./qna_noans'),
-    qna_ranking: require('./qna_ranking'),
     question_board_top: require('./question_board_top'),
     question_board_top_cate: require('./question_board_top_cate'),
     question_board_top_search: require('./question_board_top_search'),
