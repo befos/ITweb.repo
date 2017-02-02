@@ -34,9 +34,9 @@ router.get('/', function(req, res, next) {
             if (result.length === 0) {//同じuidが無い場合はDB上にデータが見つからないので0
                 return hadDbError(err, req, res);
             } else {
-                //if(result[0].f_st === false){
-                //        return hadEndError(req, res);
-                //}
+                if(result[0].f_st === false){
+                        return hadEndError(req, res);
+                }
                 //console.log("such id");
                 var forum1 ={
                     host:result[0].host,
@@ -127,7 +127,7 @@ router.post('/', function(req, res, next) {
         User.find({_id:abaid},{},function(err, result){
             if(err) return hadDbError(err, req, res);
             if(result.length === 0){
-                return hadSendmailError(err, req, res, resp);
+                return;
             }
                 var email = result[0].email;
                 var mailOptions = { //メールの送信内容
@@ -153,10 +153,10 @@ router.post('/', function(req, res, next) {
                         //console.log('Message sent');
                     }
                     transporter.close(); //SMTPの切断
-                    req.session.error_status = 0;
-                    res.redirect('/question_board_view?' + mfo);
-                    mongoose.disconnect();
                 });
+                req.session.error_status = 0;
+                res.redirect('/question_board_view?' + mfo);
+                mongoose.disconnect();
         });
     });//DBを更新
 });
