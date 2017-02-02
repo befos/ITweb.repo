@@ -34,13 +34,14 @@ p{
   background:url(/img/topimg.jpg) 0 0 no-repeat fixed;
   background-size: cover;
   height: 0;
+  margin-top: 50px;
   padding-top: 52.4%;
   width: 100%;
+  position: absolute;
 }
 /*トップ画像の中のグレイのボックス*/
 .glaybox {
-    position: relative;
-    display: none;
+    position: absolute;
     width: 50%;
     height: auto;
     margin: 80px 0 0 30px;
@@ -67,11 +68,11 @@ p{
     min-width: 1024px;
 }
 /*トップの部分がabsoluteなのでその分のスペース*/
-.top_space {
+/*.top_space {
     position: relative;
     display: block;
     height: 200px;
-}
+}*/
 /*フォームラベルの画像*/
 .icon {
     font-size: 20px;
@@ -194,6 +195,15 @@ p{
   background-color: #2ACCA8;}
 .category_btn li:nth-of-type(8){
   background-color: #737373;}
+
+#search_btn li{
+  margin: 3px 0;
+  background-color: #eee;
+  border: 1px solid #aaa;
+}
+#search_btn a{
+  color: #444;
+}
 .searchbox {
     margin-top: 1em;
 }
