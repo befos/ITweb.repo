@@ -34,23 +34,24 @@ p{
   background:url(/img/topimg.jpg) 0 0 no-repeat fixed;
   background-size: cover;
   height: 0;
-  margin-top: 50px;
   padding-top: 52.4%;
   width: 100%;
   position: absolute;
+  top: 0;
 }
 /*トップ画像の中のグレイのボックス*/
 .glaybox {
-    position: absolute;
+    position: relative;
     width: 50%;
     height: auto;
-    margin: 80px 0 0 30px;
+    margin: 50px 50px;
     padding: 20px;
-    background: rgba(64, 64, 64, .3);
+    /*background: rgba(64, 64, 64, .3);*/
+    float: left;
 }
 /*タイトルの文字*/
 .title {
-    font-size: 12vw;
+    font-size: 13vw;
     text-align: center;
     color: #fff;
 }
@@ -62,17 +63,15 @@ p{
     color: #fff;
 }
 /*一つ一つのフォームの区切り*/
-.form-group {
-    display: block;
-    width: 100%;
-    min-width: 1024px;
+.form-set {
+  float: left;
+  z-index: 10;
+  position:relative;
+  margin-left: 70vw ;
 }
-/*トップの部分がabsoluteなのでその分のスペース*/
-/*.top_space {
-    position: relative;
-    display: block;
-    height: 200px;
-}*/
+.form-set label{
+  float: left;
+}
 /*フォームラベルの画像*/
 .icon {
     font-size: 20px;
@@ -80,36 +79,79 @@ p{
 }
 /*メインコンテンツ全体の設定*/
 .description {
-    position: relative;
-    display: block;
+  position: relative;
+  clear: both;
+  top: 200px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.description_img1{
+  background:url(/img/sample1.jpg) 0 0 no-repeat fixed;
+  background-size: cover;
+  height: 0;
+  padding-top: 30%;
+  width: 100%;
+}
+.pic-number-list{
+	width: 100%;
+}
+.pic-number-list ul{
+  padding: 0;
+}
+.pic-number-list ul li{
+	list-style: none;
+	display: inline-block;
+	vertical-align: top;
+	width: 43%;
+  margin-bottom: 100px;
+}
+.pic-number-list li{
+  box-shadow: 1px ;
+}
+.right-ma{
+	margin-right: 7%;
+	margin-left: 10px;
+}
+.pic-box img{
+	width: 100%;
+	height: auto;
+}
+.cleafix{
+  clear: both;
+}
+.pic-box p:first-child{
+	text-indent: 0em!important;
+	font-size: 1.2rem!important;
+}
+@media(max-width:950px){
+  .form-set {
+    top: 4vw;
+    right: 0;
+    padding: 30px;
+    background: #333;
+    max-width: 300px;
+    float: none;
+  }
+}
+@media(max-width:500px){
+  .form-set {
+    top: 17vw;
+    padding: 30px;
+    background: #333;
+    max-width: 300px;
+    float: none;
+    margin:  0 auto;
+  }
+  .pic-number-list ul li{
     width: 90%;
-    margin: 400px 5% 0;
-}
-/*コンテンツ一つ一つの設定*/
-.description_sg {
-    display: block;
-    text-align: center;
-}
-/*コンテンツの画像の設定*/
-.description_sg img {
-    float: left;
-    width: 40%;
-    height: 20%;
-    margin: 0 10px 100px 0;
-    border-radius: 2% 2% 2% 2%;
-    box-shadow: 2px 2px 3px 3px #ccc;
-}
-/*コンテンツの文書の設定*/
-.description_sg h1 {
-    padding-top: 30px;
-}
-
-.description_sg p {
-    font-size: 20px;
-    margin-top: 20px;
-}
-.clear {
-    clear: left;
+    margin: 0 5%;
+  }
+  .right-ma{
+    margin: 0;
+  }
+  .pic-number-list ul li{
+    margin-bottom: 50px;
+  }
 }
 /*------------質問広場CSS---------------*/
 .qna_header_img {
