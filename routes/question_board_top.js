@@ -154,7 +154,7 @@ router.get('/', function(req, res, next) {
                             data2:nextback,
                             data3:insclass
                         });
-                        mongoose.connection.close();
+                        mongoose.disconnect();
                     } else {
                         res.locals = template.common.false;
                         res.render('qna', {
@@ -164,7 +164,7 @@ router.get('/', function(req, res, next) {
                             data2:nextback,
                             data3:insclass
                         });
-                        mongoose.connection.close();
+                        mongoose.disconnect();
                     }
                 });
             }
