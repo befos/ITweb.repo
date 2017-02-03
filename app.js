@@ -85,8 +85,8 @@ app.use('/email_change_task', routes.email_change_task);
 app.use('/email_change_submit', routes.email_change_submit);
 app.use('/qna_noans', routes.qna_noans);
 app.use('/qna_bq', routes.qna_bq);
+app.use('/qna_bq_up', routes.qna_bq_up);
 app.use('/qna_diff', routes.qna_diff);
-app.use('/qna_newcont', routes.qna_newcont);
 app.use('/question_board_top', routes.question_board_top);
 app.use('/question_board_top_cate', routes.question_board_top_cate);
 app.use('/question_board_top_search', routes.question_board_top_search);
@@ -131,6 +131,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app; // bin/wwwファイルなどで

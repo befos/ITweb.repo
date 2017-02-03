@@ -63,6 +63,13 @@
                 <div class="col-sm-3">
                   <p class="solidline">質問日時：<%= fo.uday %></p>
                 </div>
+                <div class="col-sm-3">
+                  <form method="get" action="/qna_bq_up">
+                      <input type="hidden" name="mfo" value="<%= data.mfo %>">
+                      <input type="hidden" name="myid" value="<%=  data.myid %>">
+                      <input type="submit" value="質問に高評価を付ける">
+                  </form>
+                </div>
               </div>
             <div class="qna_disp" align="center">
               <h3>質問内容</h3>
