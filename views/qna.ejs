@@ -85,7 +85,7 @@
                     <p>詳細検索</p>
                     <ul id="search_btn">
                         <li><a href="/question_board_top">新着</a></li>
-                        <li><a href="/question_board_top_cate?cate=Ruby&page=1">未解決</a></li>
+                        <li><a href="/qna_noans?page=1">未解決</a></li>
                         <li><a href="/question_board_top_cate?cate=Python&page=1">BQ表示</a></li>
                         <li><a href="/qna_diff?diff=0&page=1">簡単</a></li>
                         <li><a href="/qna_diff?diff=1&page=1">普通</a></li>
@@ -144,6 +144,12 @@
                             <li class="<%= data3.insclass4 %>"><a href="<%= data.pbutton[3]%>">4</a></li>
                             <li class="<%= data3.insclass5 %>"><a href="<%= data.pbutton[4]%>">5</a></li>
                         <% }else if(data.status == 'diff'){ %>
+                            <li class="<%= data3.insclass1 %>"><a href="<%= data.pbutton[0]%>">1</a></li>
+                            <li class="<%= data3.insclass2 %>"><a href="<%= data.pbutton[1]%>">2</a></li>
+                            <li class="<%= data3.insclass3 %>"><a href="<%= data.pbutton[2]%>">3</a></li>
+                            <li class="<%= data3.insclass4 %>"><a href="<%= data.pbutton[3]%>">4</a></li>
+                            <li class="<%= data3.insclass5 %>"><a href="<%= data.pbutton[4]%>">5</a></li>
+                        <% }else if(data.status == 'noans'){ %>
                             <li class="<%= data3.insclass1 %>"><a href="<%= data.pbutton[0]%>">1</a></li>
                             <li class="<%= data3.insclass2 %>"><a href="<%= data.pbutton[1]%>">2</a></li>
                             <li class="<%= data3.insclass3 %>"><a href="<%= data.pbutton[2]%>">3</a></li>
