@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         //console.log("connected");
     });
-    Forum.find({tag:{$elemMatch:{$eq:query.cate}}},{}, {sort:{uday: -1}}, function(err, result) {
+    Forum.find({},{}, {sort:{bq: -1}}, function(err, result) {
         if (err) return hadDbError(err, req, res);
         if (result) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
@@ -107,46 +107,46 @@ router.get('/', function(req, res, next) {
                         "insclass5":"dummy"
                     };
                     data.pbutton =[
-                        "/question_board_top_cate?",
-                        "/question_board_top_cate?",
-                        "/question_board_top_cate?",
-                        "/question_board_top_cate?",
-                        "/question_board_top_cate?"
+                        "/qna_bq?",
+                        "/qna_bq?",
+                        "/qna_bq?",
+                        "/qna_bq?",
+                        "/qna_bq?"
                     ];
                     for(i = 0 ; i < 5 ; i++){
                         var itizi;
                         itizi = i+1;
-                        data.pbutton[i] = data.pbutton[i] + "cate=" + query.cate + "&page=" + itizi;
+                        data.pbutton[i] = data.pbutton[i] + "page=" + itizi;
                         //console.log(data.pbutton[i]);
                     }
-                    data.status = "cate";
+                    data.status = "bq";
                     //console.log(data.status);
                     switch (query.page) {
                         case '1':
                             insclass.insclass1 = "active";
-                            nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=1";
-                            nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=2";
+                            nextback.backurl = "/qna_bq?page=1";
+                            nextback.nexturl = "/qna_bq?page=2";
                             nextback.backbutton = "disabled";
                             break;
                         case '2':
                             insclass.insclass2 = "active";
-                            nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=1";
-                            nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=3";
+                            nextback.backurl = "/qna_bq?page=1";
+                            nextback.nexturl = "/qna_bq?page=3";
                             break;
                         case '3':
                             insclass.insclass3 = "active";
-                            nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=2";
-                            nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=4";
+                            nextback.backurl = "/qna_bq?page=2";
+                            nextback.nexturl = "/qna_bq?page=4";
                             break;
                         case '4':
                             insclass.insclass4 = "active";
-                            nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=3";
-                            nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=5";
+                            nextback.backurl = "/qna_bq?page=3";
+                            nextback.nexturl = "/qna_bq?page=5";
                             break;
                         case '5':
                             insclass.insclass5 = "active";
-                            nextback.backurl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=4";
-                            nextback.nexturl = "/question_board_top_cate?" + "cate=" + query.cate + "&page=5";
+                            nextback.backurl = "/qna_bq?page=4";
+                            nextback.nexturl = "/qna_bq?&page=5";
                             nextback.nextbutton = "disabled";
                             break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
                     default:

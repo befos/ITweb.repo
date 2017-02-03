@@ -30,7 +30,7 @@ router.post('/', function(req, res, next) {
         return hadUrlError(req, res);
     }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        //console.log('connected');
+        console.log('connected');
     });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
@@ -42,6 +42,7 @@ router.post('/', function(req, res, next) {
         abaid: null, //BAになった回答者のIDを保存
         uday: uday,
         ques: question,
+        bq:[],
         tag: tag,//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
         f_st: true//forumの内容が解決済み...false　初期値はtrue
     });
@@ -69,7 +70,7 @@ function hadUrlError(req ,res){
 }
 
 function hadDbError(err, req, res){
-    //console.log(err);
+    console.log(err);
     req.session.error_status = 6;
     res.redirect('/question_board_top');
     mongoose.disconnect();

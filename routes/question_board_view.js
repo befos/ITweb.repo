@@ -56,6 +56,8 @@ router.get('/', function(req, res, next) {
                             "Answer":[],
                             "Cuday":[],
                             "Cont":[],
+                            "mfo":obj_id,
+                            "myid":req.session.obj_id
                         };
                         for(var i = 0 ; i < result2.length ; i++){
                             data.AnswerID.push(result2[i].answer);

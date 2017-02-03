@@ -136,6 +136,14 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             alert("マイページは公開されていません。");
             location.reload(true);
             break;
+        case '18':
+            alert("質問に高評価を付けました！");
+            location.reload(true);
+            break;
+        case '19':
+            alert("あなたは既に質問に高評価を付けています。");
+            location.reload(true);
+            break;
     }
 }
 window.onload = setError;

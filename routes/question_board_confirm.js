@@ -28,7 +28,7 @@ router.post('/', function(req, res, next){
     var cont = req.body.input;
     var error = req.session.error_status;
     var hostid = req.session.obj_id;
-    var host = req.session.user_id;
+    var host = req.session.user_name;
     req.session.tag = tag;
     req.session.error_status = 0;
     if (req.session.user_id) {
