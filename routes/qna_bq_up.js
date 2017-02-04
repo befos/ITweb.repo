@@ -13,7 +13,7 @@ var User = models.Users;
 
 router.get('/', function(req, res, next) {
     if(!req.session.user_id){
-        res.redirect('/login');
+        return hadNotloginError(req ,res);
     }
 
     var u = url.parse(req.url, false);
@@ -54,14 +54,20 @@ function hadDbError(err, req, res) {
     mongoose.disconnect();
 }
 
-function hadHighrateseqError(req, res){
-    req.session.error_status = 19;
-    res.redirect('/question_board_top');
+function hadNotloginError(req, res) {
+    req.session.error_status = 10;
+    res.redirect('/login');
     mongoose.disconnect();
 }
 
 function hadHigirateSeq(req, res){
     req.session.error_status = 18;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
+function hadHighrateseqError(req, res){
+    req.session.error_status = 19;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }
