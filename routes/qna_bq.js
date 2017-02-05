@@ -5,7 +5,7 @@ var qstring =require("querystring");
 var async = require("async");
 var template = require('../config/template.json');
 
-/*データベースの接続設定*/
+/*�?ータベ�?�スの接続設�?*/
 var mongoose = require('mongoose');
 var models = require('../models/models.js');　
 var Forum = models.Forum;
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
     //console.log(query.cate);
     //console.log(query.page);
 
-    var data = {//DBから引っこ抜いてきた情報を連想配列の配列に格納
+    var data = {//DBから引っこ抜�?てきた�?報を連想配�?��?�配�?�に格�?
         "dataurl": [],
         "datatitle": [],
         "datauser": [],
@@ -28,11 +28,12 @@ router.get('/', function(req, res, next) {
         "datahostid": [],
         "status":"",
         "pbutton":[],
-        "dataouturl":[]
+        "dataouturl":[],
+        "tag":[]
     };
 
-    var selectf;//データベースからデータを取り出すための変数
-    var selectb;//データベースからデータを取り出すための変数
+    var selectf;//�?ータベ�?�スから�?ータを取り�?�すため�?�変数
+    var selectb;//�?ータベ�?�スから�?ータを取り�?�すため�?�変数
 
     if(query.page == 1){
         selectb = 0;
@@ -42,22 +43,22 @@ router.get('/', function(req, res, next) {
         selectb = selectf - 20;
     }
 
-    /*データベース接続*/
+    /*�?ータベ�?�ス接�?*/
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
         //console.log("connected");
     });
     Forum.find({},{}, {sort:{bq: -1}}, function(err, result) {
         if (err) return hadDbError(err, req, res);
         if (result) {
-            if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
+            if (result.length === 0) { //同じ_idが無�?場合�?�DB上に�?ータが見つからな�?ので0
                 //console.log("nosuch");
                 return hadNotcontentsError(req, res);
             }else{
                     //console.log(result);
                 for(i = selectb ; result.length > i && selectf > i ; i++){　
-                    var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
+                    var fourl = "/question_board_view?" + result[i]._id;//フォーラ�?アクセス用のURLを作�??
                     var outurl = "/outlook_mypage?" + result[i].hostid;
-                    data.dataurl.push(fourl);//作成したものをプッシュ
+                    data.dataurl.push(fourl);//作�?�したものを�?�ッシュ
                     data.dataouturl.push(outurl);
                     data.datatitle.push(result[i].foname);
                     data.dataupday.push(result[i].uday.toFormat("YYYY/MM/DD HH24:MI:SS"));
@@ -68,21 +69,26 @@ router.get('/', function(req, res, next) {
                         data.dataans.push("/img/profile/解決済み.png");
                     }
                     if(result[i].diff === 0){
-                        data.datadiff.push("/img/profile/簡単.png");
+                        data.datadiff.push("/img/profile/簡�?.png");
                     }else if(result[i].diff === 1){
-                        data.datadiff.push("/img/profile/普通.png");
+                        data.datadiff.push("/img/profile/普�?.png");
                     }else{
                         data.datadiff.push("/img/profile/難しい.png");
                     }
+                    var itizi = [];
+                    for(var h = 0 ; h < result[i].tag.length ; h++){
+                        itizi.push(result[i].tag[h]);
+                    }
+                    data.tag[i] = itizi;
                 }
-                var list = [//ユーザーIDの保存領域
+                var list = [//ユーザーIDの保存�?�域
                 ];
 
                 for(i = 0 ; i < data.datahostid.length ; i++){
                     list.push({id:data.datahostid[i]});
                 }
                 //console.log(list);
-                async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebページの投稿者名を変更する
+                async.eachSeries(list, function(data2, next) {//ユーザーIDをキーにして動的にWebペ�?�ジの投稿�?名を変更する
                     setTimeout(function() {
                         User.find({_id:data2.id},{},function(err, result3){
                             if(err) return hadDbError(err, req, res);
@@ -91,8 +97,8 @@ router.get('/', function(req, res, next) {
                         });
                     }, 0);
                 }, function(err) {
-                    /*データベースの処理終了*/
-                    /*--ページネーションを使えるようにするための設定--*/　
+                    /*�?ータベ�?�スの処�?終�?*/
+                    /*--ペ�?�ジネ�?�ションを使えるようにするための設�?--*/　
                     var nextback ={
                         "backurl":"/question_board_top",
                         "nexturl":"/question_board_top",
@@ -148,15 +154,15 @@ router.get('/', function(req, res, next) {
                             nextback.backurl = "/qna_bq?page=4";
                             nextback.nexturl = "/qna_bq?&page=5";
                             nextback.nextbutton = "disabled";
-                            break;//ここのスイッチ文でオブジェクトに値を格納し、ページネーションで使えるようにしている
+                            break;//ここのスイ�?チ文でオブジェクトに値を�?�納し、�?��?�ジネ�?�ションで使えるようにして�?�?
                     default:
                         return hadUrlError(req ,res);
                     }
-                    /*--ページネーション設定はここまで--*/
-                    /*この下からページのレンダー処理*/
+                    /*--ペ�?�ジネ�?�ション設定�?�ここまで--*/
+                    /*こ�?�下から�?��?�ジのレンダー処�?*/
                     req.session.error_status = 0;
                     if (req.session.user_id) {
-                        res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
+                        res.locals = template.common.true; //varからここまでで�?ンプレートに代入する値を�?�れて�?�?
                         res.render('qna', {
                             userName: req.session.user_name,
                             error: error,
