@@ -70,7 +70,12 @@
                       <input type="submit" value="質問に高評価を付ける">
                   </form>
                 </div>
-              </div>
+                <% if(data.myid == data.hostid){ %>
+                <div class="col-sm-3">
+                  <input type="button" value="BAを付ける" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
+                </div>
+                <% } %>
+        </div>
             <div class="qna_disp" align="center">
               <h3>質問内容</h3>
               <p><%- fo.ques %></p>
@@ -78,7 +83,6 @@
           </div>
           <input type="button" value="回答する" class="btn btn-primary btn-block" onClick="location.href='/question_board_ansinput?<%= foid %>'">
           <!-- ↓のdivを量産することで回答を複数表示することでいいと思うけどどうなるかわからないのであとで相談-->
-          <!--未制作-->
           <% for(var i=0 ;i < data.Answer.length; i++){ %>
           <div class="stitchbox">
             <div class="scr qna_disp">

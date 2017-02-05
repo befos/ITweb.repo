@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
         "dataans": [],
         "datadiff": [],
         "datahostid":[],
-        "dataouturl":[]
+        "dataouturl":[],
+        "tag":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -53,7 +54,6 @@ router.get('/', function(req, res, next) {
             if (result.length === 0) { //同じ_idが無い場合はDB上にデータが見つからないので0
                 return hadNotcontents(err, req, res, u, error, data, selectf, selectb, result);
             }else{
-
                 for(i = selectb ; result.length > i && selectf > i ; i++){
                     var fourl = "/question_board_view?" + result[i]._id;//フォーラムアクセス用のURLを作成
                     var outurl = "/outlook_mypage?" + result[i].hostid;
@@ -74,6 +74,11 @@ router.get('/', function(req, res, next) {
                     }else{
                         data.datadiff.push("/img/profile/難しい.png");
                     }
+                    var itizi = [];
+                    for(var h = 0 ; h < result[i].tag.length ; h++){
+                        itizi.push(result[i].tag[h]);
+                    }
+                    data.tag[i] = itizi;
                 }
 
                 var list = [//ユーザーIDの保存領域

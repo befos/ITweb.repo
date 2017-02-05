@@ -24,8 +24,14 @@ router.post('/', function(req, res, next){
             host:host
         });
     } else {
-        res.redirect('/login');
+        return hadNotloginError(req, res);
     }
 });
+
+function hadNotloginError(req, res) {
+    req.session.error_status = 10;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
 
 module.exports = router;

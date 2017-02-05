@@ -37,6 +37,7 @@ router.get('/', function(req, res, next) {
                 if(result[0].f_st === false){
                         return hadEndError(req, res);
                 }
+                if(result[0].hostid !== req.session.obj_id) return      hadNotadminError(req, res);
                 //console.log("such id");
                 var forum1 ={
                     host:result[0].host,
@@ -177,6 +178,12 @@ function hadDbError(err, req, res){
 
 function hadEndError(req, res){
     req.session.error_status = 16;
+    res.redirect('/question_board_top');
+    mongoose.disconnect();
+}
+
+function hadNotadminError(req, res){
+    req.session.error_status = 20;
     res.redirect('/question_board_top');
     mongoose.disconnect();
 }

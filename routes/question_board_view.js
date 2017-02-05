@@ -35,6 +35,7 @@ router.get('/', function(req, res, next) {
                 //console.log("such id");
                 var forum1 ={
                     hostid:result[0].hostid,
+                    tag:result[0].tag,
                     host:"",
                     title:result[0].foname,
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
@@ -47,7 +48,7 @@ router.get('/', function(req, res, next) {
                     if(result3.length === 0){
                         forum1.host ="このユーザは存在しません。";
                     }else{
-                    forum1.host = result3[0].name;
+                        forum1.host = result3[0].name;
                     }
                     ForumCont.find({mfo:obj_id},{},{sort:{cuday: -1}},function(err, result2){
                         if(err) return hadDbError(err, req, res);
@@ -57,7 +58,9 @@ router.get('/', function(req, res, next) {
                             "Cuday":[],
                             "Cont":[],
                             "mfo":obj_id,
-                            "myid":req.session.obj_id
+                            "myid":req.session.obj_id,
+                            "hostid":forum1.hostid,
+                            "tag":forum1.tag
                         };
                         for(var i = 0 ; i < result2.length ; i++){
                             data.AnswerID.push(result2[i].answer);

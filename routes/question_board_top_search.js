@@ -7,7 +7,7 @@ var template = require('../config/template.json');
 
 /*データベースの接続設定*/
 var mongoose = require('mongoose');
-var models = require('../models/models.js');　 
+var models = require('../models/models.js');　
 var Forum = models.Forum;
 var User = models.Users;
 
@@ -26,7 +26,8 @@ router.get('/', function(req, res, next) {
         "dataupday": [],
         "dataans": [],
         "datadiff": [],
-        "dataouturl":[]
+        "dataouturl":[],
+        "tag":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -83,6 +84,11 @@ router.get('/', function(req, res, next) {
                     }else{
                         data.datadiff.push("/img/profile/難しい.png");
                     }
+                    var itizi = [];
+                    for(var h = 0 ; h < result[i].tag.length ; h++){
+                        itizi.push(result[i].tag[h]);
+                    }
+                    data.tag[i] = itizi;
                 }
                 /*データベースの処理終了*/
                 /*--ページネーションを使えるようにするための設定--*/　

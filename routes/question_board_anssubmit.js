@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
               if(!err) return hadUpload(req, res);
           });
       }else{
-          req.redirect('/login');
+          return hadNotloginError(req, res);
       }
 });
 
@@ -63,6 +63,12 @@ function hadDbError(err, req, res){
     //console.log(err);
     req.session.error_status = 6;
     res.redirect(400, '/question_board_top');
+    mongoose.disconnect();
+}
+
+function hadNotloginError(req, res) {
+    req.session.error_status = 10;
+    res.redirect('/login');
     mongoose.disconnect();
 }
 

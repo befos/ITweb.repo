@@ -28,7 +28,8 @@ router.get('/', function(req, res, next) {
         "datahostid": [],
         "status":"",
         "pbutton":[],
-        "dataouturl":[]
+        "dataouturl":[],
+        "tag":[]
     };
 
     var selectf;//データベースからデータを取り出すための変数
@@ -74,6 +75,11 @@ router.get('/', function(req, res, next) {
                     }else{
                         data.datadiff.push("/img/profile/難しい.png");
                     }
+                    var itizi = [];
+                    for(var h = 0 ; h < result[i].tag.length ; h++){
+                        itizi.push(result[i].tag[h]);
+                    }
+                    data.tag[i] = itizi;
                 }
                 var list = [//ユーザーIDの保存領域
                 ];
