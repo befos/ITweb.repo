@@ -289,14 +289,14 @@ p{
   box-shadow: 0 0 0 4px #f1e5f9;
 }
 .ba_stitchbox span{
+  width: 130px;
   right: 0;
   top: 0;
   float: right;
   text-align: right;
 }
 .ba_stitchbox span img{
-  width: 30%;
-
+  width: 100%;
 }
 #result_toptx{
 	font-size: 28px;
@@ -590,6 +590,15 @@ p.solidline {border-bottom: solid 2px #009900;}
   margin-top: 20px;
   text-align: left;
 }
+.qna_disp_button_m{
+  width: 200px;
+    float: right;
+    right: 0;
+}
+.qna_disp_button{
+  width: 200px;
+  margin: 5px 0;
+}
 /*------------問い合わせCSS-------------*/
 .contact_header_img {
     position: absolute;
@@ -766,7 +775,6 @@ p.solidline {border-bottom: solid 2px #009900;}
     float: none;
     margin: 0 auto;
   }
-
 }
 /*---トップへ戻るボタン（全体）----------*/
 .toTop {
