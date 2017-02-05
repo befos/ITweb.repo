@@ -123,7 +123,7 @@
                 <tbody>
                 <% for(var i=0 ; i < data.datatitle.length; i++){ %>
                     <tr>
-                        <td class="qna_title"><%for(var h = 0; h < data.tag[i].length; h++){%><span>/img/<%= data.tag[i][h]%>.png</span><%}%><a href="<%= data.dataurl[i]%>"><span> <%= data.datatitle[i] %></span></a></td>
+                        <td class="qna_title"><%for(var h = 0; h < data.tag[i].length; h++){%><span><img src="/img/<%= data.tag[i][h]%>.png"></span><%}%><a href="<%= data.dataurl[i]%>"><span> <%= data.datatitle[i] %></span></a></td>
                         <td class="qna_user"><a href="<%= data.dataouturl[i]%>"><span><%= data.datauser[i] %></span></td>
                         <td class="qna_time"><span><%= data.dataupday[i] %></span></td>
                         <td class="qna_answer"><span><img src="<%= data.dataans[i] %>" ></span></td>
