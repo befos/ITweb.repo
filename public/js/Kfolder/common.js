@@ -144,6 +144,10 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             alert("あなたは既に質問に高評価を付けています。");
             location.reload(true);
             break;
+        case '20':
+            alert("あなたは質問の投稿者ではありません。");
+            location.reload(true);
+            break;
     }
 }
 window.onload = setError;

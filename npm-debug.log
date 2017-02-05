@@ -1,14 +1,14 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'start' ]
-2 info using npm@4.1.1
+2 info using npm@4.0.5
 3 info using node@v7.4.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle ITweb.repo@0.0.0~prestart: ITweb.repo@0.0.0
 6 silly lifecycle ITweb.repo@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle ITweb.repo@0.0.0~start: ITweb.repo@0.0.0
 8 verbose lifecycle ITweb.repo@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle ITweb.repo@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/iitsukadaichi/ITweb.repo/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/db/bin:/Users/iitsukadaichi/.nodebrew/current/bin
-10 verbose lifecycle ITweb.repo@0.0.0~start: CWD: /Users/iitsukadaichi/ITweb.repo
+9 verbose lifecycle ITweb.repo@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/mnt/c/linux/ITweb.repo/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+10 verbose lifecycle ITweb.repo@0.0.0~start: CWD: /mnt/c/linux/ITweb.repo
 11 silly lifecycle ITweb.repo@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle ITweb.repo@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle ITweb.repo@0.0.0~start: Failed to exec start script
@@ -23,11 +23,11 @@
 14 verbose stack     at maybeClose (internal/child_process.js:885:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid ITweb.repo@0.0.0
-16 verbose cwd /Users/iitsukadaichi/ITweb.repo
-17 error Darwin 16.4.0
+16 verbose cwd /mnt/c/linux/ITweb.repo
+17 error Linux 3.4.0+
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "start"
 19 error node v7.4.0
-20 error npm  v4.1.1
+20 error npm  v4.0.5
 21 error code ELIFECYCLE
 22 error ITweb.repo@0.0.0 start: `node ./bin/www`
 22 error Exit status 1

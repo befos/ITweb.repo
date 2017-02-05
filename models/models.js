@@ -37,8 +37,8 @@ var Forum = new Schema({
     count: Number,//アクセスされた回数
     uday: {type:Date, index:true},//アップロードした日
     ques: String,//質問者が入力(質問内容)
-    baid: {type:Schema.Types.ObjectId, index:true},//ベストアンサーに選ばれた回答のIDを記録
-    abaid: {type:Schema.Types.ObjectId, index:true},//ベストアンサーに選ばれた回答者のIDを記録
+    baid: [{type:Schema.Types.ObjectId, index:true}],//ベストアンサーに選ばれた回答のIDを記録
+    abaid: [{type:Schema.Types.ObjectId, index:true}],//ベストアンサーに選ばれた回答者のIDを記録
     diff: {type:Number, min:0, max:2},//難易度（0簡単、1普通、2難しい）
     tag: [String],//この中に言語も記述してもらう(ニコ動のタグみたいなもの)
     bq:[{type:Schema.Types.ObjectId, index:true}],//BQボタンを押した人のオブジェクトIDを格納
