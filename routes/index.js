@@ -21,7 +21,7 @@ var routes = {//routesディレクト内のjsファイルを参照
     email_change_task: require('./email_change_task'),
     email_change_submit: require('./email_change_submit'),
     qna_bq: require('./qna_bq'),
-    qna_bq_up: require('./qna_bq_up'), 
+    qna_bq_up: require('./qna_bq_up'),
     qna_diff: require('./qna_diff'),
     qna_noans: require('./qna_noans'),
     question_board_top: require('./question_board_top'),
@@ -33,7 +33,7 @@ var routes = {//routesディレクト内のjsファイルを参照
     question_board_ansconfirem: require('./question_board_ansconfirm'),
     question_board_submit: require('./question_board_submit'),
     question_board_anssubmit: require('./question_board_anssubmit'),
-    question_board_ba: require('.//question_board_ba'),
+    question_board_ba: require('./question_board_ba'),
     question_board_view: require('./question_board_view')
 };
 

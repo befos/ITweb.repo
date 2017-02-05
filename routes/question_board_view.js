@@ -40,7 +40,8 @@ router.get('/', function(req, res, next) {
                     title:result[0].foname,
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques,
-                    balink:"question_board_ba?" + obj_id
+                    balink:"question_board_ba?" + obj_id,
+                    baid:result[0].baid
                 };
                 req.session.onetimefoid = result[0].id;
                 User.find({_id:forum1.hostid},{},function(err, result3){
@@ -54,6 +55,7 @@ router.get('/', function(req, res, next) {
                         if(err) return hadDbError(err, req, res);
                         var data = {
                             "AnswerID":[],
+                            "Conid":[],
                             "Answer":[],
                             "Cuday":[],
                             "Cont":[],
@@ -64,6 +66,7 @@ router.get('/', function(req, res, next) {
                         };
                         for(var i = 0 ; i < result2.length ; i++){
                             data.AnswerID.push(result2[i].answer);
+                            data.Conid.push(result2[i]._conid);
                             data.Cuday.push(result2[i].cuday.toFormat("YYYY/MM/DD HH24:MI:SS"));
                             data.Cont.push(result2[i].text);
                         }
@@ -88,6 +91,11 @@ router.get('/', function(req, res, next) {
                                 });
                             }, 0);
                         }, function(err) {
+                        //if(forum1.baid != null || forum1.baid != undefined){
+
+                        //}else{
+
+                        //}
                         req.session.error_status = 0;
                         if (req.session.user_id) {
                             res.locals = template.common.true; //varからここまででテンプレートに代入する値を入れている
@@ -96,7 +104,8 @@ router.get('/', function(req, res, next) {
                                 reqCsrf: req.csrfToken(),
                                 fo:forum1,
                                 foid:obj_id,
-                                data:data
+                                data:data,
+                                ba:ba
                             });
                             mongoose.disconnect();
                         } else {
@@ -105,7 +114,8 @@ router.get('/', function(req, res, next) {
                                 reqCsrf: req.csrfToken(),
                                 fo:forum1,
                                 foid:obj_id,
-                                data:data
+                                data:data,
+                                ba:ba
                             });
                             mongoose.disconnect();
                         }
