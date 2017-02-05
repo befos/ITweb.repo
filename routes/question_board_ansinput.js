@@ -19,8 +19,14 @@ router.get('/', function(req, res, next) {
             reqCsrf: req.csrfToken(),
         });
     } else {
-        res.redirect('/login');
+        return hadNotloginError(req, res);
     }
 });
+
+function hadNotloginError(req, res) {
+    req.session.error_status = 10;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
 
 module.exports = router;
