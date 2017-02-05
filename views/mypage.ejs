@@ -46,55 +46,45 @@ e<!DOCTYPE html>
     <!-- nav分のスペース確保ボックス -->
     <div class="top_space_nav"></div>
     <!--ここからコンテンツ-->
-
     <div class="Profile">
         <!--プロフィール-->
         <h3>プロフィール</h3>
         <div class="p_img"><img src="<%= user_profile %>"></div>
-
-        <div class="p_img">
-            <a href="/prof_change">プロフィール画像の変更</a>
+        <div class="p_setting">
+            <a href="/prof_change"><img src="img/settinglogo.png" alt="画像の設定"></a>
         </div>
-        
         <div class="user_id">
-          <h4>●ユーザID</h4>
+          <h4>ユーザID</h4>
           <p><%= user_id %></p>
         </div>
-
         <div class="user_name">
-          <h4>●ユーザ名</h4>
+          <h4>ユーザ名</h4>
           <p><%= user_name %></p>
         </div>
-
         <div class="user_sex">
-          <h4>●性別</h4>
+          <h4>性別</h4>
           <p><%= user_sex %></p>
         </div>
-
         <div class="user_age">
-          <h4>●年齢</h4>
+          <h4>年齢</h4>
           <p><%= user_age %></p>
         </div>
-
         <div class="user_job">
-          <h4>●職業</h4>
+          <h4>職業</h4>
           <p><%= user_work %></p>
         </div>
-
         <div class="user_skill">
-          <h4>●得意な言語</h4>
+          <h4>得意な言語</h4>
           <p><%= user_language %></p>
         </div>
-
         <div class="ba-prof">
-          <h4>●ベストアンサーにされた数</h4>
+          <h4>ベストアンサーにされた数</h4>
           <p><%= databac %></p>
         </div>
     </div>
-
     <div class="Q_his">
         <!--質問履歴-->
-        <h3 align="center">質問履歴</h3>
+        <h3 >質問履歴</h3>
         <div class="Q_con">
             <!--質問履歴表示-->
             <ul>
@@ -104,7 +94,6 @@ e<!DOCTYPE html>
             </ul>
         </div>
     </div>
-
     <div class="S_his">
         <!--勉強会履歴-->
         <h3 align="center">BA通知ボックス</h3>

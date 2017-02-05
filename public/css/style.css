@@ -276,6 +276,25 @@ p{
     background-color: #f7f7f7;
     box-shadow: 0 0 0 4px #f7f7f7;
 }
+.ba_stitchbox{
+  margin: 1em 0;
+  padding: 1em;
+  color: #000;
+  border: 2px dashed #969696;
+  border-radius: 8px;
+  background-color: #f1e5f9;
+  box-shadow: 0 0 0 4px #f1e5f9;
+}
+.ba_stitchbox span{
+  right: 0;
+  top: 0;
+  float: right;
+  text-align: right;
+}
+.ba_stitchbox span img{
+  width: 30%;
+
+}
 #result_toptx{
 	font-size: 28px;
 	line-height:2.5rem;
@@ -579,7 +598,7 @@ p.solidline {border-bottom: solid 2px #009900;}
 
 .description_contact {
     position: relative;
-    margin: 60px 0;
+    margin: 60px 5px;
     text-align: center;
 }
 
@@ -600,98 +619,59 @@ p.solidline {border-bottom: solid 2px #009900;}
 }
 /*------------マイページCSS------------*/
 .Profile {
-    margin: 20px;
-    width: 31%;
-    height: 840px;
-    position: absolute;
-    top: 50px;
-    left: 50px;
+    position: relative;
+    float: left;
+    margin: 0 1.5%;
+}
+.Profile h3 {
+    height: 60px;
+    font-size: 28px;
+    line-height: 55px;
     border: 2px dashed #259543;
     border-radius: 8px;
     color: #000;
     box-shadow: 0 0 0 4px #f1ebe1;
     background-color: #f1ebe1;
-}
-.Profile h3 {
     text-align: center;
     font-weight: bold;
+}
+.Profile h4{
+  border-bottom: 2px dashed #259543;
+  font-size: 21px;
+  line-height: 26px;
 }
 .Profile h5 {
   text-align: center;
 }
 .Profile p {
-    position: absolute;
-    left: 10px;
-    top: 40px;
-    font-size: 20px;
+    position: relative;
+    font-size: 18px;
 }
 .p_img {
+    position: relative;
     display: block;
     text-align: center;
 }
-.user_id {
-    position: absolute;
-    width: 350px;
-    top: 320px;
-    left: 20px;
-}
-.user_name {
-    position: absolute;
-    width: 350px;
-    top: 390px;
-    left: 20px;
-}
-.user_sex {
-    position: absolute;
-    width: 350px;
-    top: 460px;
-    left: 20px;
-}
-.user_age {
-    position: absolute;
-    width: 350px;
-    top: 530px;
-    left: 20px;
-}
-.user_job {
-    position: absolute;
-    width: 350px;
-    top: 600px;
-    left: 20px;
-}
-.user_skill {
-    position: absolute;
-    width: 350px;
-    top: 670px;
-    left: 20px;
-}
-.ba-prof{
+.p_setting{
   position: absolute;
-  width: 350px;
-  top: 740px;
-  left: 20px;
+  width: 12%;
+  top: 280px;
+  right: 0;
+}
+.p_setting img{
+  width: 100%;
 }
 .Q_his {
-    margin: 20px;
-    padding: 10px;
-    top: -20px;
-    width: 55%;
-    height: 390px;
+    float: left;
     display: block;
     position: relative;
-    left: 40%;
     border: 2px dashed #259543;
     border-radius: 8px;
     color: #000;
     box-shadow: 0 0 0 4px #f1ebe1;
     background-color: #f1ebe1;
-    overflow-y: auto;
 }
 .Q_his h3 {
-    padding: 1em;
-    border: 3px solid #ccc;
-    border-radius: 3em 0.7em 2em 0.7em/.7em 2em 0.7em 3em;
-    font-weight: bold;
 }
 .Q_con {
     line-height: 1.5;

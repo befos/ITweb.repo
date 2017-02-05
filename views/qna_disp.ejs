@@ -83,6 +83,20 @@
           </div>
           <input type="button" value="回答する" class="btn btn-primary btn-block" onClick="location.href='/question_board_ansinput?<%= foid %>'">
           <!-- ↓のdivを量産することで回答を複数表示することでいいと思うけどどうなるかわからないのであとで相談-->
+          <div class="ba_stitchbox">
+            <span><img src="img/ba_disp.png" alt="ベストアンサー"></span>
+            <div class="scr qna_disp">
+              <div class="col-sm-3">
+                <p class="solidline">回答者：<%= data.Answer[i] %></p>
+              </div>
+              <div class="col-sm-3">
+                <p class="solidline">回答日時：<%= data.Cuday[i] %></p>
+              </div>
+              <div class="col-sm-12">
+                  <%- data.Cont[i] %>
+            </div>
+            </div>
+        </div>
           <% for(var i=0 ;i < data.Answer.length; i++){ %>
           <div class="stitchbox">
             <div class="scr qna_disp">
