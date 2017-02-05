@@ -599,6 +599,25 @@ p.solidline {border-bottom: solid 2px #009900;}
   width: 200px;
   margin: 5px 0;
 }
+@media(max-width:960px){
+  .qna_disp_button_m{
+    width: 600px;
+    float: none;
+  }
+  .qna_disp_button{
+    width: 200px;
+    margin: 20px  5px 20px 0px;
+    float: left;
+  }
+  .qna_disp h3{
+    clear: both;
+  }
+}
+@media(max-width:500px){
+    .qna_disp_button{
+      width: 160px;
+    }
+}
 /*------------問い合わせCSS-------------*/
 .contact_header_img {
     position: absolute;
