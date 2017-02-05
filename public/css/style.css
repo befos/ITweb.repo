@@ -228,6 +228,14 @@ p{
 .category_btn a:visited{
     color: #fff;
 }
+.resultList td.qna_title span{
+  padding: 0;
+  margin: 0 0.5px;
+}
+.resultList td.qna_title span img{
+  width: 30px;
+  margin-bottom: 5px;
+}
 .category_btn li:nth-of-type(1){
   background-color: #e7ed72;}
 .category_btn li:nth-of-type(2){
