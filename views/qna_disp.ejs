@@ -85,20 +85,37 @@
           </div>
           <input type="button" value="回答する" class="btn btn-primary btn-block" onClick="location.href='/question_board_ansinput?<%= foid %>'">
           <!-- ↓のdivを量産することで回答を複数表示することでいいと思うけどどうなるかわからないのであとで相談-->
+          <% if(data.BAflag == "true"){ %>
           <div class="ba_stitchbox">
             <span><img src="img/ba_disp.png" alt="ベストアンサー"></span>
             <div class="scr qna_disp">
               <div class="col-sm-3">
-                <p class="solidline">回答者：<%= data.Answer[i] %></p>
+                <p class="solidline">回答者：<%= data.BAAnswer[0] %></p>
               </div>
               <div class="col-sm-6">
-                <p class="solidline">回答日時：<%= data.Cuday[i] %></p>
+                <p class="solidline">回答日時：<%= data.BACuday[0] %></p>
               </div>
               <div class="col-sm-12">
-                  <%- data.Cont[i] %>
+                  <%- data.BACont[0] %>
             </div>
             </div>
-        </div>
+            </div>
+         <% }else{ %>
+             <div class="ba_stitchbox">
+               <span><img src="img/ba_disp.png" alt="ベストアンサー"></span>
+               <div class="scr qna_disp">
+                 <div class="col-sm-3">
+                   <p class="solidline">回答者：</p>
+                 </div>
+                 <div class="col-sm-6">
+                   <p class="solidline">回答日時：</p>
+                 </div>
+                 <div class="col-sm-12">
+                     現在BAは選択されていません。
+               </div>
+               </div>
+               </div>
+         <% } %>
           <% for(var i=0 ;i < data.Answer.length; i++){ %>
           <div class="stitchbox">
             <div class="scr qna_disp">
