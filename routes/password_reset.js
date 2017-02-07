@@ -5,7 +5,6 @@ router.get('/', function(req, res, next) {
     //console.log(req.session.error_status);
     var error = req.session.error_status;
     req.session.error_status = 0;
-    req.session.pw = false;
     res.render('password_reset', {error:error, reqCsrf:req.csrfToken()});
 });
 

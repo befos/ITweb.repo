@@ -12,9 +12,6 @@ var insert = require('../config/template.json'); //テンプレートの読み�
 var conf = require('../config/commonconf.json');
 
 router.post('/', function(req, res, next) {
-        if(req.session.con === true){//二重送信の防止
-            return hadUrlError(req, res);
-        }
             req.session.error_status = 0;
             //formから飛ばされた情報を受け取って変数に格納
             var name = req.body.name;

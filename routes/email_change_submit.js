@@ -10,9 +10,6 @@ var User = models.Users;
 
 
 router.post('/', function(req, res, next) {
-    if(req.sessin.em === true){//二重送信の防止
-        return hadUrlError(req, res);
-    }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     //console.log('connected');
 });

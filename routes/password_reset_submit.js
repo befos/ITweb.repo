@@ -12,9 +12,6 @@ var STRETCH = 10000; //パスワードをストレッチする際の回数
 
 
 router.post('/', function(req, res, next) {
-    if(req.session.pw === true){//二重送信の防止
-        return hadUrlError(req, res);
-    }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
     //console.log('connected');
 });
