@@ -148,6 +148,10 @@ function setError() { //リダイレクトされて戻ってきた時のエラ�
             alert("あなたは質問の投稿者ではありません。");
             location.reload(true);
             break;
+        case '21':
+            alert("変更が完了しました。");
+            location.reload(true);
+            break;
     }
 }
 window.onload = setError;

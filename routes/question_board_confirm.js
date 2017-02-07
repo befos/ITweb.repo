@@ -29,6 +29,7 @@ router.post('/', function(req, res, next){
     var error = req.session.error_status;
     var hostid = req.session.obj_id;
     var host = req.session.user_name;
+    var status = req.body.edit;
     req.session.tag = tag;
     req.session.error_status = 0;
     if (req.session.user_id) {
@@ -41,7 +42,8 @@ router.post('/', function(req, res, next){
             cont:cont,
             hostid:hostid,
             host:host,
-            difselect:difselect
+            difselect:difselect,
+            status:status
         });
     } else {
         res.redirect('/login');

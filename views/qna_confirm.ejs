@@ -71,12 +71,17 @@
             </div>
           </div>
           <form action="/question_board_submit" method="post">
+              <input type="hidden" name="edit" value="<%= status %>">
               <input type="hidden" name="title" value="<%= title %>">
               <input type="hidden" name="host" value="<%= host %>">
               <input type="hidden" name="hostid" value="<%= hostid %>">
               <input type="hidden" name="cont" value="<%= cont %>">
               <input type="hidden" name="difselect" value="<%= difselect %>">
-              <input type="submit" value="この内容で投稿する" class="btn btn-primary btn-block">
+              <%if(status !== "edit"){%>
+                  <input type="submit" value="この内容で投稿する" class="btn btn-primary btn-block">
+              <%}else{%>
+                  <input type="submit" value="質問の変更を確定する" class="btn btn-primary btn-block">
+              <%}%>
               <input id="token" type="hidden" name="_csrf" value="<%= reqCsrf %>"><!-- csrfToken -->
               <input id="Error_status" type="hidden" name="Error_status" value="<%= error %>">
           </form>

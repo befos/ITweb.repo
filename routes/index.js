@@ -23,6 +23,7 @@ var routes = {//routesディレクト内のjsファイルを参照
     qna_bq: require('./qna_bq'),
     qna_bq_up: require('./qna_bq_up'),
     qna_diff: require('./qna_diff'),
+    qna_eq: require('./qna_eq'),
     qna_noans: require('./qna_noans'),
     question_board_top: require('./question_board_top'),
     question_board_top_cate: require('./question_board_top_cate'),

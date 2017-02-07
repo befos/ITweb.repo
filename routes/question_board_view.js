@@ -24,6 +24,7 @@ router.get('/', function(req, res, next) {
 
     var u = url.parse(req.url, false);
     var obj_id = u.query;
+    req.session.cp = obj_id;
     //console.log(obj_id);
     Forum.find({_id:obj_id}, function(err, result){
         if(err) return hadDbError(err, req, res);
@@ -44,7 +45,7 @@ router.get('/', function(req, res, next) {
                     baid:result[0].baid,
                     f_st:result[0].f_st
                 };
-                console.log(forum1.baid);
+                //console.log(forum1.baid);
                 req.session.onetimefoid = result[0].id;
                 User.find({_id:forum1.hostid},{},function(err, result3){
                     if(err) return hadDbError(err, req, res);
@@ -53,7 +54,7 @@ router.get('/', function(req, res, next) {
                     }else{
                         forum1.host = result3[0].name;
                     }
-                    console.log(obj_id);
+                    //console.log(obj_id);
                     ForumCont.find({$and:[{mfo:obj_id},{_conid:{$nin:forum1.baid}}]},{},{sort:{cuday: -1}},function(err, result2){
                         if(err) return hadDbError(err, req, res);
                         var data = {

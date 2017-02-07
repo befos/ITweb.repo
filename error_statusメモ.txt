@@ -19,3 +19,4 @@ error_status 17 //マイページは公開されていません。
 error_status 18 //質問に高評価を付けました！
 error_status 19 //あなたは既に質問に高評価を付けています。
 error_status 20 //あなたはこの質問の投稿者ではありません。
+error_status 21 //変更が完了しました。

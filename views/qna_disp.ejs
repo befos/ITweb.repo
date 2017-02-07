@@ -56,6 +56,31 @@
         <div class="container">
           <div class="stitchbox">
               <h1><%= fo.title %></h1>
+              <div class="row">
+                  <div class="col-sm-3 ">
+              <div class="qna_disp_button">
+                <form method="get" action="/qna_bq_up">
+                    <input type="hidden" name="mfo" value="<%= data.mfo %>">
+                    <input type="hidden" name="myid" value="<%=  data.myid %>">
+                    <input class="btn btn-primary btn-block" type="submit" value="質問に高評価を付ける">
+                </form>
+                </div>
+              </div>
+              <% if(data.myid == data.hostid){ %>
+                  <div class="col-sm-3 ">
+              <div class="qna_disp_button">
+                <input class="btn btn-primary btn-block" type="button" value="BAを付ける" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
+                </div>
+              </div>
+              <% } %>
+                 <div class="col-sm-3 ">
+              <div class="qna_disp_button">
+                <form method="get" action="/qna_eq">
+                    <input class="btn btn-primary btn-block" type="submit" value="質問及び回答を編集する">
+                </form>
+              </div>
+                </div>
+            </div>
 		            <div class="row">
                 <div class="col-sm-3 ">
                   <p class="solidline">質問者：<%= fo.host %></p>
@@ -64,25 +89,6 @@
                   <p class="solidline">質問日時：<%= fo.uday %></p>
                 </div>
               </div>
-              <div class="qna_disp_button_m">
-              <div class="qna_disp_button">
-                <form method="get" action="/qna_bq_up">
-                    <input type="hidden" name="mfo" value="<%= data.mfo %>">
-                    <input type="hidden" name="myid" value="<%=  data.myid %>">
-                    <input class="btn btn-primary btn-block" type="submit" value="質問に高評価を付ける">
-                </form>
-              </div>
-              <% if(data.myid == data.hostid){ %>
-              <div class="qna_disp_button">
-                <input class="btn btn-primary btn-block" type="button" value="BAを付ける" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
-              </div>
-              <% } %>
-              <% if(data.myid == data.hostid && data.BAflag == "true"){ %>
-              <div class="qna_disp_button">
-                <input class="btn btn-primary btn-block" type="button" value="BAにお礼をする。" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
-              </div>
-              <% } %>
-            </div>
             <div class="qna_disp" align="center">
               <h3>質問内容</h3>
               <p><%- fo.ques %></p>

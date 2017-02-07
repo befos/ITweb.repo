@@ -22,9 +22,7 @@ var generator = require('xoauth2').createXOAuth2Generator({ //googleの認証用
 var conf = require('../config/commonconf.json');
 
 router.get('/', function(req, res, next) {
-    if(!req.session.user_id){
-        return hadNotloginError(req ,res);
-    }
+    if(!req.session.user_id) return hadNotloginError(req ,res);
 
     var u = url.parse(req.url, false);
     var query = qstring.parse(u.query);
