@@ -30,7 +30,7 @@ router.post('/', function(req, res, next) {
         return hadUrlError(req, res);
     }
     mongoose.connect('mongodb://localhost:27017/userdata', function(){
-        console.log('connected');
+        //console.log('connected');
     });
     var makeforum = new Forum({
         foname: foname,//フォーラムの名前（被りあり）
