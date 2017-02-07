@@ -179,8 +179,8 @@ p{
   	text-align: center;
   	text-decoration: none;
   	outline: none;
-    background-color: #2767a7;
-    border: 1px solid #0078ff;
+    background-color: #97d666;
+    border: 1px solid #eee;
     color: #fff;
     line-height: 105px;
     border-radius: 8px;
@@ -204,7 +204,7 @@ p{
 	transition: all .3s;
 }
 .qthrow:hover {
-  background-color: #1d6ab5;
+  background-color: #1db595;
 	opacity: 0.9;
   color:#fff;
   text-decoration: none;
