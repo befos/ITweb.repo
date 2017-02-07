@@ -163,7 +163,6 @@ router.get('/', function(req, res, next) {
                                         fo:forum1,
                                         foid:obj_id,
                                         data:data
-                                        //ba:ba
                                     });
                                     mongoose.disconnect();
                                 } else {
@@ -173,7 +172,6 @@ router.get('/', function(req, res, next) {
                                         fo:forum1,
                                         foid:obj_id,
                                         data:data
-                                        //ba:ba
                                     });
                                     mongoose.disconnect();
                                 }
