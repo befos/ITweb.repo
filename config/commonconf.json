@@ -1,10 +1,10 @@
 {
     "sendmailconf":{
-        "url1":"https://www.stitches.space/password_reset_regene?",
-        "url2":"https://www.stitches.space/email_change_task?",
-        "url3":"https://www.stitches.space/register_confirm?",
-        "url4":"https://www.stitches.space/question_board_view?",
-        "url5":"https://www.stitches.space/question_board_view?",
+        "url1":"http://www.stitches.space/password_reset_regene?",
+        "url2":"http://www.stitches.space/email_change_task?",
+        "url3":"http://www.stitches.space/register_confirm?",
+        "url4":"http://www.stitches.space/question_board_view?",
+        "url5":"http://www.stitches.space/question_board_view?",
         "minute":10
     },
 
