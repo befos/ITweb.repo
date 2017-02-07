@@ -77,6 +77,11 @@
                 <input class="btn btn-primary btn-block" type="button" value="BAを付ける" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
               </div>
               <% } %>
+              <% if(data.myid == data.hostid && data.BAflag == "true"){ %>
+              <div class="qna_disp_button">
+                <input class="btn btn-primary btn-block" type="button" value="BAにお礼をする。" onClick="location.href='/question_board_ba?<%= data.mfo %>'">
+              </div>
+              <% } %>
             </div>
             <div class="qna_disp" align="center">
               <h3>質問内容</h3>
