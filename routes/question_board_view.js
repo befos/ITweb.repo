@@ -41,7 +41,8 @@ router.get('/', function(req, res, next) {
                     uday:result[0].uday.toFormat("YYYY/MM/DD HH24:MI:SS"),
                     ques:result[0].ques,
                     balink:"question_board_ba?" + obj_id,
-                    baid:result[0].baid
+                    baid:result[0].baid,
+                    f_st:result[0].f_st
                 };
                 console.log(forum1.baid);
                 req.session.onetimefoid = result[0].id;
@@ -64,7 +65,7 @@ router.get('/', function(req, res, next) {
                             "mfo":obj_id,
                             "myid":req.session.obj_id,
                             "hostid":forum1.hostid,
-                            "tag":forum1.tag,
+                            "tag":forum1.ta,
                             "BAAnswerID":[],
                             "BAConid":[],
                             "BAAnswer":[],
@@ -163,7 +164,6 @@ router.get('/', function(req, res, next) {
                                         fo:forum1,
                                         foid:obj_id,
                                         data:data
-                                        //ba:ba
                                     });
                                     mongoose.disconnect();
                                 } else {
@@ -173,7 +173,6 @@ router.get('/', function(req, res, next) {
                                         fo:forum1,
                                         foid:obj_id,
                                         data:data
-                                        //ba:ba
                                     });
                                     mongoose.disconnect();
                                 }
