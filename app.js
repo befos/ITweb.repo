@@ -15,6 +15,7 @@ var csurf = require('csurf');
 var helmet = require('helmet');
 var RateLimit = require('express-rate-limit');
 
+
 var routes = require('./routes/index.js');
 
 var app = express();
@@ -61,7 +62,9 @@ var limiter = new RateLimit({
   delayMs: 0, // disable delaying - full speed until the max limit is reached
   message: "異常な量のアクセスが検知されました。しばらくの間このIPからのアクセスは制限されます。"
 });
+
 app.use(limiter);
+
 
 //ページを追加する場合に追加で記述
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
