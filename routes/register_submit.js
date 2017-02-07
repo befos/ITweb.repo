@@ -35,6 +35,14 @@ router.post('/', function(req, res, next) {
     var user_language = req.body.user_language;
     var user_sex = req.body.user_sex;
     var year = req.body.year;
+    if(req.body.edit == "edit"){
+        password = "edit";
+        if(!req.session.user_name) return hadNotloginError(req, res);
+        User.update({_id:req.session.obj_id},{$set:{name:user_name,age:year,work:user_job,uf_pl:user_language}},function(err){
+            if(err) return hadDbError(err, req, res);
+            if(!err) return hadEdited(req, res);
+        });
+    }else{
     var salt = randword.method(10);
     var url_pass = sha256(randword.method(16));
     var passhash = createhash.method(password, salt, STRETCH);
@@ -122,6 +130,7 @@ router.post('/', function(req, res, next) {
                 }
             }
     });
+    }
 });
 
 //エラーハンドル
@@ -142,6 +151,18 @@ function hadDbError(err, req, res){
     //console.log(err);
     req.session.error_status = 6;
     res.redirect('/register');
+    mongoose.disconnect();
+}
+
+function hadNotloginError(req, res) {
+    req.session.error_status = 10;
+    res.redirect('/login');
+    mongoose.disconnect();
+}
+
+function hadEdited(req, res){
+    req.session.error_status = 21;
+    res.redirect('/mypage');
     mongoose.disconnect();
 }
 

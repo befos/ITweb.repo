@@ -4,6 +4,7 @@ var routes = {//routesディレクト内のjsファイルを参照
     toppage: require('./toppage'),
     mypage: require('./mypage'),
     prof_change: require('./prof_change'),
+    prof_edit: require('./prof_edit'),
     outlook_mypage:require('./outlook_mypage'),
     login: require('./login'),
     login_check: require('./login_check'),

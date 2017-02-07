@@ -9,7 +9,6 @@ var Forum = models.Forum;
 var ForumCont = models.ForumCont;
 
 router.post('/', function(req, res, next) {
-    //test用　
     var foname =　req.body.title;
     var host = req.body.host;
     var hostid = req.body.hostid;

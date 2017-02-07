@@ -67,6 +67,7 @@ app.use(limiter);
 app.use('/', routes.toppage); //ページへのルートを記す(新規追加の場合はindex.jsファイル内の配列に追加)
 app.use('/mypage', routes.mypage);
 app.use('/prof_change', routes.prof_change);
+app.use('/prof_edit', routes.prof_edit);
 app.use('/outlook_mypage', routes.outlook_mypage);
 app.use('/login', routes.login);
 app.use('/login_check', routes.login_check);
