@@ -40,6 +40,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static',express.static(path.join(__dirname, 'public')));
+var secure = true;
+if (app.get('env') === 'development') {
+    secure = false;
+}else{
+    secure = true;
+}
 app.use(session({ // cookieに書き込むsessionの仕様を定める
     secret: 'ajax-hohoho', // 符号化。改ざんを防ぐ
     store: store,
@@ -47,7 +53,7 @@ app.use(session({ // cookieに書き込むsessionの仕様を定める
     resave: false,
     saveUninitialized: true,
     cookie:{
-        secure: false,//デプロイ時にtrueにする
+        secure: secure,//デプロイ時にtrueにする
         httpOnly: true,
         maxAge: 60 * 60 * 1000 //60s*60m*1000ms ＝ 1hour.
     }
