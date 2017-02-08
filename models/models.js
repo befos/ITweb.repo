@@ -5,15 +5,15 @@ var Schema = mongoose.Schema;
     var Users = new Schema({
       email: {type:String, required:true, index:true, unique:true},//Email(被りなし変更化)
       uid: {type:String, required:true, index:true, unique:true},//uid(被りなし)
-      name: String,//ユーザーネーム（被りok!）(あとで変更可能)
-      age: String,//年齢
+      name: {type:String, index:true},//ユーザーネーム（被りok!）(あとで変更可能)
+      age: {type:String, index:true},//年齢
       sex: {type: Number, min:0, max:1},//0男性 1女性
-      work: String,//職業
-      uf_pl: String,//得意な言語//useful programing language
+      work: {type:String, index:true},//職業
+      uf_pl: {type:String, index:true},//得意な言語//useful programing language
       place: String,//自分の住んでいる場所
-      hashpass: String,//ハッシュ化されたパスワード
-      salt: String,//お塩
-      prop: String,//プロフィール用画像のURL予定
+      hashpass: {type:String, index:true},//ハッシュ化されたパスワード
+      salt: {type:String, index:true},//お塩
+      prop: {type:String, index:true},//プロフィール用画像のURL予定
       url_pass: {type:String, index:true},//認証用の一時url(regiser)
       url_pass2: {type:String, index:true},//認証用の一時url(passreset)
       url_pass3: {type:String, index:true},//認証用の一時url(email_change)
@@ -36,7 +36,7 @@ var Schema = mongoose.Schema;
         host: String,//ユーザーのIDを格納
         count: Number,//アクセスされた回数
         uday: {type:Date, index:true},//アップロードした日
-        ques: String,//質問者が入力(質問内容)
+        ques: {type:String, index:true},//質問者が入力(質問内容)
         baid: [{type:Schema.Types.ObjectId, index:true}],//ベストアンサーに選ばれた回答のIDを記録
         abaid: [{type:Schema.Types.ObjectId, index:true}],//ベストアンサーに選ばれた回答者のIDを記録
         diff: {type:Number, min:0, max:2},//難易度（0簡単、1普通、2難しい）
@@ -45,19 +45,18 @@ var Schema = mongoose.Schema;
         f_st: {type:Boolean, default:true},//forumの内容が解決済みか
         cont: [{type: Schema.Types.ObjectId, ref: 'ForumCont'}]
     },{collection: 'forum'});
-    Forum.index({ques: 'text', 'profile.text': 'text'});
-    Forum.index({foname: 'text2', 'profile.text2': 'text2'});
+
 
     var ForumCont = new Schema({
         //forumcontの_idはforumのIDと同じになる
-        mfo: {type:Schema.Types.ObjectId, ref: 'Forum'},
+        mfo: {type:Schema.Types.ObjectId, ref: 'Forum', index:true},
         _conid: {type:Schema.Types.ObjectId, index:true},//コンテンツID
         answer: {type:Schema.Types.ObjectId, index:true},
-        name: String,//ユーザーが決めた自由な名前
+        name: {type:String, index:true},//ユーザーが決めた自由な名前
         prop: String,//プロフィールの画像？
         cuday: {type:Date, default: Date.now},//コンテンツを上げた日
         chday: Date,//内容を編集した日
-        text: String//回答者が入力(回答内容)
+        text: {type:String, index:true}//回答者が入力(回答内容)
     },{collection:'forumcont'});
 
 
