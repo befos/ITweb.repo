@@ -1,5 +1,5 @@
 ※重要
-  console.log('hoge');はプログラムを遅くする原因なのでデプロイ時は全て消す
+  //console.log('hoge');はプログラムを遅くする原因なのでデプロイ時は全て消す
   デプロイ時にはDevelopmentモードをProductモードに変える
   nginx関係だが、デプロイ時に専用ユーザーを作ってそのユーザで管理する
 
@@ -32,7 +32,7 @@ var hoge = models.hoge;//スキーマの参照
           if(err) return hadHogeError(err, req, res);//事前にエラーハンドラを用意しておきerrが返ってきた場合は即リターンさせる
           if (result) {
               if (result.length === 0) {//result.length === 0とはデータが見つからない状態を表す
-                  console.log("nosuch");
+                  //console.log("nosuch");
                   req.session.error_status = 1;
                   res.redirect('/register');
                   mongoose.disconnect(); //最後に絶対disconnectする事
@@ -105,7 +105,7 @@ nodeやnpmのエラー対処
            return hadSendmailError(err, req, res, resp);
        }
        if (!err) { //送信に成功したとき
-           console.log('Message sent');
+           //console.log('Message sent');
        }
        transporter.close(); //SMTPの切断
        X res.render();
